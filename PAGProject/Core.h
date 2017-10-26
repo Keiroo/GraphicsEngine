@@ -3,9 +3,10 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Window.h"
+#include "Texture.h"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1024
+#define SCREEN_HEIGHT 768
 
 class Core
 {
@@ -20,6 +21,7 @@ private:
 	Mesh* mesh;
 	Shader* shader;	
 	Window* window;
+	Texture* texture;
 
 };
 

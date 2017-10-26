@@ -9,14 +9,16 @@
 class Shader
 {
 public:
+	GLuint programHandle;
+
 	Shader();
-	bool LoadShaders();
-	
+	bool LoadShaders();	
+	void ActivateShader();
 	~Shader();	
 
 private:
-	GLuint programHandle;
 	bool LoadShader(std::string filename, GLint shaderType, GLuint & programHandle);
+	
 };
 
 std::string LoadFromFile(std::string fileName);

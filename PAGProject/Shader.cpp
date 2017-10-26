@@ -10,13 +10,19 @@ bool Shader::LoadShaders()
 	programHandle = glCreateProgram();
 	if (!LoadShader(VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, programHandle))
 	{
-		if (!LoadShader(FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, programHandle))
-		{
-			return false;
-		}		
+		return false;
+	}
+	if (!LoadShader(FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, programHandle))
+	{
+		return false;
 	}
 	glUseProgram(programHandle);
 	return true;
+}
+
+void Shader::ActivateShader()
+{
+	glUseProgram(programHandle);
 }
 
 bool Shader::LoadShader(std::string filename, GLint shaderType, GLuint& programHandle)
@@ -56,6 +62,8 @@ bool Shader::LoadShader(std::string filename, GLint shaderType, GLuint& programH
 
 	return true;
 }
+
+
 
 Shader::~Shader()
 {

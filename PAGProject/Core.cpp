@@ -6,6 +6,7 @@ Core::Core()
 	window = new Window(SCREEN_WIDTH, SCREEN_HEIGHT);
 	mesh = new Mesh();
 	shader = new Shader();
+	texture = new Texture();
 }
 
 bool Core::Start()
@@ -17,6 +18,9 @@ bool Core::Start()
 	if (!shader->LoadShaders())
 		return false;
 
+	if (!texture->LoadTexture())
+		return false;
+
 	return true;
 }
 
@@ -26,9 +30,10 @@ void Core::Update()
 	{
 		processInput(window->GLWindow);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		mesh->Render();
-
+		shader->ActivateShader();
+		mesh->Render(shader->programHandle);
+		texture->BindTexture();
+		
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);
 	}
