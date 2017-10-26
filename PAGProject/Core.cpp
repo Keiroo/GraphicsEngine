@@ -11,9 +11,12 @@ Core::Core()
 bool Core::Start()
 {
 	if (!window->Init())
-	{
 		return false;
-	}	
+
+	mesh->LoadBuffers();
+	if (!shader->LoadShaders())
+		return false;
+
 	return true;
 }
 
@@ -24,6 +27,7 @@ void Core::Update()
 		processInput(window->GLWindow);
 		glClear(GL_COLOR_BUFFER_BIT);
 
+		mesh->Render();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);
