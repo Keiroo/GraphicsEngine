@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Others
+.vs/
+Debug/
+PAGProject/Debug/
+
