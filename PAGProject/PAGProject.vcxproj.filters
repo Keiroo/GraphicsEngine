@@ -75,9 +75,6 @@
     <Image Include="Textures\pikachuTexture.bmp">
       <Filter>Textures</Filter>
     </Image>
-    <Image Include="Textures\sample2.png">
-      <Filter>Textures</Filter>
-    </Image>
     <Image Include="Textures\brickTexture.jpg">
       <Filter>Textures</Filter>
     </Image>

@@ -18,7 +18,7 @@ bool Core::Start()
 	if (!shader->LoadShaders())
 		return false;
 
-	if (!texture->LoadTexture())
+	if (!texture->LoadAllTextures(shader->programHandle))
 		return false;
 
 	return true;
@@ -32,7 +32,7 @@ void Core::Update()
 		glClear(GL_COLOR_BUFFER_BIT);
 		shader->ActivateShader();
 		mesh->Render(shader->programHandle);
-		texture->BindTexture();
+		texture->BindTextures();
 		
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);

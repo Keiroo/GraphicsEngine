@@ -2,18 +2,21 @@
 #include "Headers.h"
 
 #define TEXTURE_FILENAME "Textures/pikachuTexture.bmp"
+#define TEXTURE_FILENAME_2 "Textures/brickTexture.jpg"
 
 class Texture
 {
 public:
 	Texture();
-	bool LoadTexture();
-	void BindTexture();
+	bool LoadAllTextures(GLuint& programHandle);
+	
+	void BindTextures();
 	~Texture();
 
 private:
-	unsigned char* data;
-	GLuint texture;
+	GLuint texture[2];
 	GLint width, height, nrChannels;
+
+	bool LoadTexture(GLuint &texture, char* filename);
 };
 
