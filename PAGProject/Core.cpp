@@ -7,6 +7,7 @@ Core::Core()
 	mesh = new Mesh();
 	shader = new Shader();
 	texture = new Texture();
+	camera = new Camera();
 }
 
 bool Core::Start()
@@ -21,6 +22,8 @@ bool Core::Start()
 	if (!texture->LoadAllTextures(shader->programHandle))
 		return false;
 
+	camera->LoadCamera(window->GLWindow, shader->programHandle);
+
 	return true;
 }
 
@@ -29,7 +32,7 @@ void Core::Update()
 	while (!glfwWindowShouldClose(window->GLWindow))
 	{
 		processInput(window->GLWindow);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader->ActivateShader();
 		mesh->Render(shader->programHandle);
 		texture->BindTextures();

@@ -32,6 +32,7 @@ bool Window::Init()
 
 	glViewport(0, 0, width, height);
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glEnable(GL_DEPTH_TEST);
 
 	return true;
 }

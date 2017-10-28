@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "Window.h"
 #include "Texture.h"
+#include "Camera.h"
 
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
@@ -22,6 +23,7 @@ private:
 	Shader* shader;	
 	Window* window;
 	Texture* texture;
+	Camera* camera;
 
 };
 

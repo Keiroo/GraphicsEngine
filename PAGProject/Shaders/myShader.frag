@@ -1,5 +1,6 @@
 #version 450
 
+in vec3 position;
 in vec3 color;
 in vec2 texCoord;
 out vec4 fragColor;
@@ -9,8 +10,10 @@ uniform sampler2D myTexture2;
 
 void main()
 {
+	fragColor = vec4(position, 1.0f);
+	//fragColor = texture(myTexture1, texCoord) * texture(myTexture2, texCoord);
 	//fragColor = texture(myTexture1, texCoord) * vec4(color, 1.0f);
-	fragColor = texture(myTexture1, texCoord) * texture(myTexture2, texCoord);
+	
 
 	//fragColor = vec4(color, 1.0f) * texture(myTexture1, texCoord);
 	//fragColor = texture(myTexture1, texCoord) * texture(myTexture2, texCoord);
