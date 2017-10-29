@@ -24,9 +24,11 @@ private:
 	Window* window;
 	Texture* texture;
 	Camera* camera;
+	float oldTime = 0.0f, newTime = 0.0f, deltaTime = 0.0f;
+
 
 };
 
-void processInput(GLFWwindow *window);
+void processInput(GLFWwindow *window, Camera* camera, float deltaTime);
 
 
