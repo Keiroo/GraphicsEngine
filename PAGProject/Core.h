@@ -6,9 +6,6 @@
 #include "Texture.h"
 #include "Camera.h"
 
-#define SCREEN_WIDTH 1024
-#define SCREEN_HEIGHT 768
-
 class Core
 {
 public:
@@ -24,11 +21,10 @@ private:
 	Window* window;
 	Texture* texture;
 	Camera* camera;
-	float oldTime = 0.0f, newTime = 0.0f, deltaTime = 0.0f;
-
-
+	float oldTime = 0.0f, newTime = 0.0f, deltaTime = 0.0f;	
 };
 
 void processInput(GLFWwindow *window, Camera* camera, float deltaTime);
+
 
 

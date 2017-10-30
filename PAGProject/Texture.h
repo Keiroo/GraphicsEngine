@@ -1,9 +1,6 @@
 #pragma once
 #include "Headers.h"
 
-#define TEXTURE_FILENAME "Textures/pikachuTexture.bmp"
-#define TEXTURE_FILENAME_2 "Textures/brickTexture.jpg"
-
 class Texture
 {
 public:

@@ -6,6 +6,10 @@ Camera::Camera()
 
 void Camera::LoadCamera(GLFWwindow* window, GLuint& programHandle)
 {
+	cameraPos = glm::vec3(1.5f, 0.0f, 1.5f);
+	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
 	world = glm::mat4(1.0f);
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
@@ -14,6 +18,8 @@ void Camera::LoadCamera(GLFWwindow* window, GLuint& programHandle)
 	WVP = projection * view * world;
 	wvpLoc = glGetUniformLocation(programHandle, "wvp");
 	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, &WVP[0][0]);
+
+
 }
 
 void Camera::UpdateCameraPos()
@@ -25,7 +31,7 @@ void Camera::UpdateCameraPos()
 
 void Camera::CameraProcessInput(int key, float deltaTime)
 {
-	cameraSpeed = 2.0f * deltaTime;
+	cameraSpeed = 2.5f * deltaTime;
 	if (key == GLFW_KEY_W)
 		cameraPos += cameraSpeed * cameraFront;
 	if (key == GLFW_KEY_S)
@@ -36,8 +42,35 @@ void Camera::CameraProcessInput(int key, float deltaTime)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
-
 Camera::~Camera()
 {
 }
 
+void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+{
+	if (firstMouse)
+	{
+		lastX = xpos;
+		lastY = ypos;
+		firstMouse = false;
+	}
+
+	GLfloat xoffset = xpos - lastX;
+	GLfloat yoffset = lastY - ypos;
+	lastX = xpos;
+	lastY = ypos;
+	GLfloat sensitivity = 0.05f;
+	xoffset *= sensitivity;
+	yoffset *= sensitivity;
+	yaw += xoffset;
+	pitch += yoffset;
+	if (pitch > 89.0f)
+		pitch = 89.0f;
+	if (pitch < -89.0f)
+		pitch = -89.0f;
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	cameraFront = glm::normalize(front);
+}

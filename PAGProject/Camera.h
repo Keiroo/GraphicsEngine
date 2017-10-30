@@ -1,14 +1,15 @@
 #pragma once
 #include "Headers.h"
-//#include <glm/gtc/matrix_transform.hpp>
 
 class Camera
 {
 public:
+
 	Camera();
 	void LoadCamera(GLFWwindow * window, GLuint & programHandle);
 	void UpdateCameraPos();
 	void CameraProcessInput(int key, float deltaTime);
+	//void CameraMouseCallback(GLFWwindow * window, double xpos, double ypos);
 	~Camera();
 
 private:
@@ -17,8 +18,14 @@ private:
 	GLint width, height;
 	GLuint wvpLoc;
 
-	glm::vec3 cameraPos = glm::vec3(1.5f, 0.0f, 1.5f);
-	glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-	glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 };
 
+static glm::vec3 cameraPos, cameraFront, cameraUp;
+static bool firstMouse = true;
+static GLfloat	yaw = -90.0f,
+				pitch = 0.0f,
+				lastX = SCREEN_WIDTH / 2.0f,
+				lastY = SCREEN_HEIGHT / 2.0f,
+				fov = 45.0f;
+
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
