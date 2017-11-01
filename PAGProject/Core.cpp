@@ -8,6 +8,7 @@ Core::Core()
 	shader = new Shader();
 	texture = new Texture();
 	camera = new Camera();
+	transform = new Transform();
 }
 
 bool Core::Start()
@@ -25,6 +26,7 @@ bool Core::Start()
 	camera->LoadCamera(window->GLWindow, shader->programHandle);
 
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);
+	
 
 	return true;
 }
@@ -43,6 +45,7 @@ void Core::Update()
 		shader->ActivateShader();
 		mesh->Render(shader->programHandle);
 		texture->BindTextures();
+		transform->RotateLocal(shader->programHandle, deltaTime);
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);

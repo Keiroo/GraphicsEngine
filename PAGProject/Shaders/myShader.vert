@@ -8,10 +8,11 @@ out vec3 color;
 out vec2 texCoord;
 
 uniform mat4 wvp;
+uniform mat4 transform;
 
 void main()
 {
-	gl_Position = wvp * vec4(vertexPosition, 1.0f);
+	gl_Position = wvp * transform * vec4(vertexPosition, 1.0f);
 
 	position = vertexPosition;
 	color = vertexColor;

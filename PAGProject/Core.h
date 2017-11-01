@@ -5,6 +5,7 @@
 #include "Window.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "Transform.h"
 
 class Core
 {
@@ -21,6 +22,7 @@ private:
 	Window* window;
 	Texture* texture;
 	Camera* camera;
+	Transform* transform;
 	float oldTime = 0.0f, newTime = 0.0f, deltaTime = 0.0f;	
 };
 

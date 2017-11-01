@@ -5,10 +5,12 @@ class Transform
 {
 public:
 	Transform();
+	void RotateLocal(GLuint& programHandle, float deltaTime);
 	~Transform();
 
 private:
-	glm::vec3 vertices[];
+	glm::mat4 trans;
+	GLuint transformLoc;
 
 };
 
