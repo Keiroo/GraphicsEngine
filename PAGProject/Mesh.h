@@ -1,16 +1,22 @@
 #pragma once
 #include "Headers.h"
+#include "Transform.h"
+
+#define MAX_OBJECTS 10
 
 class Mesh
 {
 public:
 	Mesh();
 	void LoadBuffers();
-	void Render(GLuint &programHandle);
+	void Render(GLuint &programHandle, float deltaTime);
 	~Mesh();
 
 private:
+	GLfloat x, z, angle;
+	float speed[MAX_OBJECTS];
 	GLuint VBO[3], VAO, EBO;
+	Transform* transform;
 
 	/*GLfloat vertices[9] = { 0.0f,  0.5f, 0.0f,
 							0.5f, -0.5f, 0.0f,

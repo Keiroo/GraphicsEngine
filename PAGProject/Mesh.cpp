@@ -4,6 +4,14 @@
 
 Mesh::Mesh()
 {
+	transform = new Transform();
+	angle = 0.0f;
+	srand(time(NULL));
+	for (short i = 0; i < MAX_OBJECTS; i++)
+	{
+		//speed[i] = (float)(rand() / (float)(RAND_MAX));
+		speed[i] = 0.5f + ((float)(rand() / (float)(RAND_MAX)));
+	}
 }
 
 void Mesh::LoadBuffers()
@@ -33,13 +41,49 @@ void Mesh::LoadBuffers()
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
 }
 
-void Mesh::Render(GLuint &programHandle)
+void Mesh::Render(GLuint &programHandle, float deltaTime)
 {
+	angle += deltaTime;
+	if (angle > 360.0f)
+		angle -= 360.0f;
+
 	glUseProgram(programHandle);
 	glBindVertexArray(VAO);
 	//glDrawArrays(GL_TRIANGLES, 0, 3 * 6);
 	//glDrawElements(GL_TRIANGLES, 3 * 6, GL_UNSIGNED_INT, 0);
-	glDrawElements(GL_TRIANGLES, 3 * 12, GL_UNSIGNED_INT, 0);
+
+	//x = 4.0f * cos(angle);
+	//z = 4.0f * sin(angle);
+
+	//transform->Reset();
+	//transform->Translate(glm::vec3(x, 0.0f, z));
+	//transform->RotateLocal(deltaTime);	
+	//transform->Update(programHandle);
+
+	for (short i = 0; i < MAX_OBJECTS; i++)
+	{
+		transform->Reset();
+		
+		if (i == 0)
+		{
+			transform->RotateLocal(angle, speed[i]);
+			transform->Scale(1.5f, 1.5f, 1.5f);
+		}
+		else
+		{
+			x = 7.0f * (float)i * cos(angle* speed[i] * 0.5f);
+			z = 7.0f * (float)i * sin(angle* speed[i] * 0.5f);
+			transform->Translate(glm::vec3(x, 0.0f, z));
+			transform->RotateLocal(angle, speed[i]);
+			transform->Scale(speed[i], speed[i], speed[i]);
+		}
+		transform->Update(programHandle);
+
+		glDrawElements(GL_TRIANGLES, 3 * 12, GL_UNSIGNED_INT, 0);
+	}
+
+	
+
 }
 
 Mesh::~Mesh()

@@ -5,7 +5,6 @@
 #include "Window.h"
 #include "Texture.h"
 #include "Camera.h"
-#include "Transform.h"
 
 class Core
 {

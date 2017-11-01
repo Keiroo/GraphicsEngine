@@ -8,7 +8,6 @@ Core::Core()
 	shader = new Shader();
 	texture = new Texture();
 	camera = new Camera();
-	transform = new Transform();
 }
 
 bool Core::Start()
@@ -43,9 +42,8 @@ void Core::Update()
 		processInput(window->GLWindow, camera, deltaTime);	
 		camera->UpdateCameraPos();
 		shader->ActivateShader();
-		mesh->Render(shader->programHandle);
+		mesh->Render(shader->programHandle, deltaTime);
 		texture->BindTextures();
-		transform->RotateLocal(shader->programHandle, deltaTime);
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);
