@@ -38,7 +38,8 @@ void Mesh::Render(GLuint &programHandle)
 	glUseProgram(programHandle);
 	glBindVertexArray(VAO);
 	//glDrawArrays(GL_TRIANGLES, 0, 3 * 6);
-	glDrawElements(GL_TRIANGLES, 3 * 6, GL_UNSIGNED_INT, 0);
+	//glDrawElements(GL_TRIANGLES, 3 * 6, GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, 3 * 12, GL_UNSIGNED_INT, 0);
 }
 
 Mesh::~Mesh()
