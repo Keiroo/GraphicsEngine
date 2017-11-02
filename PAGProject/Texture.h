@@ -6,7 +6,7 @@ class Texture
 public:
 	Texture();
 	bool LoadAllTextures(GLuint& programHandle);
-	void BindTextures(GLuint& programHandle);
+	void BindTextures(GLuint& programHandle, short texNumber);
 	~Texture();
 
 private:

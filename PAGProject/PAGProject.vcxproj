@@ -181,7 +181,13 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\brickTexture.jpg" />
+    <Image Include="Textures\crateTexture.png" />
+    <Image Include="Textures\lavaTexture.jpg" />
+    <Image Include="Textures\magikarpTexture.png" />
     <Image Include="Textures\pikachuTexture.bmp" />
+    <Image Include="Textures\planet2Texture.jpg" />
+    <Image Include="Textures\planetTexture.jpg" />
+    <Image Include="Textures\rubyTexture.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

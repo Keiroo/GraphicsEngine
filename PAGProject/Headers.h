@@ -9,5 +9,6 @@
 #define VERTEX_SHADER_FILENAME "Shaders/myShader.vert"
 #define FRAGMENT_SHADER_FILENAME "Shaders/myShader.frag"
 
-#define TEXTURE_FILENAME "Textures/pikachuTexture.bmp"
-#define TEXTURE_FILENAME_2 "Textures/brickTexture.jpg"
+#define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
+#define TEXTURE1_FILENAME "Textures/planetTexture.jpg"
+#define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"

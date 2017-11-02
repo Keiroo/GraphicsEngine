@@ -8,20 +8,48 @@ Texture::Texture()
 
 bool Texture::LoadAllTextures(GLuint& programHandle)
 {
-	glGenTextures(2, texture);
-	if (!LoadTexture(texture[0], TEXTURE_FILENAME))
+	glGenTextures(3, texture);
+	if (!LoadTexture(texture[0], TEXTURE0_FILENAME))
 	{
 		return false;
 	}
+
+	if (!LoadTexture(texture[1], TEXTURE1_FILENAME))
+	{
+		return false;
+	}
+
+	if (!LoadTexture(texture[2], TEXTURE2_FILENAME))
+	{
+		return false;
+	}
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	glUniform1i(glGetUniformLocation(programHandle, "myTexture"), 0);
 	return true;
 }
 
-void Texture::BindTextures(GLuint& programHandle)
+void Texture::BindTextures(GLuint& programHandle, short texNumber)
 {
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	
+	switch (texNumber)
+	{
+	case 0:
+		glBindTexture(GL_TEXTURE_2D, texture[0]);
+		break;
+
+	case 1:
+		glBindTexture(GL_TEXTURE_2D, texture[1]);
+		break;
+
+	case 2:
+		glBindTexture(GL_TEXTURE_2D, texture[2]);
+		break;
+
+	default:
+		glBindTexture(GL_TEXTURE_2D, texture[0]);
+		break;
+	}
 }
 
 bool Texture::LoadTexture(GLuint &texture, char* filename)

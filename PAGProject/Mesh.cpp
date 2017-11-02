@@ -47,7 +47,6 @@ bool Mesh::LoadTextures(GLuint &programHandle)
 	if (!texture->LoadAllTextures(programHandle))
 		return false;
 
-	/*texture->BindTextures(programHandle);*/
 	return true;
 }
 
@@ -59,15 +58,17 @@ void Mesh::Render(GLuint &programHandle, float deltaTime)
 
 	glUseProgram(programHandle);
 	glBindVertexArray(VAO);
-	texture->BindTextures(programHandle);
+	
 
 	for (short i = 0; i < MAX_OBJECTS; i++)
 	{
+		texture->BindTextures(programHandle, (i % 3));
+
 		transform->Reset();
 		
 		if (i == 0)
 		{
-			//transform->RotateLocal(angle, speed[i]);
+			transform->RotateLocal(angle, speed[i]);
 			transform->Scale(1.5f, 1.5f, 1.5f);
 		}
 		else

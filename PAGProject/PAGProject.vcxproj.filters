@@ -96,5 +96,23 @@
     <Image Include="Textures\brickTexture.jpg">
       <Filter>Textures</Filter>
     </Image>
+    <Image Include="Textures\crateTexture.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\lavaTexture.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\magikarpTexture.png">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\planet2Texture.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\planetTexture.jpg">
+      <Filter>Textures</Filter>
+    </Image>
+    <Image Include="Textures\rubyTexture.jpg">
+      <Filter>Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
