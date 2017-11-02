@@ -2,8 +2,6 @@
 #include <stb_image.h>
 #include "Texture.h"
 
-
-
 Texture::Texture()
 {
 }
@@ -14,25 +12,27 @@ bool Texture::LoadAllTextures(GLuint& programHandle)
 	if (!LoadTexture(texture[0], TEXTURE_FILENAME))
 	{
 		return false;
-	}	
-	if (!LoadTexture(texture[1], TEXTURE_FILENAME_2))
-	{
-		return false;
 	}
-
-	glUniform1i(glGetUniformLocation(programHandle, "myTexture1"), 0);
-	glUniform1i(glGetUniformLocation(programHandle, "myTexture2"), 1);
-
+	glUniform1i(glGetUniformLocation(programHandle, "myTexture"), 0);
 	return true;
+}
+
+void Texture::BindTextures(GLuint& programHandle)
+{
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	
 }
 
 bool Texture::LoadTexture(GLuint &texture, char* filename)
 {
 	unsigned char* data;
+	GLfloat borderColor[] = { 1.0f, 1.0f, 0.0f, 1.0f };
 
 	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
@@ -49,14 +49,6 @@ bool Texture::LoadTexture(GLuint &texture, char* filename)
 	stbi_image_free(data);
 
 	return true;
-}
-
-void Texture::BindTextures()
-{
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, texture[1]);
 }
 
 Texture::~Texture()

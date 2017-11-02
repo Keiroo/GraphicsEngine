@@ -1,6 +1,7 @@
 #pragma once
 #include "Headers.h"
 #include "Transform.h"
+#include "Texture.h"
 
 #define MAX_OBJECTS 10
 
@@ -9,6 +10,7 @@ class Mesh
 public:
 	Mesh();
 	void LoadBuffers();
+	bool LoadTextures(GLuint & programHandle);
 	void Render(GLuint &programHandle, float deltaTime);
 	~Mesh();
 
@@ -17,6 +19,7 @@ private:
 	float speed[MAX_OBJECTS];
 	GLuint VBO[3], VAO, EBO;
 	Transform* transform;
+	Texture* texture;
 
 	/*GLfloat vertices[9] = { 0.0f,  0.5f, 0.0f,
 							0.5f, -0.5f, 0.0f,
@@ -42,23 +45,84 @@ private:
 	//							glm::vec3(0.0f,  0.5f,  0.0f) };
 
 
-	glm::vec3 vertices[8] = {	glm::vec3(1.0f, 1.0f, 1.0f),
-								glm::vec3(-1.0f, 1.0f, 1.0f),
-								glm::vec3(-1.0f, 1.0f, -1.0f),
-								glm::vec3(1.0f, 1.0f, -1.0f),
-								glm::vec3(1.0f, -1.0f, 1.0f),
-								glm::vec3(-1.0f, -1.0f, 1.0f),
-								glm::vec3(-1.0f, -1.0f, -1.0f),
-								glm::vec3(1.0f, -1.0f, -1.0f) };
+	glm::vec3 oldvertices[8] = {	
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		glm::vec3(-1.0f, 1.0f, 1.0f),
+		glm::vec3(-1.0f, 1.0f, -1.0f),
+		glm::vec3(1.0f, 1.0f, -1.0f),
+		glm::vec3(1.0f, -1.0f, 1.0f),
+		glm::vec3(-1.0f, -1.0f, 1.0f),
+		glm::vec3(-1.0f, -1.0f, -1.0f),
+		glm::vec3(1.0f, -1.0f, -1.0f), 	
+	};
 
 
-	GLfloat colors[9] = {	1.0f, 0.0f, 0.0f,
-							0.0f, 1.0f, 0.0f,
-							0.0f, 0.0f, 1.0f };
+	glm::vec3 vertices[3 * 12] = {
+		glm::vec3(1.0f, 1.0f, 1.0f), 
+		glm::vec3(-1.0f, 1.0f, 1.0f),
+		glm::vec3(-1.0f, 1.0f, -1.0f),
 
-	GLfloat texCoords[6] = {	0.5f, 1.0f,
-								1.0f, 0.0f,
-								0.0f, 0.0f };
+		glm::vec3(-1.0f, 1.0f, -1.0f),
+		glm::vec3(1.0f, 1.0f, -1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+
+		glm::vec3(1.0f, -1.0f, -1.0f),
+		glm::vec3(-1.0f, -1.0f, -1.0f),
+		glm::vec3(-1.0f, -1.0f, 1.0f),
+
+		glm::vec3(-1.0f, -1.0f, 1.0f),
+		glm::vec3(1.0f, -1.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, -1.0f),
+
+		glm::vec3(1.0f, -1.0f, 1.0f),
+		glm::vec3(-1.0f, -1.0f, 1.0f),
+		glm::vec3(-1.0f, 1.0f, 1.0f),
+
+		glm::vec3(-1.0f, 1.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		glm::vec3(1.0f, -1.0f, 1.0f),
+
+		glm::vec3(-1.0f, -1.0f, -1.0f),
+		glm::vec3(1.0f, -1.0f, -1.0f),
+		glm::vec3(1.0f, 1.0f, -1.0f),
+
+		glm::vec3(1.0f, 1.0f, -1.0f),
+		glm::vec3(-1.0f, 1.0f, -1.0f),
+		glm::vec3(-1.0f, -1.0f, -1.0f),
+
+		glm::vec3(-1.0f, -1.0f, 1.0f),
+		glm::vec3(-1.0f, -1.0f, -1.0f),
+		glm::vec3(-1.0f, 1.0f, -1.0f),
+
+		glm::vec3(-1.0f, 1.0f, -1.0f),
+		glm::vec3(-1.0f, 1.0f, 1.0f),
+		glm::vec3(-1.0f, -1.0f, 1.0f),
+
+		glm::vec3(1.0f, -1.0f, -1.0f),
+		glm::vec3(1.0f, -1.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, 1.0f),
+
+		glm::vec3(1.0f, 1.0f, 1.0f),
+		glm::vec3(1.0f, 1.0f, -1.0f),
+		glm::vec3(1.0f, -1.0f, -1.0f)
+	};
+
+
+
+	GLfloat colors[9] = {	
+		1.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 1.0f 
+	};
+
+	GLfloat texCoords[12 * 6] = {
+		1.0f, 0.0f,	0.0f, 0.0f,	0.0f, 1.0f,	0.0f, 1.0f,	1.0f, 1.0f,	1.0f, 0.0f,
+		1.0f, 0.0f,	0.0f, 0.0f,	0.0f, 1.0f,	0.0f, 1.0f,	1.0f, 1.0f,	1.0f, 0.0f,
+		1.0f, 0.0f,	0.0f, 0.0f,	0.0f, 1.0f,	0.0f, 1.0f,	1.0f, 1.0f,	1.0f, 0.0f,
+		1.0f, 0.0f,	0.0f, 0.0f,	0.0f, 1.0f,	0.0f, 1.0f,	1.0f, 1.0f,	1.0f, 0.0f,
+		1.0f, 0.0f,	0.0f, 0.0f,	0.0f, 1.0f,	0.0f, 1.0f,	1.0f, 1.0f,	1.0f, 0.0f,
+		1.0f, 0.0f,	0.0f, 0.0f,	0.0f, 1.0f,	0.0f, 1.0f,	1.0f, 1.0f,	1.0f, 0.0f
+	};
 
 	/*GLuint indices[3] = { 0, 1, 2 };*/
 
@@ -66,17 +130,16 @@ private:
 
 	GLuint indices[3 * 12] = {	0, 1, 2, 
 								2, 3, 0, 
-								4, 5, 6, 
-								6, 7, 4, 
+								7, 6, 5,
+								5, 4, 7,
 								4, 5, 1, 
 								1, 0, 4, 
-								7, 6, 2, 
-								2, 3, 7, 
+								6, 7, 3,
+								3, 2, 6,
 								5, 6, 2, 
 								2, 1, 5, 
 								7, 4, 0, 
 								0, 3, 7 };
-
 
 };
 

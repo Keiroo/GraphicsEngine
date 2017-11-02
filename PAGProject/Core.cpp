@@ -6,7 +6,6 @@ Core::Core()
 	window = new Window(SCREEN_WIDTH, SCREEN_HEIGHT);
 	mesh = new Mesh();
 	shader = new Shader();
-	texture = new Texture();
 	camera = new Camera();
 }
 
@@ -19,14 +18,12 @@ bool Core::Start()
 	if (!shader->LoadShaders())
 		return false;
 
-	if (!texture->LoadAllTextures(shader->programHandle))
+	if (!mesh->LoadTextures(shader->programHandle))
 		return false;
 
 	camera->LoadCamera(window->GLWindow, shader->programHandle);
-
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);
 	
-
 	return true;
 }
 
@@ -43,7 +40,6 @@ void Core::Update()
 		camera->UpdateCameraPos();
 		shader->ActivateShader();
 		mesh->Render(shader->programHandle, deltaTime);
-		texture->BindTextures();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);
