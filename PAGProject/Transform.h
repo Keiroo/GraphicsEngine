@@ -5,6 +5,8 @@ class Transform
 {
 public:
 	Transform();
+	void SetParent(glm::mat4 parent);
+	glm::mat4 GetMatrix();
 	void Scale(float x, float y, float z);
 	void RotateLocal(float angle, float speed);
 	void Translate(glm::vec3 direction);

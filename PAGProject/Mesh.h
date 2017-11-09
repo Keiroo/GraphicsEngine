@@ -1,9 +1,6 @@
 #pragma once
 #include "Headers.h"
-#include "Transform.h"
-#include "Texture.h"
-
-#define MAX_OBJECTS 10
+#include "Scene.h"
 
 class Mesh
 {
@@ -15,11 +12,11 @@ public:
 	~Mesh();
 
 private:
-	GLfloat x, z, angle;
-	float speed[MAX_OBJECTS];
+	GLfloat angle;	
 	GLuint VBO[3], VAO, EBO;
-	Transform* transform;
-	Texture* texture;
+	Scene* scene;
+	
+
 
 	/*GLfloat vertices[9] = { 0.0f,  0.5f, 0.0f,
 							0.5f, -0.5f, 0.0f,

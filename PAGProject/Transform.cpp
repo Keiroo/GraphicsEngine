@@ -7,6 +7,16 @@ Transform::Transform()
 	trans = glm::mat4(1.0f);
 }
 
+void Transform::SetParent(glm::mat4 parent)
+{
+	trans = parent;
+}
+
+glm::mat4 Transform::GetMatrix()
+{
+	return trans;
+}
+
 void Transform::Scale(float x, float y, float z)
 {
 	trans = glm::scale(trans, glm::vec3(x, y, z));
