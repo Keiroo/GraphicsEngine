@@ -1,60 +1,44 @@
 #pragma once
 #include "Headers.h"
 #include "Scene.h"
+#include <string>
+#include <vector>
+
+struct sVertex {
+	glm::vec3 Position;
+	glm::vec3 Normal;
+	glm::vec2 TexCoords;
+};
+
+struct sTexture {
+	GLuint id;
+	std::string type;
+	aiString path;
+};
 
 class Mesh
 {
 public:
-	Mesh();
-	void LoadBuffers();
+	GLuint VAO;
+	std::vector<sVertex> vertices;
+	std::vector<GLuint> indices;
+	std::vector<sTexture> textures;
+
+	Mesh(std::vector<sVertex> vertices, std::vector<GLuint> indices, std::vector<sTexture> textures);
+	
 	bool LoadTextures(GLuint & programHandle);
-	void Render(GLuint &programHandle, float deltaTime);
+	/*void Render(GLuint &programHandle, float deltaTime);*/
+	void Render(GLuint & programHandle);
 	~Mesh();
 
 private:
-	GLfloat angle;	
-	GLuint VBO[3], VAO, EBO;
+	GLfloat angle;
+	GLuint VBO, EBO;
 	Scene* scene;
-	
 
+	void LoadBuffers();
 
-	/*GLfloat vertices[9] = { 0.0f,  0.5f, 0.0f,
-							0.5f, -0.5f, 0.0f,
-							-0.5f, -0.5f, 0.0f };*/
-
-	//glm::vec3 vertices[18] = {	glm::vec3(-0.5f, -0.5f,  0.5f), //basis
-	//							glm::vec3(0.5f, -0.5f,  0.5f),
-	//							glm::vec3(0.5f, -0.5f, -0.5f),
-	//							glm::vec3(-0.5f, -0.5f,  0.5f),
-	//							glm::vec3(0.5f, -0.5f, -0.5f),
-	//							glm::vec3(-0.5f, -0.5f, -0.5f),
-	//							glm::vec3(-0.5f, -0.5f, -0.5f), //left side
-	//							glm::vec3(-0.5f, -0.5f,  0.5f),
-	//							glm::vec3(0.0f,  0.5f,  0.0f),
-	//							glm::vec3(0.5f, -0.5f,  0.5f), //right side
-	//							glm::vec3(0.5f, -0.5f, -0.5f),
-	//							glm::vec3(0.0f,  0.5f,  0.0f),
-	//							glm::vec3(-0.5f, -0.5f,  0.5f), //front side
-	//							glm::vec3(0.5f, -0.5f,  0.5f),
-	//							glm::vec3(0.0f,  0.5f,  0.0f),
-	//							glm::vec3(0.5f, -0.5f, -0.5f), //back side
-	//							glm::vec3(-0.5f, -0.5f, -0.5f),
-	//							glm::vec3(0.0f,  0.5f,  0.0f) };
-
-
-	glm::vec3 oldvertices[8] = {	
-		glm::vec3(1.0f, 1.0f, 1.0f),
-		glm::vec3(-1.0f, 1.0f, 1.0f),
-		glm::vec3(-1.0f, 1.0f, -1.0f),
-		glm::vec3(1.0f, 1.0f, -1.0f),
-		glm::vec3(1.0f, -1.0f, 1.0f),
-		glm::vec3(-1.0f, -1.0f, 1.0f),
-		glm::vec3(-1.0f, -1.0f, -1.0f),
-		glm::vec3(1.0f, -1.0f, -1.0f), 	
-	};
-
-
-	glm::vec3 vertices[3 * 12] = {
+	/*glm::vec3 vertices[3 * 12] = {
 		glm::vec3(1.0f, 1.0f, 1.0f), 
 		glm::vec3(-1.0f, 1.0f, 1.0f),
 		glm::vec3(-1.0f, 1.0f, -1.0f),
@@ -121,10 +105,6 @@ private:
 		1.0f, 0.0f,	0.0f, 0.0f,	0.0f, 1.0f,	0.0f, 1.0f,	1.0f, 1.0f,	1.0f, 0.0f
 	};
 
-	/*GLuint indices[3] = { 0, 1, 2 };*/
-
-	/*GLuint indices[18] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17 };*/
-
 	GLuint indices[3 * 12] = {	0, 1, 2, 
 								2, 3, 0, 
 								7, 6, 5,
@@ -137,6 +117,6 @@ private:
 								2, 1, 5, 
 								7, 4, 0, 
 								0, 3, 7 };
-
+*/
 };
 

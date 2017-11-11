@@ -6,50 +6,78 @@ Texture::Texture()
 {
 }
 
-bool Texture::LoadAllTextures(GLuint& programHandle)
+//bool Texture::LoadAllTextures(GLuint& programHandle)
+//{
+//	glGenTextures(3, texture);
+//	if (!LoadTexture(texture[0], TEXTURE0_FILENAME))
+//	{
+//		return false;
+//	}
+//
+//	if (!LoadTexture(texture[1], TEXTURE1_FILENAME))
+//	{
+//		return false;
+//	}
+//
+//	if (!LoadTexture(texture[2], TEXTURE2_FILENAME))
+//	{
+//		return false;
+//	}
+//
+//	glActiveTexture(GL_TEXTURE0);
+//	glBindTexture(GL_TEXTURE_2D, texture[0]);
+//	glUniform1i(glGetUniformLocation(programHandle, "myTexture"), 0);
+//	return true;
+//}
+//
+//void Texture::BindTextures(GLuint& programHandle, short texNumber)
+//{
+//	switch (texNumber)
+//	{
+//	case 0:
+//		glBindTexture(GL_TEXTURE_2D, texture[0]);
+//		break;
+//
+//	case 1:
+//		glBindTexture(GL_TEXTURE_2D, texture[1]);
+//		break;
+//
+//	case 2:
+//		glBindTexture(GL_TEXTURE_2D, texture[2]);
+//		break;
+//
+//	default:
+//		glBindTexture(GL_TEXTURE_2D, texture[0]);
+//		break;
+//	}
+//}
+
+GLuint Texture::TextureFromFile(const char* path, std::string directory)
 {
-	glGenTextures(3, texture);
-	if (!LoadTexture(texture[0], TEXTURE0_FILENAME))
-	{
-		return false;
-	}
+	unsigned char* data;
+	std::string fileName = (std::string)path;
+	fileName = directory + "/" + fileName;
 
-	if (!LoadTexture(texture[1], TEXTURE1_FILENAME))
-	{
-		return false;
-	}
+	glGenTextures(1, &texture);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load(fileName.c_str(), &width, &height, &nrChannels, 0);
 
-	if (!LoadTexture(texture[2], TEXTURE2_FILENAME))
-	{
-		return false;
-	}
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
 
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture[0]);
-	glUniform1i(glGetUniformLocation(programHandle, "myTexture"), 0);
-	return true;
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	stbi_image_free(data);
+	return texture;
 }
 
-void Texture::BindTextures(GLuint& programHandle, short texNumber)
+Texture::~Texture()
 {
-	switch (texNumber)
-	{
-	case 0:
-		glBindTexture(GL_TEXTURE_2D, texture[0]);
-		break;
-
-	case 1:
-		glBindTexture(GL_TEXTURE_2D, texture[1]);
-		break;
-
-	case 2:
-		glBindTexture(GL_TEXTURE_2D, texture[2]);
-		break;
-
-	default:
-		glBindTexture(GL_TEXTURE_2D, texture[0]);
-		break;
-	}
 }
 
 bool Texture::LoadTexture(GLuint &texture, char* filename)
@@ -77,8 +105,4 @@ bool Texture::LoadTexture(GLuint &texture, char* filename)
 	stbi_image_free(data);
 
 	return true;
-}
-
-Texture::~Texture()
-{
 }
