@@ -1,14 +1,13 @@
 #pragma once
 #include "Headers.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-
 #include "Mesh.h"
 #include "Texture.h"
 
 #include <vector>
 #include <string>
+
+struct sTexture;
+class Mesh;
 
 class Model
 {

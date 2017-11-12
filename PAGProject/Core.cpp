@@ -41,7 +41,7 @@ void Core::Update()
 		camera->UpdateCameraPos();
 		//shader->ActivateShader();
 		//mesh->Render(shader->programHandle, deltaTime);
-		scene->Draw();
+		scene->Draw(deltaTime);
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);

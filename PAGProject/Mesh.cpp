@@ -2,9 +2,6 @@
 
 Mesh::Mesh(std::vector<sVertex> vertices, std::vector<GLuint> indices, std::vector<sTexture> textures)
 {
-	scene = new Scene();
-	angle = 0.0f;
-
 	this->vertices = vertices;
 	this->indices = indices;
 	this->textures = textures;
@@ -42,13 +39,13 @@ void Mesh::LoadBuffers()
 	glBindVertexArray(0);
 }
 
-bool Mesh::LoadTextures(GLuint &programHandle)
-{
-	if (!scene->LoadTextures(programHandle))
-		return false;
-
-	return true;
-}
+//bool Mesh::LoadTextures(GLuint &programHandle)
+//{
+//	if (!scene->LoadTextures(programHandle))
+//		return false;
+//
+//	return true;
+//}
 
 //void Mesh::Render(GLuint &programHandle, float deltaTime)
 //{

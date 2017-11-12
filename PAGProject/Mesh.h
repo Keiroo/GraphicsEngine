@@ -26,15 +26,13 @@ public:
 
 	Mesh(std::vector<sVertex> vertices, std::vector<GLuint> indices, std::vector<sTexture> textures);
 	
-	bool LoadTextures(GLuint & programHandle);
+	//bool LoadTextures(GLuint & programHandle);
 	/*void Render(GLuint &programHandle, float deltaTime);*/
 	void Render(GLuint & programHandle);
 	~Mesh();
 
 private:
-	GLfloat angle;
 	GLuint VBO, EBO;
-	Scene* scene;
 
 	void LoadBuffers();
 

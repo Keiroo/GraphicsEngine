@@ -82,7 +82,7 @@ Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
 	}
 
 	// indices
-	for (GLuint i = i; i < mesh->mNumFaces; i++)
+	for (GLuint i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
 		for (GLuint j = 0; j < face.mNumIndices; j++)
