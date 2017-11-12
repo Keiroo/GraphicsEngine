@@ -15,10 +15,8 @@ uniform sampler2D textureSpecular2;
 
 void main()
 {
-
-
-
-
+	fragColor = texture(textureDiffuse1, texCoord) * texture(textureDiffuse2, texCoord) * texture(textureDiffuse3, texCoord)
+				* texture(textureSpecular1, texCoord) * texture(textureSpecular2, texCoord);
 
 	//fragColor = texture(myTexture, texCoord);
 	//fragColor = texture(myTexture1, texCoord) * texture(myTexture2, texCoord);

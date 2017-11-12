@@ -7,7 +7,6 @@ Core::Core()
 	//mesh = new Mesh();
 	//shader = new Shader();
 	camera = new Camera();
-	scene = new Scene();
 }
 
 bool Core::Start()
@@ -21,9 +20,10 @@ bool Core::Start()
 
 	//if (!mesh->LoadTextures(shader->programHandle))
 	//	return false;
-
+	scene = new Scene();
 	camera->LoadCamera(window->GLWindow, scene->programHandle);
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);
+	
 	
 	return true;
 }

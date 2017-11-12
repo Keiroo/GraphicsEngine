@@ -17,5 +17,5 @@
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
 
-#define MODEL_PATH "Models/Nanosuit/"
+#define MODEL_PATH "Models/Nanosuit/nanosuit.obj"
 
