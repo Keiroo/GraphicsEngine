@@ -54,31 +54,6 @@ c:\opengl\include\glm\gtc\bitfield.inl(185): warning C4309: 'static_cast': trunc
 c:\opengl\include\glm\gtc\bitfield.inl(186): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(187): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(188): warning C4309: 'static_cast': truncation of constant value
-  main.cpp
-c:\opengl\include\glm\gtc\bitfield.inl(88): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(89): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(90): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(92): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(93): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(94): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(96): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(97): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(98): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(100): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(101): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(102): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(175): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(176): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(177): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(178): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(180): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(181): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(182): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(183): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(185): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(186): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(187): warning C4309: 'static_cast': truncation of constant value
-c:\opengl\include\glm\gtc\bitfield.inl(188): warning C4309: 'static_cast': truncation of constant value
   Mesh.cpp
 c:\opengl\include\glm\gtc\bitfield.inl(88): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(89): warning C4309: 'static_cast': truncation of constant value
@@ -154,7 +129,7 @@ c:\opengl\include\glm\gtc\bitfield.inl(185): warning C4309: 'static_cast': trunc
 c:\opengl\include\glm\gtc\bitfield.inl(186): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(187): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(188): warning C4309: 'static_cast': truncation of constant value
-Scene.cpp(10): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+Scene.cpp(11): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Shader.cpp
 c:\opengl\include\glm\gtc\bitfield.inl(88): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(89): warning C4309: 'static_cast': truncation of constant value
@@ -255,8 +230,34 @@ c:\opengl\include\glm\gtc\bitfield.inl(185): warning C4309: 'static_cast': trunc
 c:\opengl\include\glm\gtc\bitfield.inl(186): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(187): warning C4309: 'static_cast': truncation of constant value
 c:\opengl\include\glm\gtc\bitfield.inl(188): warning C4309: 'static_cast': truncation of constant value
-  glad.c
+  main.cpp
+c:\opengl\include\glm\gtc\bitfield.inl(88): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(89): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(90): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(92): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(93): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(94): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(96): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(97): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(98): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(100): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(101): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(102): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(175): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(176): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(177): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(178): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(180): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(181): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(182): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(183): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(185): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(186): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(187): warning C4309: 'static_cast': truncation of constant value
+c:\opengl\include\glm\gtc\bitfield.inl(188): warning C4309: 'static_cast': truncation of constant value
   Generating code
-  All 428 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  3 of 808 functions ( 0.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   PAGProject.vcxproj -> D:\Studia\Programowanie Aplikacji Graficznych\PAGProject\Release\PAGProject.exe

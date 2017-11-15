@@ -17,5 +17,7 @@
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
 
-#define MODEL_PATH "Models/Nanosuit/nanosuit.obj"
+//#define MODEL_PATH "Models/Nanosuit/nanosuit.obj"
+//#define MODEL_PATH "Models/Chikorita/chikorita.obj"
+#define MODEL_PATH "Models/CubikModel/CubikModel.obj"
 

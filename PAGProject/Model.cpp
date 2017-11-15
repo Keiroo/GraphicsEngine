@@ -28,6 +28,8 @@ void Model::loadModel(std::string path)
 		fprintf(stderr, strerr.c_str());
 	}
 	directory = path.substr(0, path.find_last_of('/'));
+
+	processNode(scene->mRootNode, scene);
 }
 
 void Model::processNode(aiNode * node, const aiScene * scene)
@@ -71,8 +73,8 @@ Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
 		if (mesh->mTextureCoords[0])
 		{
 			glm::vec2 vec2;
-			vec2.x = mesh->mTextureCoords[i]->x;
-			vec2.y = mesh->mTextureCoords[i]->y;
+			vec2.x = mesh->mTextureCoords[0][i].x;
+			vec2.y = mesh->mTextureCoords[0][i].y;
 			vertex.TexCoords = vec2;
 		}
 		else

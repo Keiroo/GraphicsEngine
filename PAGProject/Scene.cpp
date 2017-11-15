@@ -6,6 +6,7 @@ Scene::Scene()
 {
 	shader = new Shader();
 	transform = new Transform();
+	model = new Model(MODEL_PATH);
 	world = glm::mat4(1.0f);
 	srand(time(NULL));
 	//for (short i = 0; i < MAX_OBJECTS; i++)
@@ -33,7 +34,7 @@ void Scene::Draw(GLfloat deltaTime)
 	shader->ActivateShader();
 
 	transform->SetParent(world);
-	model = new Model(MODEL_PATH);
+
 	model->Draw(shader->programHandle);
 
 
