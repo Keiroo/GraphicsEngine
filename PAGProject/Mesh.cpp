@@ -76,12 +76,12 @@ void Mesh::Render(GLuint &programHandle)
 		glUniform1i(glGetUniformLocation(programHandle, (name + number).c_str()), i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
+	glActiveTexture(GL_TEXTURE0);
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-	glBindVertexArray(0);
-
-	glActiveTexture(GL_TEXTURE0);
+	glDrawArrays(GL_TRIANGLES, 0, indices.size());
+	glBindVertexArray(0);	
 }
 
 Mesh::~Mesh()
