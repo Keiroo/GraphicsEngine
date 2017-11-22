@@ -35,4 +35,5 @@
 .vs/
 Debug/
 PAGProject/Debug/
-
+Release/
+PAGProject/Release/
