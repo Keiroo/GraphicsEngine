@@ -37,3 +37,8 @@ Debug/
 PAGProject/Debug/
 Release/
 PAGProject/Release/
+PAGProject/Release/PAGProject.log
+*.log
+Release/PAGProject.iobj
+*.ipdb
+*.tlog

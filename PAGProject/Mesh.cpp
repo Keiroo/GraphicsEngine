@@ -12,13 +12,14 @@ Mesh::Mesh(std::vector<sVertex> vertices, std::vector<GLuint> indices, std::vect
 void Mesh::LoadBuffers()
 {
 	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
 	glGenBuffers(1, &EBO);
+	glGenBuffers(1, &VBO);
+
+	glBindVertexArray(VAO);
+	
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
-
-	glGenBuffers(1, &VBO);
+	
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(sVertex), &vertices[0], GL_STATIC_DRAW);
 
@@ -30,6 +31,12 @@ void Mesh::LoadBuffers()
 
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(sVertex), (GLvoid*)offsetof(sVertex, TexCoords));
+
+	glEnableVertexAttribArray(3);
+	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(sVertex), (GLvoid*)offsetof(sVertex, Tangent));
+
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(sVertex), (GLvoid*)offsetof(sVertex, Bitangent));
 
 	//glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
 	//glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
@@ -61,7 +68,7 @@ void Mesh::LoadBuffers()
 
 void Mesh::Render(GLuint &programHandle)
 {
-	GLuint diffuseNr = 1, specularNr = 1;
+	GLuint diffuseNr = 1, specularNr = 1, normalNr = 1, heightNr = 1;
 
 	for (GLuint i = 0; i < textures.size(); i++)
 	{
@@ -72,16 +79,22 @@ void Mesh::Render(GLuint &programHandle)
 			number = std::to_string(diffuseNr++);
 		else if (name == "textureSpecular")
 			number = std::to_string(specularNr++);
+		else if (name == "textureNormal")
+			number = std::to_string(normalNr++); // transfer unsigned int to stream
+		else if (name == "textureHeight")
+			number = std::to_string(heightNr++);
 
 		glUniform1i(glGetUniformLocation(programHandle, (name + number).c_str()), i);
 		glBindTexture(GL_TEXTURE_2D, textures[i].id);
 	}
-	glActiveTexture(GL_TEXTURE0);
+	
 
 	glBindVertexArray(VAO);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
-	glDrawArrays(GL_TRIANGLES, 0, indices.size());
+	//glDrawArrays(GL_TRIANGLES, 0, indices.size());
 	glBindVertexArray(0);	
+
+	glActiveTexture(GL_TEXTURE0);
 }
 
 Mesh::~Mesh()

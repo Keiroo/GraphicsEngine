@@ -1,7 +1,7 @@
-#version 450
+#version 450 core
 
-in vec3 position;
-in vec3 color;
+//in vec3 position;
+//in vec3 color;
 in vec2 texCoord;
 out vec4 fragColor;
 
@@ -11,14 +11,13 @@ uniform sampler2D textureDiffuse2;
 uniform sampler2D textureDiffuse3;
 uniform sampler2D textureSpecular1;
 uniform sampler2D textureSpecular2;
+uniform sampler2D textureNormal1;
+uniform sampler2D textureHeight1;
 
 
 void main()
 {
-	fragColor = texture(textureDiffuse1, texCoord) * texture(textureDiffuse2, texCoord) * texture(textureDiffuse3, texCoord)
-				* texture(textureSpecular1, texCoord) * texture(textureSpecular2, texCoord);
-
-	//fragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	fragColor = texture(textureDiffuse1, texCoord);
 
 	//fragColor = texture(myTexture, texCoord);
 	//fragColor = texture(myTexture1, texCoord) * texture(myTexture2, texCoord);

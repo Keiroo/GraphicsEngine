@@ -20,29 +20,52 @@ Model::~Model()
 
 void Model::loadModel(std::string path)
 {
-	Assimp::Importer import;
-	const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+	Assimp::Importer importer;
+	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		std::string strerr = "Error: Assimp: " + (std::string)import.GetErrorString();
-		fprintf(stderr, strerr.c_str());
+			std::string strerr = "Error: Assimp: " + (std::string)importer.GetErrorString();
+			fprintf(stderr, strerr.c_str());
 	}
+
 	directory = path.substr(0, path.find_last_of('/'));
 
 	processNode(scene->mRootNode, scene);
+
+	//Assimp::Importer import;
+	//const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
+	//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+	//{
+	//	std::string strerr = "Error: Assimp: " + (std::string)import.GetErrorString();
+	//	fprintf(stderr, strerr.c_str());
+	//}
+	//directory = path.substr(0, path.find_last_of('/'));
+
+	//processNode(scene->mRootNode, scene);
 }
 
 void Model::processNode(aiNode * node, const aiScene * scene)
 {
-	for (GLuint i = 0; i < node->mNumMeshes; i++)
+	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
+
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		meshes.push_back(processMesh(mesh, scene));
 	}
-	for (GLuint i = 0; i < node->mNumChildren; i++)
+	for (unsigned int i = 0; i < node->mNumChildren; i++)
 	{
 		processNode(node->mChildren[i], scene);
 	}
+
+	//for (GLuint i = 0; i < node->mNumMeshes; i++)
+	//{
+	//	aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
+	//	meshes.push_back(processMesh(mesh, scene));
+	//}
+	//for (GLuint i = 0; i < node->mNumChildren; i++)
+	//{
+	//	processNode(node->mChildren[i], scene);
+	//}
 }
 
 Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
@@ -80,6 +103,17 @@ Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
 		else
 			vertex.TexCoords = glm::vec2(0.0f, 0.0f);
 
+		// Tangent
+		vec.x = mesh->mTangents[i].x;
+		vec.y = mesh->mTangents[i].y;
+		vec.z = mesh->mTangents[i].z;
+		vertex.Tangent = vec;
+		// Bitangent
+		vec.x = mesh->mBitangents[i].x;
+		vec.y = mesh->mBitangents[i].y;
+		vec.z = mesh->mBitangents[i].z;
+		vertex.Bitangent = vec;
+
 		vertices.push_back(vertex);
 	}
 
@@ -95,11 +129,18 @@ Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
 	if (mesh->mMaterialIndex >= 0)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
+
 		std::vector<sTexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "textureDiffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 
 		std::vector<sTexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "textureSpecular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+
+		std::vector<sTexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "textureNormal");
+		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
+
+		std::vector<sTexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "textureHeight");
+		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 	}
 
 	return Mesh(vertices, indices, textures);
