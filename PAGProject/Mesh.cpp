@@ -2,57 +2,69 @@
 
 
 
-Mesh::Mesh()
+Mesh::Mesh(std::vector<sVertex> vertices, std::vector<unsigned int> indices, std::vector<sTexture> textures)
 {
-	scene = new Scene();
-	angle = 0.0f;	
+	this->vertices = vertices;
+	this->indices = indices;
+	this->textures = textures;
+
+	LoadBuffers();
 }
 
 void Mesh::LoadBuffers()
 {
 	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
-
+	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(sVertex), &vertices[0], GL_STATIC_DRAW);
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int),
+		&indices[0], GL_STATIC_DRAW);
 
-	glGenBuffers(3, VBO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(sVertex), (void*)0);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(sVertex), (void*)offsetof(sVertex, Normal));
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoords), texCoords, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(sVertex), (void*)offsetof(sVertex, TexCoords));
+
+	glBindVertexArray(0);
 }
 
-bool Mesh::LoadTextures(GLuint &programHandle)
+
+void Mesh::Render(Shader* shader)
 {
-	if (!scene->LoadTextures(programHandle))
-		return false;
+	GLuint diffuseNr = 1, specularNr = 1, normalNr = 1, heightNr = 1;
+	for (GLuint i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
 
-	return true;
-}
+		std::string number, name = textures[i].type;
+		if (name == "texture_diffuse")
+			number = std::to_string(diffuseNr++);
+		else if (name == "texture_specular")
+			number = std::to_string(specularNr++);
+		else if (name == "texture_normal")
+			number = std::to_string(normalNr++);
+		else if (name == "texture_height")
+			number = std::to_string(heightNr++);
 
-void Mesh::Render(GLuint &programHandle, float deltaTime)
-{
-	angle += deltaTime;
-	if (angle > 360.0f)
-		angle -= 360.0f;
+		glUniform1i(glGetUniformLocation(shader->programHandle, (name + number).c_str()), i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	}
 
-	glUseProgram(programHandle);
-	glBindVertexArray(VAO);	
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 
-	scene->Draw(programHandle, angle);
+	glActiveTexture(GL_TEXTURE0);
 }
 
 Mesh::~Mesh()
