@@ -2,6 +2,7 @@
 #include "Headers.h"
 #include "Shader.h"
 #include "Mesh.h"
+#include "Texture.h"
 #include <string>
 #include <vector>
 
@@ -19,6 +20,7 @@ public:
 	~Model();
 
 private:
+	Texture* texture;
 	void loadModel(std::string const &path);
 	void processNode(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene);

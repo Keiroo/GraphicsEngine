@@ -1,18 +1,13 @@
-//#pragma once
-//#include "Headers.h"
-//
-//class Texture
-//{
-//public:
-//	Texture();
-//	bool LoadAllTextures(GLuint& programHandle);
-//	void BindTextures(GLuint& programHandle, short texNumber);
-//	~Texture();
-//
-//private:
-//	GLuint texture[3];
-//	GLint width, height, nrChannels;
-//
-//	bool LoadTexture(GLuint &texture, char* filename);
-//};
-//
+#pragma once
+#include "Headers.h"
+
+class Texture
+{
+public:
+	Texture();
+	GLuint TextureFromFile(const char * path, const std::string & directory, bool gamma);
+	~Texture();
+
+private:
+};
+

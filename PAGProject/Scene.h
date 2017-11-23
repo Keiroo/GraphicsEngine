@@ -1,6 +1,7 @@
 #pragma once
 #include "Headers.h"
 #include "Model.h"
+#include "TestModel.h"
 
 
 class Scene
@@ -12,6 +13,7 @@ public:
 
 private:
 	Model* model;
+	TestModel* testModel;
 	
 };
 
