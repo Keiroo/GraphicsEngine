@@ -33,7 +33,7 @@ void Scene::Draw(GLfloat deltaTime)
 	//	angle -= 360.0f;
 	shader->ActivateShader();
 
-	transform->SetParent(world);
+	//transform->SetParent(world);
 
 	model->Draw(shader->programHandle);
 

@@ -22,7 +22,7 @@ private:
 	std::vector<sTexture> texturesLoaded;
 	std::string directory;
 
-	void loadModel(std::string path);
+	void loadModel(std::string const &path);
 	void processNode(aiNode* node, const aiScene* scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 	std::vector<sTexture> loadMaterialTextures(aiMaterial* material, aiTextureType type, std::string typeName);

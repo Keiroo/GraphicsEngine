@@ -38,11 +38,6 @@ void Mesh::LoadBuffers()
 	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(sVertex), (GLvoid*)offsetof(sVertex, Bitangent));
 
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO[1]);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(colors), colors, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, VBO[2]);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(texCoords), texCoords, GL_STATIC_DRAW);
-
 	glBindVertexArray(0);
 }
 
@@ -68,6 +63,7 @@ void Mesh::LoadBuffers()
 
 void Mesh::Render(GLuint &programHandle)
 {
+
 	GLuint diffuseNr = 1, specularNr = 1, normalNr = 1, heightNr = 1;
 
 	for (GLuint i = 0; i < textures.size(); i++)
@@ -75,13 +71,13 @@ void Mesh::Render(GLuint &programHandle)
 		glActiveTexture(GL_TEXTURE0 + i);
 		std::string number, name = textures[i].type;
 
-		if (name == "textureDiffuse")
+		if (name == "texture_diffuse")
 			number = std::to_string(diffuseNr++);
-		else if (name == "textureSpecular")
+		else if (name == "texture_specular")
 			number = std::to_string(specularNr++);
-		else if (name == "textureNormal")
-			number = std::to_string(normalNr++); // transfer unsigned int to stream
-		else if (name == "textureHeight")
+		else if (name == "texture_normal")
+			number = std::to_string(normalNr++);
+		else if (name == "texture_height")
 			number = std::to_string(heightNr++);
 
 		glUniform1i(glGetUniformLocation(programHandle, (name + number).c_str()), i);

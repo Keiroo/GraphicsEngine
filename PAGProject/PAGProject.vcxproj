@@ -175,7 +175,6 @@
     <ClInclude Include="Headers.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="resource.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
@@ -195,9 +194,6 @@
     <Image Include="Textures\planet2Texture.jpg" />
     <Image Include="Textures\planetTexture.jpg" />
     <Image Include="Textures\rubyTexture.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="PAGProject.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

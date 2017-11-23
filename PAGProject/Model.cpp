@@ -1,10 +1,49 @@
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
 #include "Model.h"
 
+GLuint TextureFromFile(const char* path, std::string directory)
+{
+	unsigned char* data;
+	std::string fileName = (std::string)path;
+	fileName = directory + "/" + fileName;
+	GLuint texture;
+	GLint width, height, nrChannels;
 
+	glGenTextures(1, &texture);
+	stbi_set_flip_vertically_on_load(true);
+	data = stbi_load(fileName.c_str(), &width, &height, &nrChannels, 0);
+	if (!data)
+	{
+		fprintf(stderr, "Failed to load texture\n");
+		return NULL;
+	}
+
+	GLenum format;
+	if (nrChannels == 1)
+		format = GL_RED;
+	else if (nrChannels == 3)
+		format = GL_RGB;
+	else if (nrChannels == 4)
+		format = GL_RGBA;
+
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+	glGenerateMipmap(GL_TEXTURE_2D);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	stbi_image_free(data);
+	return texture;
+}
 
 Model::Model(GLchar* path)
 {
-	texture = new Texture();
+	//texture = new Texture();
 	loadModel(path);
 }
 
@@ -18,7 +57,7 @@ Model::~Model()
 {
 }
 
-void Model::loadModel(std::string path)
+void Model::loadModel(std::string const &path)
 {
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
@@ -31,41 +70,17 @@ void Model::loadModel(std::string path)
 	directory = path.substr(0, path.find_last_of('/'));
 
 	processNode(scene->mRootNode, scene);
-
-	//Assimp::Importer import;
-	//const aiScene* scene = import.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
-	//if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
-	//{
-	//	std::string strerr = "Error: Assimp: " + (std::string)import.GetErrorString();
-	//	fprintf(stderr, strerr.c_str());
-	//}
-	//directory = path.substr(0, path.find_last_of('/'));
-
-	//processNode(scene->mRootNode, scene);
 }
 
 void Model::processNode(aiNode * node, const aiScene * scene)
 {
 	for (unsigned int i = 0; i < node->mNumMeshes; i++)
 	{
-
 		aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 		meshes.push_back(processMesh(mesh, scene));
 	}
 	for (unsigned int i = 0; i < node->mNumChildren; i++)
-	{
 		processNode(node->mChildren[i], scene);
-	}
-
-	//for (GLuint i = 0; i < node->mNumMeshes; i++)
-	//{
-	//	aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-	//	meshes.push_back(processMesh(mesh, scene));
-	//}
-	//for (GLuint i = 0; i < node->mNumChildren; i++)
-	//{
-	//	processNode(node->mChildren[i], scene);
-	//}
 }
 
 Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
@@ -130,16 +145,16 @@ Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
 	{
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
-		std::vector<sTexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "textureDiffuse");
+		std::vector<sTexture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
 
-		std::vector<sTexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "textureSpecular");
+		std::vector<sTexture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 
-		std::vector<sTexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "textureNormal");
+		std::vector<sTexture> normalMaps = loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
 		textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
 
-		std::vector<sTexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "textureHeight");
+		std::vector<sTexture> heightMaps = loadMaterialTextures(material, aiTextureType_AMBIENT, "texture_height");
 		textures.insert(textures.end(), heightMaps.begin(), heightMaps.end());
 	}
 
@@ -168,7 +183,8 @@ std::vector<sTexture> Model::loadMaterialTextures(aiMaterial * material, aiTextu
 		if (!skip)
 		{
 			sTexture texture;
-			texture.id = this->texture->TextureFromFile(str.C_Str(), directory);
+			//texture.id = this->texture->TextureFromFile(str.C_Str(), directory);
+			texture.id = TextureFromFile(str.C_Str(), directory);
 			texture.type = typeName;
 			texture.path = str;
 			textures.push_back(texture);

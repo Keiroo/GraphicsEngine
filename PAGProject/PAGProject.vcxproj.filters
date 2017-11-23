@@ -86,9 +86,6 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\myShader.frag">
@@ -123,10 +120,5 @@
     <Image Include="Textures\rubyTexture.jpg">
       <Filter>Textures</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="PAGProject.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>

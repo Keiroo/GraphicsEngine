@@ -12,7 +12,7 @@ public:
 	~Texture();
 
 private:
-	GLuint texture;
+	//GLuint texture;
 	GLint width, height, nrChannels;
 
 	bool LoadTexture(GLuint &texture, char* filename);
