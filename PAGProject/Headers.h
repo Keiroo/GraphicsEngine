@@ -18,3 +18,4 @@
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
 
 #define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
+//#define MODEL_FILENAME "Models/Cube/Cube.obj"
