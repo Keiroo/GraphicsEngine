@@ -19,3 +19,6 @@
 
 #define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
 //#define MODEL_FILENAME "Models/Cube/Cube.obj"
+//#define MODEL_FILENAME "Models/Cube2/Cube2.fbx"
+//#define MODEL_FILENAME "Models/CubikModel/CubikModel.obj"
+

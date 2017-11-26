@@ -1,8 +1,9 @@
 #pragma once
 #include "Headers.h"
 #include "Model.h"
-#include "TestModel.h"
-#include "Transform.h"
+//#include "TestModel.h"
+//#include "Transform.h"
+#include <vector>
 
 
 class Scene
@@ -13,9 +14,9 @@ public:
 	~Scene();
 
 private:
-	Transform* transform;
-	Model* model;
-	TestModel* testModel;
-	
+	//Transform* transform;
+	//Model* model;
+	std::vector<Model*> models;	
+	glm::mat4 world;
 };
 

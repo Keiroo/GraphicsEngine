@@ -3,13 +3,64 @@
 Model::Model(std::string const & path, bool gamma)
 {
 	texture = new Texture();
+	transform = new Transform();
 	loadModel(path);
 }
 
 void Model::Render(Shader* shader)
 {
+	this->transform->Update(shader->programHandle);
+
 	for (GLuint i = 0; i < meshes.size(); i++)
 		meshes[i].Render(shader);
+
+	if (nodes.size() > 0)
+		for each (Model* node in nodes)
+			node->Render(shader);
+}
+
+void Model::SetNode(Model* node)
+{
+	this->nodes.push_back(node);
+}
+
+void Model::Reset()
+{
+	this->transform->Reset();
+}
+
+void Model::Scale(glm::mat4 parent, float x, float y, float z)
+{
+	this->transform->SetParent(parent);
+	this->transform->Scale(x, y, z);
+
+	if (nodes.size() > 0)
+		for each (Model* node in nodes)
+			node->Scale(transform->GetMatrix(), x, y, z);
+}
+
+void Model::Rotate(glm::mat4 parent, float angle, glm::vec3 axis)
+{
+	this->transform->SetParent(parent);
+	this->transform->Rotate(angle, axis);
+
+	if (nodes.size() > 0)
+		for each (Model* node in nodes)
+			node->Rotate(transform->GetMatrix(), angle, axis);
+}
+
+void Model::Translate(glm::mat4 parent, glm::vec3 direction)
+{
+	this->transform->SetParent(parent);
+	this->transform->Translate(direction);
+
+	if (nodes.size() > 0)
+		for each (Model* node in nodes)
+			node->Translate(transform->GetMatrix(), direction);
+}
+
+Model::~Model()
+{
 }
 
 void Model::loadModel(std::string const & path)
@@ -129,8 +180,4 @@ std::vector<sTexture> Model::loadMaterialTextures(aiMaterial * mat, aiTextureTyp
 		}
 	}
 	return textures;
-}
-
-Model::~Model()
-{
 }

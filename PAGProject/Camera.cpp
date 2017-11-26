@@ -6,19 +6,22 @@ Camera::Camera()
 
 void Camera::LoadCamera(GLFWwindow* window, GLuint& programHandle)
 {
-	cameraPos = glm::vec3(0.0f, 0.0f, 0.0f);
-	/*cameraFront = glm::vec3(-1.0f, -0.5f, -1.0f);*/
-	cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
+	cameraPos = glm::vec3(1.5f, 0.0f, 1.5f);
+	cameraFront = glm::vec3(-0.5f, 0.0f, -0.5f);
 	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+	worldUp = cameraUp;
 
 	world = glm::mat4(1.0f);
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 	glfwGetWindowSize(window, &width, &height);
+	lastX = width / 2.0f;
+	lastY = height / 2.0f;
+	
 	projection = glm::perspective(45.0f, (float)width / (float)height, 0.001f, 1000.0f);
 	WVP = projection * view * world;
 	wvpLoc = glGetUniformLocation(programHandle, "wvp");
-	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, &WVP[0][0]);
+	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
 
 
 }
@@ -27,7 +30,7 @@ void Camera::UpdateCameraPos()
 {
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	WVP = projection * view * world;
-	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, &WVP[0][0]);
+	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
 }
 
 void Camera::CameraProcessInput(int key, float deltaTime)
@@ -55,7 +58,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 		lastY = ypos;
 		firstMouse = false;
 	}
-
 	GLfloat xoffset = xpos - lastX;
 	GLfloat yoffset = lastY - ypos;
 	lastX = xpos;
@@ -74,4 +76,6 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	front.y = sin(glm::radians(pitch));
 	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 	cameraFront = glm::normalize(front);
+	cameraRight = glm::normalize(glm::cross(cameraFront, worldUp));
+	cameraUp = glm::normalize(glm::cross(cameraRight, cameraFront));
 }

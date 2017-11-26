@@ -20,7 +20,7 @@ private:
 
 };
 
-static glm::vec3 cameraPos, cameraFront, cameraUp;
+static glm::vec3 cameraPos, cameraFront, cameraUp, cameraRight, worldUp;
 static bool firstMouse = true;
 static GLfloat	yaw = -90.0f,
 				pitch = 0.0f,

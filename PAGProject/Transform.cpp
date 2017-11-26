@@ -9,7 +9,7 @@ Transform::Transform()
 
 void Transform::SetParent(glm::mat4 parent)
 {
-	trans = parent;
+	trans = parent * trans;
 }
 
 glm::mat4 Transform::GetMatrix()
@@ -20,6 +20,11 @@ glm::mat4 Transform::GetMatrix()
 void Transform::Scale(float x, float y, float z)
 {
 	trans = glm::scale(trans, glm::vec3(x, y, z));
+}
+
+void Transform::Rotate(float angle, glm::vec3 axis)
+{
+	trans = glm::rotate(trans, angle, axis);
 }
 
 void Transform::RotateLocal(float angle, float speed)

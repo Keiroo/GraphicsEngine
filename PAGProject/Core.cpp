@@ -21,6 +21,12 @@ bool Core::Start()
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);
 
 	scene = new Scene();
+
+	// set default trans for shader to work
+	GLuint transformLoc;
+	glm::mat4 trans = glm::mat4(1.0f);
+	transformLoc = glGetUniformLocation(shader->programHandle, "transform");
+	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 	
 	return true;
 }
@@ -38,6 +44,8 @@ void Core::Update()
 		camera->UpdateCameraPos();
 		shader->ActivateShader();
 		scene->Render(shader);
+
+		//glm::lookAt(glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);
