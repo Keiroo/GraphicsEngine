@@ -47,4 +47,5 @@ Window::~Window()
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
+	TwWindowSize(width, height);
 }
