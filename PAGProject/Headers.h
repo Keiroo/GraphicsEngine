@@ -17,8 +17,12 @@
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
 
-#define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
-//#define MODEL_FILENAME "Models/Cube/Cube.obj"
-//#define MODEL_FILENAME "Models/Cube2/Cube2.fbx"
-//#define MODEL_FILENAME "Models/CubikModel/CubikModel.obj"
+#define CAMERA_SPEED 30.0f
+
+//#define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
+#define MODEL_FILENAME "Models/Hooh/hooh.obj"
+#define PATH_CUBE_RED "Models/CubeRed/CubeRed.obj"
+#define PATH_CUBE_GREEN "Models/CubeGreen/CubeGreen.obj"
+#define PATH_CUBE_BLUE "Models/CubeBlue/CubeBlue.obj"
+
 

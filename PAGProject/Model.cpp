@@ -34,8 +34,11 @@ void Model::Scale(glm::mat4 parent, float x, float y, float z)
 	transform.Scale(x, y, z);
 
 	if (nodes.size() > 0)
-		for each (Model* node in nodes)
-			node->Scale(transform.GetMatrix(), x, y, z);
+		for (short i = 0; i < nodes.size(); i++)
+		{
+			nodes[i]->Reset();
+			nodes[i]->Scale(transform.GetMatrix(), x, y, z);
+		}
 }
 
 void Model::Rotate(glm::mat4 parent, float angle, glm::vec3 axis)
@@ -44,8 +47,11 @@ void Model::Rotate(glm::mat4 parent, float angle, glm::vec3 axis)
 	transform.Rotate(angle, axis);
 
 	if (nodes.size() > 0)
-		for each (Model* node in nodes)
-			node->Rotate(transform.GetMatrix(), angle, axis);
+		for (short i = 0; i < nodes.size(); i++)
+		{
+			nodes[i]->Reset();
+			nodes[i]->Rotate(transform.GetMatrix(), angle, axis);
+		}
 }
 
 void Model::Translate(glm::mat4 parent, glm::vec3 direction)
@@ -72,7 +78,7 @@ void Model::loadModel(std::string const & path)
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 	{
-		fprintf(stderr, "Error: Assimp: ", importer.GetErrorString());
+		fprintf(stderr, importer.GetErrorString());
 		return;
 	}
 

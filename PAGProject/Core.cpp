@@ -43,9 +43,7 @@ void Core::Update()
 		processInput(window->GLWindow, camera, deltaTime);	
 		camera->UpdateCameraPos();
 		shader->ActivateShader();
-		scene->Render(shader);
-
-		//glm::lookAt(glm::vec3(5.0f, 5.0f, 5.0f), glm::vec3(0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		scene->Render(shader, deltaTime);
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);

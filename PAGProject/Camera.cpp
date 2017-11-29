@@ -35,7 +35,7 @@ void Camera::UpdateCameraPos()
 
 void Camera::CameraProcessInput(int key, float deltaTime)
 {
-	cameraSpeed = 15.0f * deltaTime;
+	cameraSpeed = CAMERA_SPEED * deltaTime;
 	if (key == GLFW_KEY_W)
 		cameraPos += cameraSpeed * cameraFront;
 	if (key == GLFW_KEY_S)
