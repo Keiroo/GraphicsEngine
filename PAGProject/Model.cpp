@@ -3,13 +3,12 @@
 Model::Model(std::string const & path, bool gamma)
 {
 	texture = new Texture();
-	transform = new Transform();
 	loadModel(path);
 }
 
 void Model::Render(Shader* shader)
 {
-	transform->Update(shader->programHandle);
+	transform.Update(shader->programHandle);
 
 	for (GLuint i = 0; i < meshes.size(); i++)
 		meshes[i].Render(shader);
@@ -26,37 +25,41 @@ void Model::SetNode(Model* node)
 
 void Model::Reset()
 {
-	transform->Reset();
+	transform.Reset();
 }
 
 void Model::Scale(glm::mat4 parent, float x, float y, float z)
 {
-	transform->SetParent(parent);
-	transform->Scale(x, y, z);
+	transform.SetParent(parent);
+	transform.Scale(x, y, z);
 
 	if (nodes.size() > 0)
 		for each (Model* node in nodes)
-			node->Scale(transform->GetMatrix(), x, y, z);
+			node->Scale(transform.GetMatrix(), x, y, z);
 }
 
 void Model::Rotate(glm::mat4 parent, float angle, glm::vec3 axis)
 {
-	transform->SetParent(parent);
-	transform->Rotate(angle, axis);
+	transform.SetParent(parent);
+	transform.Rotate(angle, axis);
 
 	if (nodes.size() > 0)
 		for each (Model* node in nodes)
-			node->Rotate(transform->GetMatrix(), angle, axis);
+			node->Rotate(transform.GetMatrix(), angle, axis);
 }
 
 void Model::Translate(glm::mat4 parent, glm::vec3 direction)
 {
-	transform->SetParent(parent);
-	transform->Translate(direction);
+	transform.SetParent(parent);
+	transform.Translate(direction);
 
 	if (nodes.size() > 0)
 		for (short i = 0; i < nodes.size(); i++)
-			nodes[i]->Translate(transform->GetMatrix(), direction);
+		{
+			nodes[i]->Reset();
+			nodes[i]->Translate(transform.GetMatrix(), direction);
+		}
+			
 }
 
 Model::~Model()

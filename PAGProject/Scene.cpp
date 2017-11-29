@@ -13,11 +13,11 @@ Scene::Scene()
 	Model *model2 = new Model(*model);
 	models.push_back(model2);
 
-	//Model *model3 = new Model(*model);
-	//models.push_back(model3);
+	Model *model3 = new Model(*model);
+	models.push_back(model3);
 
 	model->SetNode(model2);
-	//model2->SetNode(model3);
+	model2->SetNode(model3);
 }
 
 void Scene::Render(Shader* shader)

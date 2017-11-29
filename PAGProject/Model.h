@@ -28,7 +28,7 @@ public:
 
 private:
 	Texture* texture;
-	Transform* transform;
+	Transform transform;
 
 	void loadModel(std::string const &path);
 	void processNode(aiNode *node, const aiScene *scene);
