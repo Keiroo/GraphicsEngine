@@ -4,6 +4,7 @@
 #include "Window.h"
 #include "Camera.h"
 #include "Scene.h"
+#include "TweakBar.h"
 
 class Core
 {
@@ -19,6 +20,8 @@ private:
 	Window* window;
 	Camera* camera;
 	Scene* scene;
+	TweakBar* tweakBar;
+
 	float oldTime = 0.0f, newTime = 0.0f, deltaTime = 0.0f;	
 };
 

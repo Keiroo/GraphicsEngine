@@ -10,5 +10,6 @@ int main()
 	}
 	core->Update();
 	glfwTerminate();
+	TwTerminate();
 	return 0;
 }

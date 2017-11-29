@@ -21,6 +21,7 @@ bool Core::Start()
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);
 
 	scene = new Scene();
+	tweakBar = new TweakBar();
 
 	// set default trans for shader to work
 	GLuint transformLoc;
@@ -44,6 +45,7 @@ void Core::Update()
 		camera->UpdateCameraPos();
 		shader->ActivateShader();
 		scene->Render(shader, deltaTime);
+		tweakBar->Draw();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);

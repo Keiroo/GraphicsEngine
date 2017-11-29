@@ -30,6 +30,9 @@ bool Window::Init()
 		return false;
 	}
 
+	TwInit(TW_OPENGL_CORE, NULL);
+	TwWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
 	glViewport(0, 0, width, height);
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glEnable(GL_DEPTH_TEST);

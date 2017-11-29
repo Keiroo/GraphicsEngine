@@ -7,6 +7,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <AntTweakBar.h>
+
 #define SCREEN_WIDTH 1024
 #define SCREEN_HEIGHT 768
 
