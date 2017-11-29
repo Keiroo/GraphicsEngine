@@ -55,14 +55,17 @@ void TweakBar::CreateBar()
 
 void TW_CALL TBAxisXButtonCallback(void *clientData)
 {
+	TBRotateAngle = 0.0f;
 	TBRotateAxis = 'X';
 }
 void TW_CALL TBAxisYButtonCallback(void *clientData)
 {
+	TBRotateAngle = 0.0f;
 	TBRotateAxis = 'Y';
 }
 void TW_CALL TBAxisZButtonCallback(void *clientData)
 {
+	TBRotateAngle = 0.0f;
 	TBRotateAxis = 'Z';
 }
 
