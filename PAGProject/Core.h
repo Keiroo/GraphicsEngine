@@ -8,7 +8,7 @@
 
 class Core
 {
-public:
+public:	
 	Core();
 	bool Start();
 	void Update();
@@ -26,6 +26,7 @@ private:
 };
 
 void processInput(GLFWwindow *window, Camera* camera, float deltaTime);
+void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
 
 
 

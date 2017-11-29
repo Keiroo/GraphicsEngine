@@ -19,9 +19,10 @@ bool Core::Start()
 
 	camera->LoadCamera(window->GLWindow, shader->programHandle);
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);
+	glfwSetMouseButtonCallback(window->GLWindow, mouseButtonCallback);
 
 	scene = new Scene();
-	tweakBar = new TweakBar();
+	tweakBar = new TweakBar(scene);		
 
 	// set default trans for shader to work
 	GLuint transformLoc;
@@ -62,10 +63,14 @@ void processInput(GLFWwindow *window, Camera* camera, float deltaTime)
 		glfwSetWindowShouldClose(window, true);
 
 	if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS)
-		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);		
+	}		
 
 	if (glfwGetKey(window, GLFW_KEY_GRAVE_ACCENT) == GLFW_PRESS)
+	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	}
 
 	if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
 	{
@@ -77,5 +82,12 @@ void processInput(GLFWwindow *window, Camera* camera, float deltaTime)
 			camera->CameraProcessInput(GLFW_KEY_A, deltaTime);
 		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 			camera->CameraProcessInput(GLFW_KEY_D, deltaTime);
+	}
+}
+
+void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods)
+{
+	if (!TwEventMouseButtonGLFW(button, action))
+	{
 	}
 }

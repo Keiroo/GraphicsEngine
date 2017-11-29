@@ -1,15 +1,27 @@
 #pragma once
 #include"Headers.h"
+#include "Scene.h"
 
 class TweakBar
 {
 public:
-	TweakBar();
+	TweakBar(Scene* scene);
 	void Draw();
 	~TweakBar();
 
 private:
 	TwBar* bar;
-	std::string str;
+	Scene* scene;
+	void CreateBar();	
 };
+
+static float TBRotateAngle;
+static int TBRotateStep;
+static char TBRotateAxis;
+
+void TW_CALL IncreaseButtonCallback(void * clientData);
+void TW_CALL DecreaseButtonCallback(void *clientData);
+void TW_CALL TBAxisXButtonCallback(void *clientData);
+void TW_CALL TBAxisYButtonCallback(void *clientData);
+void TW_CALL TBAxisZButtonCallback(void *clientData);
 

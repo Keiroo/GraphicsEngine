@@ -7,6 +7,9 @@
 class Scene
 {
 public:
+	glm::vec3 pRotateAxis;
+	GLfloat pRotateAngle;
+
 	Scene();
 	void Render(Shader* shader, float deltaTime);
 	~Scene();

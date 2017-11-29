@@ -4,7 +4,8 @@
 
 Scene::Scene()
 {
-	angle = 0.0f;
+	pRotateAngle = 0.0f;
+	pRotateAxis = glm::vec3(1.0f, 0.0f, 0.0f);
 	world = glm::mat4(1.0f);
 
 	Model *model = new Model(PATH_CUBE_RED);
@@ -22,11 +23,8 @@ Scene::Scene()
 
 void Scene::Render(Shader* shader, float deltaTime)
 {
-	angle += deltaTime;
-	if (angle >= 360.0f)
-		angle -= 360.0f;
-
 	models[0]->Reset();
+	models[0]->Rotate(world, pRotateAngle, pRotateAxis);
 	models[0]->Translate(world, glm::vec3(30.0f, 0.0f, 0.0f));
 	models[0]->Render(shader);
 }
