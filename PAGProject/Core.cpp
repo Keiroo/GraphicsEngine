@@ -22,7 +22,8 @@ bool Core::Start()
 	glfwSetMouseButtonCallback(window->GLWindow, mouseButtonCallback);
 
 	scene = new Scene();
-	tweakBar = new TweakBar(scene);		
+	tweakBar = new TweakBar(scene);
+	colorPick = new ColorPick();
 
 	// set default trans for shader to work
 	GLuint transformLoc;
@@ -41,11 +42,31 @@ void Core::Update()
 		newTime = (float)glfwGetTime();
 		deltaTime = newTime - oldTime;
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		processInput(window->GLWindow, camera, deltaTime);	
+		processInput(window->GLWindow, camera, colorPick, deltaTime);
 		camera->UpdateCameraPos();
+
+		// Draw CP scene to texture
+		if (glfwGetInputMode(window->GLWindow, GLFW_CURSOR) == GLFW_CURSOR_NORMAL)
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, colorPick->FBO);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+			shader->ActivateCPShader();
+			scene->Render(shader, deltaTime);
+			if (glfwGetMouseButton(window->GLWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+			{
+				colorPick->PickModel(window->GLWindow);
+			}
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		}
+		
+
+		// Draw full scene
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		shader->ActivateShader();
 		scene->Render(shader, deltaTime);
+		tweakBar->ChangeModelPicked(colorPick->modelPicked);
 		tweakBar->Draw();
 
 		glfwPollEvents();
@@ -57,7 +78,7 @@ Core::~Core()
 {
 }
 
-void processInput(GLFWwindow *window, Camera* camera, float deltaTime)
+void processInput(GLFWwindow *window, Camera* camera, ColorPick* colorPick, float deltaTime)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);

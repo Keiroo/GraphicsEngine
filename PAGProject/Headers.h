@@ -14,6 +14,7 @@
 
 #define VERTEX_SHADER_FILENAME "Shaders/myShader.vert"
 #define FRAGMENT_SHADER_FILENAME "Shaders/myShader.frag"
+#define CP_FRAGMENT_SHADER_FILENAME "Shaders/CPShader.frag"
 
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"

@@ -5,6 +5,7 @@
 #include "Camera.h"
 #include "Scene.h"
 #include "TweakBar.h"
+#include "ColorPick.h"
 
 class Core
 {
@@ -21,11 +22,12 @@ private:
 	Camera* camera;
 	Scene* scene;
 	TweakBar* tweakBar;
+	ColorPick* colorPick;
 
 	float oldTime = 0.0f, newTime = 0.0f, deltaTime = 0.0f;	
 };
 
-void processInput(GLFWwindow *window, Camera* camera, float deltaTime);
+void processInput(GLFWwindow *window, Camera* camera, ColorPick* colorPick, float deltaTime);
 void mouseButtonCallback(GLFWwindow *window, int button, int action, int mods);
 
 

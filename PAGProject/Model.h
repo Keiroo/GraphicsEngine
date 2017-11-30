@@ -16,6 +16,7 @@ public:
 	std::vector<Mesh> meshes;
 	std::vector<Model*> nodes;
 	std::string directory;
+	static GLuint modelsRendered;
 
 	Model(std::string const &path, bool gamma = false);
 	void Render(Shader* shader);
@@ -29,6 +30,7 @@ public:
 private:
 	Texture* texture;
 	Transform transform;
+	GLuint colorCodeLoc;
 
 	void loadModel(std::string const &path);
 	void processNode(aiNode *node, const aiScene *scene);

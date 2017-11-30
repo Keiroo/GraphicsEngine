@@ -7,21 +7,40 @@ Shader::Shader()
 
 bool Shader::LoadShaders()
 {
-	programHandle = glCreateProgram();
-	if (!LoadShader(VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, programHandle))
+	myProgramHandle = glCreateProgram();
+	if (!LoadShader(VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, myProgramHandle))
 	{
 		return false;
 	}
-	if (!LoadShader(FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, programHandle))
+	if (!LoadShader(FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, myProgramHandle))
 	{
 		return false;
 	}
+
+	CPProgramHandle = glCreateProgram();
+	if (!LoadShader(VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, CPProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(CP_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, CPProgramHandle))
+	{
+		return false;
+	}
+
+	programHandle = myProgramHandle;
 	glUseProgram(programHandle);
 	return true;
 }
 
 void Shader::ActivateShader()
 {
+	programHandle = myProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateCPShader()
+{
+	programHandle = CPProgramHandle;
 	glUseProgram(programHandle);
 }
 

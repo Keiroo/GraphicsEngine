@@ -33,6 +33,11 @@ void TweakBar::Draw()
 	TwDraw();
 }
 
+void TweakBar::ChangeModelPicked(GLuint modelID)
+{
+	modelPicked = modelID;
+}
+
 TweakBar::~TweakBar()
 {
 }
@@ -41,6 +46,7 @@ void TweakBar::CreateBar()
 {
 	bar = TwNewBar("Transform");
 	TwDefine("Transform iconified=true");
+	TwAddVarRO(bar, "Model Picked", TW_TYPE_INT32, &modelPicked, NULL);
 	TwAddVarRO(bar, "Angle", TW_TYPE_FLOAT, &scene->pRotateAngle, "group=Rotate");
 	TwAddButton(bar, "Increase", IncreaseButtonCallback, NULL, "group=Rotate");
 	TwAddButton(bar, "Decrease", DecreaseButtonCallback, NULL, "group=Rotate");

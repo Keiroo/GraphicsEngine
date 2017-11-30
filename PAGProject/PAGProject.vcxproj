@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ColorPick.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
@@ -175,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ColorPick.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Headers.h" />
     <ClInclude Include="Mesh.h" />
@@ -188,6 +190,7 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\CPShader.frag" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
   </ItemGroup>

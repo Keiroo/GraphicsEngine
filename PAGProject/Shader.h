@@ -6,13 +6,14 @@
 class Shader
 {
 public:
-	GLuint programHandle;
+	GLuint programHandle, CPProgramHandle, myProgramHandle;
 
 	Shader();
 	bool LoadShaders();	
 	void setFloat(const std::string & name, float value);
 	void setInt(const std::string & name, int value);
 	void ActivateShader();
+	void ActivateCPShader();
 	~Shader();	
 
 private:

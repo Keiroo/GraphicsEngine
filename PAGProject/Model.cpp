@@ -1,5 +1,7 @@
 #include "Model.h"
 
+GLuint Model::modelsRendered = 0;
+
 Model::Model(std::string const & path, bool gamma)
 {
 	texture = new Texture();
@@ -9,6 +11,12 @@ Model::Model(std::string const & path, bool gamma)
 void Model::Render(Shader* shader)
 {
 	transform.Update(shader->programHandle);
+
+	if (shader->programHandle == shader->CPProgramHandle)
+	{
+		colorCodeLoc = glGetUniformLocation(shader->programHandle, "colorCode");
+		glUniform1i(colorCodeLoc, ++modelsRendered);
+	}
 
 	for (GLuint i = 0; i < meshes.size(); i++)
 		meshes[i].Render(shader);

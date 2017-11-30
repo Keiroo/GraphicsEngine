@@ -5,8 +5,11 @@
 class TweakBar
 {
 public:
+	GLuint modelPicked;
+
 	TweakBar(Scene* scene);
 	void Draw();
+	void ChangeModelPicked(GLuint modelID);
 	~TweakBar();
 
 private:
