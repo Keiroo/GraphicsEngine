@@ -39,15 +39,16 @@ TweakBar::~TweakBar()
 
 void TweakBar::CreateBar()
 {
-	bar = TwNewBar("Rotate");
-	TwAddVarRO(bar, "Angle", TW_TYPE_FLOAT, &scene->pRotateAngle, NULL);
-	TwAddButton(bar, "Increase", IncreaseButtonCallback, NULL, NULL);
-	TwAddButton(bar, "Decrease", DecreaseButtonCallback, NULL, NULL);
-	TwAddSeparator(bar, "Sep1", NULL);
-	TwAddVarRO(bar, "Angle", TW_TYPE_CHAR, &TBRotateAxis, NULL);
-	TwAddButton(bar, "Axis X", TBAxisXButtonCallback, NULL, NULL);
-	TwAddButton(bar, "Axis Y", TBAxisYButtonCallback, NULL, NULL);
-	TwAddButton(bar, "Axis Z", TBAxisZButtonCallback, NULL, NULL);
+	bar = TwNewBar("Transform");
+	TwDefine("Transform iconified=true");
+	TwAddVarRO(bar, "Angle", TW_TYPE_FLOAT, &scene->pRotateAngle, "group=Rotate");
+	TwAddButton(bar, "Increase", IncreaseButtonCallback, NULL, "group=Rotate");
+	TwAddButton(bar, "Decrease", DecreaseButtonCallback, NULL, "group=Rotate");
+	TwAddSeparator(bar, "Sep1", "group=Rotate");
+	TwAddVarRO(bar, "Angle", TW_TYPE_CHAR, &TBRotateAxis, "group=Rotate");
+	TwAddButton(bar, "Axis X", TBAxisXButtonCallback, NULL, "group=Rotate");
+	TwAddButton(bar, "Axis Y", TBAxisYButtonCallback, NULL, "group=Rotate");
+	TwAddButton(bar, "Axis Z", TBAxisZButtonCallback, NULL, "group=Rotate");
 
 
 
