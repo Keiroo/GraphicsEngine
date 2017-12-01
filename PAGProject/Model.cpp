@@ -11,12 +11,18 @@ Model::Model(std::string const & path, bool gamma)
 void Model::Render(Shader* shader)
 {
 	transform.Update(shader->programHandle);
-
+	modelsRendered++;
 	if (shader->programHandle == shader->CPProgramHandle)
 	{
+		
+		int r = (modelsRendered & 0x000000FF) >> 0;
+		int g = (modelsRendered & 0x0000FF00) >> 8;
+		int b = (modelsRendered & 0x00FF0000) >> 16;
+
+
 		colorCodeLoc = glGetUniformLocation(shader->programHandle, "colorCode");
-		glUniform1i(colorCodeLoc, ++modelsRendered);
-	}
+		glUniform4f(colorCodeLoc, r / 255.0f, g / 255.0f, b / 255.0f, 1.0f);
+	}	
 
 	for (GLuint i = 0; i < meshes.size(); i++)
 		meshes[i].Render(shader);

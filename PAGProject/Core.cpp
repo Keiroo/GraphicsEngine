@@ -46,31 +46,37 @@ void Core::Update()
 		camera->UpdateCameraPos();
 
 		// Draw CP scene to texture
-		if (glfwGetInputMode(window->GLWindow, GLFW_CURSOR) == GLFW_CURSOR_NORMAL)
+		if (glfwGetInputMode(window->GLWindow, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
 		{
-			glBindFramebuffer(GL_FRAMEBUFFER, colorPick->FBO);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-			shader->ActivateCPShader();
-			scene->Render(shader, deltaTime);
-			if (glfwGetMouseButton(window->GLWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+			if (glfwGetMouseButton(window->GLWindow, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS)
 			{
+				glBindFramebuffer(GL_FRAMEBUFFER, colorPick->FBO);
+				glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				shader->ActivateCPShader();
+				scene->Render(shader, deltaTime);
+				glFlush();
+				glFinish();
 				colorPick->PickModel(window->GLWindow);
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+				//glfwSwapBuffers(window->GLWindow);
+				//continue; // skips the normal rendering
 			}
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		}
 		
 
 		// Draw full scene
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
 		shader->ActivateShader();
 		scene->Render(shader, deltaTime);
 		tweakBar->ChangeModelPicked(colorPick->modelPicked);
 		tweakBar->Draw();
 
-		glfwPollEvents();
 		glfwSwapBuffers(window->GLWindow);
+		glfwPollEvents();		
 	}
 }
 
