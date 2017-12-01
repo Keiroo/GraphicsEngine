@@ -43,7 +43,7 @@ void Core::Update()
 		deltaTime = newTime - oldTime;
 
 		processInput(window->GLWindow, camera, colorPick, deltaTime);
-		camera->UpdateCameraPos();
+		
 
 		// Draw CP scene to texture
 		if (glfwGetInputMode(window->GLWindow, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
@@ -54,6 +54,7 @@ void Core::Update()
 				glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				shader->ActivateCPShader();
+				camera->UpdateCameraPos();
 				scene->Render(shader, deltaTime);
 				glFlush();
 				glFinish();
@@ -71,6 +72,7 @@ void Core::Update()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		shader->ActivateShader();
+		camera->UpdateCameraPos();
 		scene->Render(shader, deltaTime);
 		tweakBar->ChangeModelPicked(colorPick->modelPicked);
 		tweakBar->Draw();
