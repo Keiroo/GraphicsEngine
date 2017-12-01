@@ -19,11 +19,10 @@ private:
 };
 
 static float TBRotateAngle;
-static int TBRotateStep;
 static char TBRotateAxis;
+static glm::vec3 TBTranslateVec;
+static float TBScalef;
 
-void TW_CALL IncreaseButtonCallback(void * clientData);
-void TW_CALL DecreaseButtonCallback(void *clientData);
 void TW_CALL TBAxisXButtonCallback(void *clientData);
 void TW_CALL TBAxisYButtonCallback(void *clientData);
 void TW_CALL TBAxisZButtonCallback(void *clientData);

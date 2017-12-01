@@ -7,8 +7,9 @@
 class Scene
 {
 public:
-	glm::vec3 pRotateAxis;
+	glm::vec3 pRotateAxis, pTranslateVec;
 	GLfloat pRotateAngle;
+	GLint modelPicked = -1;
 
 	Scene();
 	void Render(Shader* shader, float deltaTime);

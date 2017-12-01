@@ -23,11 +23,28 @@ Scene::Scene()
 
 void Scene::Render(Shader* shader, float deltaTime)
 {
-	models[0]->Reset();
-	models[0]->Rotate(world, pRotateAngle, pRotateAxis);
-	models[0]->Translate(world, glm::vec3(30.0f, 0.0f, 0.0f));
-	models[0]->Render(shader);
-	Model::modelsRendered = 0;
+	if (modelPicked == NULL)
+	{
+		models[0]->Reset();
+		models[0]->Rotate(world, pRotateAngle, pRotateAxis);
+		models[0]->Translate(world, glm::vec3(30.0f, 0.0f, 0.0f));
+		models[0]->Render(shader);
+		Model::modelsRendered = 0;
+	}
+	else
+	{
+		models[0]->Reset();
+		models[0]->Rotate(world, pRotateAngle, pRotateAxis);
+		models[0]->Translate(world, glm::vec3(30.0f, 0.0f, 0.0f));
+		models[0]->Render(shader);
+		Model::modelsRendered = 0;
+	}
+
+	//models[0]->Reset();
+	//models[0]->Rotate(world, pRotateAngle, pRotateAxis);
+	//models[0]->Translate(world, glm::vec3(30.0f, 0.0f, 0.0f));
+	//models[0]->Render(shader);
+	//Model::modelsRendered = 0;
 }
 
 Scene::~Scene()

@@ -19,7 +19,6 @@ void Model::Render(Shader* shader)
 		int g = (modelsRendered & 0x0000FF00) >> 8;
 		int b = (modelsRendered & 0x00FF0000) >> 16;
 
-
 		colorCodeLoc = glGetUniformLocation(shader->programHandle, "colorCode");
 		glUniform4f(colorCodeLoc, r / 255.0f, g / 255.0f, b / 255.0f, 1.0f);
 	}	

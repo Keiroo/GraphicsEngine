@@ -42,8 +42,7 @@ void Core::Update()
 		newTime = (float)glfwGetTime();
 		deltaTime = newTime - oldTime;
 
-		processInput(window->GLWindow, camera, colorPick, deltaTime);
-		
+		processInput(window->GLWindow, camera, colorPick, deltaTime);		
 
 		// Draw CP scene to texture
 		if (glfwGetInputMode(window->GLWindow, GLFW_CURSOR) == GLFW_CURSOR_DISABLED)
@@ -60,12 +59,8 @@ void Core::Update()
 				glFinish();
 				colorPick->PickModel(window->GLWindow);
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-				//glfwSwapBuffers(window->GLWindow);
-				//continue; // skips the normal rendering
 			}
-		}
-		
+		}		
 
 		// Draw full scene
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
