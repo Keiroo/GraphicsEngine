@@ -12,6 +12,7 @@
 class Model
 {
 public:
+	Model* parent;
 	std::vector<sTexture> textures_loaded;
 	std::vector<Mesh> meshes;
 	std::vector<Model*> nodes;
@@ -20,11 +21,12 @@ public:
 
 	Model(std::string const &path, bool gamma = false);
 	void Render(Shader* shader);
+	void SetParent(Model * parent);
 	void SetNode(Model * node);
 	void Reset();
-	void Scale(glm::mat4 parent, float x, float y, float z);
-	void Rotate(glm::mat4 parent, float angle, glm::vec3 axis);
-	void Translate(glm::mat4 parent, glm::vec3 direction);
+	void Scale(float x, float y, float z);
+	void Rotate(float angle, glm::vec3 axis);
+	void Translate(glm::vec3 direction);
 	~Model();
 
 private:

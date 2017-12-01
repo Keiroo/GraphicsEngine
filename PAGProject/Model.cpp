@@ -1,9 +1,11 @@
 #include "Model.h"
+#include <algorithm>
 
 GLuint Model::modelsRendered = 0;
 
 Model::Model(std::string const & path, bool gamma)
 {
+	parent = NULL;
 	texture = new Texture();
 	loadModel(path);
 }
@@ -31,52 +33,75 @@ void Model::Render(Shader* shader)
 			node->Render(shader);
 }
 
+void Model::SetParent(Model* parent)
+{
+	this->parent = parent;
+	if (std::find(parent->nodes.begin(), parent->nodes.end(), this) == parent->nodes.end())
+		parent->SetNode(this);	
+}
+
 void Model::SetNode(Model* node)
 {
-	nodes.push_back(node);
+	if (std::find(nodes.begin(), nodes.end(), node) == nodes.end())
+		nodes.push_back(node);
+	node->SetParent(this);
 }
 
 void Model::Reset()
 {
 	transform.Reset();
+	for each (Model* node in nodes)
+		node->Reset();
 }
 
-void Model::Scale(glm::mat4 parent, float x, float y, float z)
+void Model::Scale(float x, float y, float z)
 {
-	transform.SetParent(parent);
+	if (parent == NULL)
+		transform.SetParent(glm::mat4(1.0f));
+	else
+		transform.SetParent(parent->transform.GetMatrix());
+	
 	transform.Scale(x, y, z);
 
 	if (nodes.size() > 0)
 		for (short i = 0; i < nodes.size(); i++)
 		{
 			nodes[i]->Reset();
-			nodes[i]->Scale(transform.GetMatrix(), x, y, z);
+			nodes[i]->Scale(x, y, z);
 		}
 }
 
-void Model::Rotate(glm::mat4 parent, float angle, glm::vec3 axis)
+void Model::Rotate(float angle, glm::vec3 axis)
 {
-	transform.SetParent(parent);
+	if (parent == NULL)
+		transform.SetParent(glm::mat4(1.0f));
+	else
+		transform.SetParent(parent->transform.GetMatrix());
+
 	transform.Rotate(angle, axis);
 
 	if (nodes.size() > 0)
 		for (short i = 0; i < nodes.size(); i++)
 		{
 			nodes[i]->Reset();
-			nodes[i]->Rotate(transform.GetMatrix(), angle, axis);
+			nodes[i]->Rotate(angle, axis);
 		}
 }
 
-void Model::Translate(glm::mat4 parent, glm::vec3 direction)
+void Model::Translate(glm::vec3 direction)
 {
-	transform.SetParent(parent);
+	if (parent == NULL)
+		transform.SetParent(glm::mat4(1.0f));
+	else
+		transform.SetParent(parent->transform.GetMatrix());
+
 	transform.Translate(direction);
 
 	if (nodes.size() > 0)
 		for (short i = 0; i < nodes.size(); i++)
 		{
 			nodes[i]->Reset();
-			nodes[i]->Translate(transform.GetMatrix(), direction);
+			nodes[i]->Translate(direction);
 		}
 			
 }

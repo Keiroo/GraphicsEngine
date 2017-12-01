@@ -8,7 +8,7 @@ class Scene
 {
 public:
 	glm::vec3 pRotateAxis, pTranslateVec;
-	GLfloat pRotateAngle;
+	GLfloat pRotateAngle, pScale;
 	GLint modelPicked = -1;
 
 	Scene();
@@ -19,6 +19,8 @@ private:
 	std::vector<Model*> models;	
 	glm::mat4 world;
 
-	GLfloat angle;
+	glm::vec3 lastRotateAxis, lastTranslateVec;
+	GLfloat lastRotateAngle, lastScale;
+	GLint lastModelPicked;
 };
 

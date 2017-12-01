@@ -8,7 +8,10 @@ TweakBar::TweakBar(Scene* scene)
 	TBRotateAngle = 0.0f;
 	TBRotateAxis = 'Y';
 	TBTranslateVec = glm::vec3(0.0f, 0.0f, 0.0f);
-	TBScalef = 0.0f;
+	TBScalef = 1.0f;
+
+	modelPicked = 1;
+
 	CreateBar();
 }
 
@@ -16,6 +19,7 @@ void TweakBar::Draw()
 {
 	this->scene->pRotateAngle = TBRotateAngle;
 	this->scene->pTranslateVec = TBTranslateVec;
+	this->scene->pScale = TBScalef;
 	switch (TBRotateAxis)
 	{
 	case 'X':
@@ -52,7 +56,7 @@ void TweakBar::CreateBar()
 	TwAddVarRO(bar, "Model Picked", TW_TYPE_INT32, &modelPicked, NULL);
 
 	//Scale
-	TwAddVarRW(bar, "ScaleValue", TW_TYPE_FLOAT, &TBScalef, "group=Scale min=0 step=1 label='Scale'");
+	TwAddVarRW(bar, "ScaleValue", TW_TYPE_FLOAT, &TBScalef, "group=Scale min=1 step=0.1 label='Scale'");
 
 	//Rotate
 	TwAddVarRW(bar, "Angle", TW_TYPE_FLOAT, &TBRotateAngle, "group=Rotate min=0 max=360 step=1");
