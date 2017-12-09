@@ -6,7 +6,7 @@
 class Shader
 {
 public:
-	GLuint programHandle, CPProgramHandle, myProgramHandle;
+	GLuint programHandle, CPProgramHandle, myProgramHandle, lightProgramHandle;
 
 	Shader();
 	bool LoadShaders();	
@@ -23,10 +23,12 @@ public:
 	void setMat4(const std::string & name, const glm::mat4 & mat);
 	void ActivateShader();
 	void ActivateCPShader();
+	void ActivateLightShader();
 	~Shader();	
 
 private:
-	bool LoadShader(std::string filename, GLint shaderType, GLuint & programHandle);	
+	
+	bool LoadShader(std::string filename, GLint shaderType, GLuint & programHandle);
 };
 
 std::string LoadFromFile(std::string fileName);

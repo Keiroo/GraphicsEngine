@@ -27,8 +27,16 @@ bool Shader::LoadShaders()
 		return false;
 	}
 
-	// TODO Create lightShader program
-
+	lightProgramHandle = glCreateProgram();
+	if (!LoadShader(LIGHT_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, lightProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(LIGHT_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, lightProgramHandle))
+	{
+		return false;
+	}
+	
 	programHandle = myProgramHandle;
 	glUseProgram(programHandle);
 	return true;
@@ -46,42 +54,10 @@ void Shader::ActivateCPShader()
 	glUseProgram(programHandle);
 }
 
-bool Shader::LoadShader(std::string filename, GLint shaderType, GLuint& programHandle)
+void Shader::ActivateLightShader()
 {
-	GLint res;
-	GLchar log[512];
-	GLuint shaderObject;
-	std::string shaderString;
-
-	shaderObject = glCreateShader(shaderType);
-	shaderString = LoadFromFile(filename);
-	const GLchar* shaderCode = shaderString.c_str();
-	const GLint shaderSize = shaderString.size();
-
-	glShaderSource(shaderObject, 1, &shaderCode, &shaderSize);
-	glCompileShader(shaderObject);
-	glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &res);
-	if (!res)
-	{
-		glGetShaderInfoLog(shaderObject, 512, NULL, log);
-		fprintf(stderr, "Failed to compile shader\n");
-		fprintf(stderr, log);
-		return false;
-	}
-	glAttachShader(programHandle, shaderObject);
-	glLinkProgram(programHandle);
-	
-	glGetProgramiv(programHandle, GL_LINK_STATUS, &res);
-	if (!res)
-	{
-		glGetProgramInfoLog(shaderObject, 512, NULL, log);
-		fprintf(stderr, "Failed to link program\n");
-		fprintf(stderr, log);
-		return false;
-	}
-	glDeleteShader(shaderObject);
-
-	return true;
+	programHandle = lightProgramHandle;
+	glUseProgram(programHandle);
 }
 
 void Shader::setFloat(const std::string &name, float value)
@@ -135,11 +111,48 @@ void Shader::setMat4(const std::string &name, const glm::mat4 &mat)
 	glUniformMatrix4fv(glGetUniformLocation(programHandle, name.c_str()), 1, GL_FALSE, &mat[0][0]);
 }
 
-
-
 Shader::~Shader()
 {
 }
+
+bool Shader::LoadShader(std::string filename, GLint shaderType, GLuint& programHandle)
+{
+	GLint res;
+	GLchar log[512];
+	GLuint shaderObject;
+	std::string shaderString;
+
+	shaderObject = glCreateShader(shaderType);
+	shaderString = LoadFromFile(filename);
+	const GLchar* shaderCode = shaderString.c_str();
+	const GLint shaderSize = shaderString.size();
+
+	glShaderSource(shaderObject, 1, &shaderCode, &shaderSize);
+	glCompileShader(shaderObject);
+	glGetShaderiv(shaderObject, GL_COMPILE_STATUS, &res);
+	if (!res)
+	{
+		glGetShaderInfoLog(shaderObject, 512, NULL, log);
+		fprintf(stderr, "Failed to compile shader\n");
+		fprintf(stderr, log);
+		return false;
+	}
+	glAttachShader(programHandle, shaderObject);
+	glLinkProgram(programHandle);
+
+	glGetProgramiv(programHandle, GL_LINK_STATUS, &res);
+	if (!res)
+	{
+		glGetProgramInfoLog(shaderObject, 512, NULL, log);
+		fprintf(stderr, "Failed to link program\n");
+		fprintf(stderr, log);
+		return false;
+	}
+	glDeleteShader(shaderObject);
+
+	return true;
+}
+
 
 std::string LoadFromFile(std::string filename)
 {
