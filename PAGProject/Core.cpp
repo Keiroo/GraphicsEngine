@@ -17,7 +17,7 @@ bool Core::Start()
 		return false;
 	shader->ActivateShader();
 
-	camera->LoadCamera(window->GLWindow, shader->programHandle);
+	camera->LoadCamera(window->GLWindow, shader);
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);
 	glfwSetMouseButtonCallback(window->GLWindow, mouseButtonCallback);
 
@@ -53,7 +53,7 @@ void Core::Update()
 				glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				shader->ActivateCPShader();
-				camera->UpdateCameraPos();
+				camera->UpdateCameraPos(shader);
 				scene->Render(shader, deltaTime);
 				glFlush();
 				glFinish();
@@ -67,7 +67,7 @@ void Core::Update()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		shader->ActivateShader();
-		camera->UpdateCameraPos();
+		camera->UpdateCameraPos(shader);
 		scene->Render(shader, deltaTime);
 		tweakBar->ChangeModelPicked(colorPick->modelPicked);
 		tweakBar->Draw();

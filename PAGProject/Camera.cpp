@@ -4,14 +4,14 @@ Camera::Camera()
 {
 }
 
-void Camera::LoadCamera(GLFWwindow* window, GLuint& programHandle)
+void Camera::LoadCamera(GLFWwindow* window, Shader * shader)
 {
 	cameraPos = glm::vec3(1.5f, 0.0f, 1.5f);
 	cameraFront = glm::vec3(-0.5f, 0.0f, -0.5f);
 	cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	worldUp = cameraUp;
 
-	world = glm::mat4(1.0f);
+	//world = glm::mat4(1.0f);
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 	glfwGetWindowSize(window, &width, &height);
@@ -19,18 +19,20 @@ void Camera::LoadCamera(GLFWwindow* window, GLuint& programHandle)
 	lastY = height / 2.0f;
 	
 	projection = glm::perspective(45.0f, (float)width / (float)height, 0.001f, 1000.0f);
-	WVP = projection * view * world;
-	wvpLoc = glGetUniformLocation(programHandle, "wvp");
-	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
-
-
+	//WVP = projection * view * world;
+	/*wvpLoc = glGetUniformLocation(programHandle, "wvp");
+	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));*/
+	shader->setMat4("projection", projection);
+	shader->setMat4("view", view);
 }
 
-void Camera::UpdateCameraPos()
+void Camera::UpdateCameraPos(Shader * shader)
 {
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-	WVP = projection * view * world;
-	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
+	/*WVP = projection * view * world;
+	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));*/
+	shader->setMat4("view", view);
+
 }
 
 void Camera::CameraProcessInput(int key, float deltaTime)

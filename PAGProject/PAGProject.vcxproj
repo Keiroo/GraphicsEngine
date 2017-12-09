@@ -202,6 +202,7 @@
   <ItemGroup>
     <None Include="Shaders\CPShader.frag" />
     <None Include="Shaders\lightShader.frag" />
+    <None Include="Shaders\lightShader.vert" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
   </ItemGroup>

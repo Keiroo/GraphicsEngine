@@ -1,13 +1,14 @@
 #pragma once
 #include "Headers.h"
+#include "Shader.h"
 
 class Camera
 {
 public:
 
 	Camera();
-	void LoadCamera(GLFWwindow * window, GLuint & programHandle);
-	void UpdateCameraPos();
+	void LoadCamera(GLFWwindow * window, Shader * shader);
+	void UpdateCameraPos(Shader * shader);
 	void CameraProcessInput(int key, float deltaTime);
 	//void CameraMouseCallback(GLFWwindow * window, double xpos, double ypos);
 	~Camera();
