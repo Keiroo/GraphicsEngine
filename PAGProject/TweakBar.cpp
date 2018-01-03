@@ -70,6 +70,9 @@ void TweakBar::CreateBar()
 	TwAddVarRW(bar, "TranslateX", TW_TYPE_FLOAT, &TBTranslateVec.x, "group=Translate min=0 step=1 label='X'");
 	TwAddVarRW(bar, "TranslateY", TW_TYPE_FLOAT, &TBTranslateVec.y, "group=Translate min=0 step=1 label='Y'");
 	TwAddVarRW(bar, "TranslateZ", TW_TYPE_FLOAT, &TBTranslateVec.z, "group=Translate min=0 step=1 label='Z'");
+	TwDefine("Transform visible=false");
+
+
 }
 
 void TW_CALL TBAxisXButtonCallback(void *clientData)

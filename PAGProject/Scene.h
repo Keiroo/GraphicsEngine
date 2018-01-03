@@ -1,6 +1,12 @@
 #pragma once
 #include "Headers.h"
 #include "Model.h"
+#include "Material.h"
+#include "DirectionalLight.h"
+#include "PointLight.h"
+#include "SpotLight.h"
+#include "Transform.h"
+#include "Camera.h"
 #include <vector>
 
 
@@ -12,7 +18,7 @@ public:
 	GLint modelPicked = -1;
 
 	Scene();
-	void Render(Shader* shader, float deltaTime);
+	void Render(Shader* shader, Camera *camera, float deltaTime);
 	~Scene();
 
 private:
@@ -22,5 +28,12 @@ private:
 	glm::vec3 lastRotateAxis, lastTranslateVec;
 	GLfloat lastRotateAngle, lastScale;
 	GLint lastModelPicked;
+
+	Material *material;
+	DirectionalLight *dirLight;
+	PointLight *pointLight;
+	SpotLight *spotLight;
+
+	void SetLights(Shader* shader, Camera *camera);
 };
 

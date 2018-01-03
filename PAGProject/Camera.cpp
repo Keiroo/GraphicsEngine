@@ -48,6 +48,16 @@ void Camera::CameraProcessInput(int key, float deltaTime)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 }
 
+glm::vec3 Camera::getPos()
+{
+	return cameraPos;
+}
+
+glm::vec3 Camera::getFront()
+{
+	return cameraFront;
+}
+
 Camera::~Camera()
 {
 }

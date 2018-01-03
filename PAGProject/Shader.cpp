@@ -37,7 +37,8 @@ bool Shader::LoadShaders()
 		return false;
 	}
 	
-	programHandle = myProgramHandle;
+	//programHandle = myProgramHandle;
+	programHandle = lightProgramHandle;
 	glUseProgram(programHandle);
 	return true;
 }

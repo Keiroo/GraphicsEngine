@@ -52,12 +52,17 @@ uniform PointLight pointLight;
 uniform SpotLight spotLight;
 uniform Material material;
 
+uniform sampler2D texture_diffuse1;
+uniform sampler2D texture_specular1;
+
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir);
 vec3 CalcPointLight(PointLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 fragPos, vec3 viewDir);
 
 void main()
 {
+	material.diffuse = texture_diffuse1;
+	material.specular = texture_specular1;
 	vec3 norm = normalize(Normal);
     vec3 viewDir = normalize(viewPos - FragPos);
 

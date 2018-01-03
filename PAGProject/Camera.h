@@ -10,6 +10,8 @@ public:
 	void LoadCamera(GLFWwindow * window, Shader * shader);
 	void UpdateCameraPos(Shader * shader);
 	void CameraProcessInput(int key, float deltaTime);
+	glm::vec3 getPos();
+	glm::vec3 getFront();
 	//void CameraMouseCallback(GLFWwindow * window, double xpos, double ypos);
 	~Camera();
 

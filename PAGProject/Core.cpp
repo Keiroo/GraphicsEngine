@@ -54,7 +54,7 @@ void Core::Update()
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				shader->ActivateCPShader();
 				camera->UpdateCameraPos(shader);
-				scene->Render(shader, deltaTime);
+				scene->Render(shader, camera, deltaTime);
 				glFlush();
 				glFinish();
 				colorPick->PickModel(window->GLWindow);
@@ -66,9 +66,10 @@ void Core::Update()
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-		shader->ActivateShader();
+		/*shader->ActivateShader();*/
+		shader->ActivateLightShader();
 		camera->UpdateCameraPos(shader);
-		scene->Render(shader, deltaTime);
+		scene->Render(shader, camera, deltaTime);
 		tweakBar->ChangeModelPicked(colorPick->modelPicked);
 		tweakBar->Draw();
 
