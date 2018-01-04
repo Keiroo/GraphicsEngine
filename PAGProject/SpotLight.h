@@ -2,7 +2,7 @@
 #include "Headers.h"
 #include "BaseLight.h"
 #include "Shader.h"
-class SpotLight : BaseLight
+class SpotLight : public BaseLight
 {
 public:
 	SpotLight(glm::vec3 position, glm::vec3 direction, float constant, float linear, float quadratic, float cutOff, float outerCutOff);

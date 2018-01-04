@@ -3,7 +3,7 @@
 #include "Material.h"
 #include "BaseLight.h"
 
-class DirectionalLight : BaseLight
+class DirectionalLight : public BaseLight
 {
 public:
 	DirectionalLight(glm::vec3 direction);
