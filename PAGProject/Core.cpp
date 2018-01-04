@@ -15,7 +15,8 @@ bool Core::Start()
 
 	if (!shader->LoadShaders())
 		return false;
-	shader->ActivateShader();
+	/*shader->ActivateShader();*/
+	shader->ActivateLightShader();
 
 	camera->LoadCamera(window->GLWindow, shader);
 	glfwSetCursorPosCallback(window->GLWindow, mouse_callback);

@@ -24,8 +24,8 @@
 
 #define CAMERA_SPEED 30.0f
 
-//#define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
-#define MODEL_FILENAME "Models/Hooh/hooh.obj"
+#define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
+//#define MODEL_FILENAME "Models/Hooh/hooh.obj"
 #define PATH_CUBE_RED "Models/CubeRed/CubeRed.obj"
 #define PATH_CUBE_GREEN "Models/CubeGreen/CubeGreen.obj"
 #define PATH_CUBE_BLUE "Models/CubeBlue/CubeBlue.obj"

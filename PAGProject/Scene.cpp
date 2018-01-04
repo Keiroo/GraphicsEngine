@@ -13,7 +13,7 @@ Scene::Scene()
 
 	lastModelPicked = modelPicked;
 
-	Model *model = new Model(PATH_CUBE_RED);
+	Model *model = new Model(MODEL_FILENAME);
 	models.push_back(model);
 
 	/*Model *model2 = new Model(PATH_CUBE_GREEN);
@@ -26,19 +26,30 @@ Scene::Scene()
 	model2->SetNode(model3);*/
 
 	Model *model2 = new Model(*model);
-	Model *model3 = new Model(*model);	
+	models.push_back(model2);
+	Model *model3 = new Model(*model);
+	models.push_back(model3);
 }
 
 void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 {
 	models[0]->Reset();
 
+	shader->setVec3("viewPos", camera->getPos());
+	shader->setVec3("emission", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader->setInt("material.diffuse", 0);
+	shader->setInt("material.specular", 1);
+
 	// Lights
 	Transform *lightTrans;
 	SetLights(shader, camera);
 
-
-
+	for (int i = 0; i < models.size(); i++)
+	{
+		models[i]->Reset();
+		models[i]->Translate(glm::vec3(i * 10.0f, 0.0f, 0.0f));
+		models[i]->Render(shader);
+	}
 
 
 
@@ -74,6 +85,7 @@ void Scene::SetLights(Shader* shader, Camera *camera)
 	// Material
 	material = new Material(32.0f);
 	material->SetShininess(shader);
+	//material->SetDefaultSamplers(shader);
 
 	// Directional light
 	dirLight = new DirectionalLight(glm::vec3(-0.2f, -1.0f, -0.3f));

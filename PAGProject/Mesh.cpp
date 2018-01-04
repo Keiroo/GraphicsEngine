@@ -42,28 +42,60 @@ void Mesh::LoadBuffers()
 void Mesh::Render(Shader* shader)
 {
 	GLuint diffuseNr = 1, specularNr = 1, normalNr = 1, heightNr = 1;
+
+	shader->setInt("material.diffuse", 0);
+	shader->setInt("material.specular", 1);
+	shader->setFloat("material.shininess", 32.0f);
+
 	for (GLuint i = 0; i < textures.size(); i++)
 	{
 		glActiveTexture(GL_TEXTURE0 + i);
 
 		std::string number, name = textures[i].type, res;
 		//if (name == "texture_diffuse")
+		//{
 		//	number = std::to_string(diffuseNr++);
+		//	res = "material.diffuse";
+		//}			
 		//else if (name == "texture_specular")
+		//{
 		//	number = std::to_string(specularNr++);
+		//	res = "material.specular";
+		//}			
 		//else if (name == "texture_normal")
 		//	number = std::to_string(normalNr++);
 		//else if (name == "texture_height")
 		//	number = std::to_string(heightNr++);
 
-		//glUniform1i(glGetUniformLocation(shader->programHandle, (name + number).c_str()), i);
+
+
+		///*glUniform1i(glGetUniformLocation(shader->programHandle, (name + number).c_str()), i);*/
+		//glUniform1i(glGetUniformLocation(shader->programHandle, res.c_str()), i);
 		//glBindTexture(GL_TEXTURE_2D, textures[i].id);
 
-		if (name == "texture_diffuse")
+		//if (name == "texture_diffuse")
+		//{
+		//	number = std::to_string(diffuseNr++);
+		//	res = "material.diffuse";
+		//	const GLchar* resChar = res.c_str();
+		//	glUniform1i(glGetUniformLocation(shader->lightProgramHandle, resChar), i);
+		//	glBindTexture(GL_TEXTURE_2D, textures[i].id);
+		//}
+
+		if (name == "texture_diffuse" && diffuseNr == 1)
 		{
 			number = std::to_string(diffuseNr++);
-			res = name + number;
-			const GLchar* resChar = res.c_str();
+			res = name;
+			const GLchar* resChar = "material.diffuse";
+			glUniform1i(glGetUniformLocation(shader->programHandle, resChar), i);
+			glBindTexture(GL_TEXTURE_2D, textures[i].id);
+		}
+
+		if (name == "texture_specular" && specularNr == 1)
+		{
+			number = std::to_string(specularNr++);
+			res = name;
+			const GLchar* resChar = "material.specular";
 			glUniform1i(glGetUniformLocation(shader->programHandle, resChar), i);
 			glBindTexture(GL_TEXTURE_2D, textures[i].id);
 		}
