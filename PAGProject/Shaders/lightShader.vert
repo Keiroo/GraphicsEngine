@@ -20,5 +20,5 @@ void main()
 	texCoord = vertexTexture;
 
 
-	gl_Position = projection * view * transform * vec4(vertexPosition, 1.0f);	
+	gl_Position = projection * view * transform * vec4(FragPos, 1.0f);	
 }
