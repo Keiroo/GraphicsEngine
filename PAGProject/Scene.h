@@ -34,6 +34,7 @@ private:
 	PointLight *pointLight;
 	SpotLight *spotLight;
 
-	void SetLights(Shader* shader, Camera *camera);
+	void SetLights();
+	void UpdateLights(Shader * shader);
 };
 

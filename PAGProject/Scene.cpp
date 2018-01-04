@@ -29,6 +29,7 @@ Scene::Scene()
 	models.push_back(model2);
 	Model *model3 = new Model(*model);
 	models.push_back(model3);
+	SetLights();
 }
 
 void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
@@ -36,13 +37,15 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	models[0]->Reset();
 
 	shader->setVec3("viewPos", camera->getPos());
-	shader->setVec3("emission", glm::vec3(0.0f, 0.0f, 0.0f));
+	shader->setVec3("emission", glm::vec3(1.0f, 1.0f, 1.0f));
 	shader->setInt("material.diffuse", 0);
 	shader->setInt("material.specular", 1);
 
 	// Lights
 	Transform *lightTrans;
-	SetLights(shader, camera);
+	UpdateLights(shader);
+	
+	
 
 	for (int i = 0; i < models.size(); i++)
 	{
@@ -80,20 +83,26 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 
 }
 
-void Scene::SetLights(Shader* shader, Camera *camera)
+void Scene::UpdateLights(Shader *shader)
+{
+	shader->ActivateLightShader();
+	material->SetShininess(shader);
+	dirLight->SetAll(shader);
+	pointLight->SetAll(shader);
+	spotLight->SetAll(shader);
+}
+
+void Scene::SetLights()
 {
 	// Material
 	material = new Material(32.0f);
-	material->SetShininess(shader);
-	//material->SetDefaultSamplers(shader);
 
 	// Directional light
 	dirLight = new DirectionalLight(glm::vec3(-0.2f, -1.0f, -0.3f));
 	dirLight->SetValues(glm::vec3(0.05f, 0.05f, 0.05f),
 						glm::vec3(0.4f, 0.4f, 0.4f),
 						glm::vec3(0.5f, 0.5f, 0.5f));
-	dirLight->SetAll(shader);
-
+	
 	// Point light
 	pointLight = new PointLight(glm::vec3(0.7f, 0.2f, 2.0f),
 								1.0f,
@@ -102,11 +111,10 @@ void Scene::SetLights(Shader* shader, Camera *camera)
 	pointLight->SetValues(	glm::vec3(0.05f, 0.05f, 0.05f),
 							glm::vec3(0.8f, 0.8f, 0.8f),
 							glm::vec3(1.0f, 1.0f, 1.0f));
-	pointLight->SetAll(shader);
-
+	
 	// Spot light
-	spotLight = new SpotLight(	camera->getPos(),
-								camera->getFront(),
+	spotLight = new SpotLight(	glm::vec3(1.5f, 1.0f, 1.5f),
+								glm::vec3(-0.5f, 0.0f, -0.5f),
 								1.0f,
 								0.09f,
 								0.032f,
@@ -115,7 +123,7 @@ void Scene::SetLights(Shader* shader, Camera *camera)
 	spotLight->SetValues(	glm::vec3(0.0f, 0.0f, 0.0f),
 							glm::vec3(1.0f, 1.0f, 1.0f),
 							glm::vec3(1.0f, 1.0f, 1.0f));
-	spotLight->SetAll(shader);
+	
 }
 
 Scene::~Scene()
