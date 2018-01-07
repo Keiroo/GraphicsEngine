@@ -6,6 +6,7 @@ class TweakBar
 {
 public:
 	GLuint modelPicked;
+	glm::vec3 direction;
 
 	TweakBar(Scene* scene);
 	void Draw();
@@ -13,7 +14,7 @@ public:
 	~TweakBar();
 
 private:
-	TwBar* bar;
+	TwBar *bar, *bar2;
 	Scene* scene;
 	void CreateBar();	
 };

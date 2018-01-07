@@ -12,6 +12,8 @@ TweakBar::TweakBar(Scene* scene)
 
 	modelPicked = 1;
 
+	this->direction = this->scene->dirLight.direction;
+
 	CreateBar();
 }
 
@@ -35,6 +37,8 @@ void TweakBar::Draw()
 		this->scene->pRotateAxis = glm::vec3(0.0f, 1.0f, 0.0f);
 		break;
 	}
+
+	this->scene->dirLight.direction = this->direction;
 
 	TwDraw();
 }
@@ -70,6 +74,13 @@ void TweakBar::CreateBar()
 	TwAddVarRW(bar, "TranslateX", TW_TYPE_FLOAT, &TBTranslateVec.x, "group=Translate min=0 step=1 label='X'");
 	TwAddVarRW(bar, "TranslateY", TW_TYPE_FLOAT, &TBTranslateVec.y, "group=Translate min=0 step=1 label='Y'");
 	TwAddVarRW(bar, "TranslateZ", TW_TYPE_FLOAT, &TBTranslateVec.z, "group=Translate min=0 step=1 label='Z'");
+
+	TwDefine(" Transform iconified=true ");
+
+
+	bar2 = TwNewBar("DIR");
+	TwAddVarRW(bar2, "Dir", TW_TYPE_DIR3F, &direction, "");
+
 }
 
 void TW_CALL TBAxisXButtonCallback(void *clientData)
