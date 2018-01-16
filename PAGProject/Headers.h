@@ -19,6 +19,7 @@
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
+#define TERRAIN_TEXTURE_FILENAME "Textures/terrain.jpg"
 
 #define CAMERA_SPEED 30.0f
 

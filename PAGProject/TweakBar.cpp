@@ -78,8 +78,9 @@ void TweakBar::CreateBar()
 	TwDefine(" Transform iconified=true ");
 
 
-	bar2 = TwNewBar("DIR");
-	TwAddVarRW(bar2, "Dir", TW_TYPE_DIR3F, &direction, "");
+	bar2 = TwNewBar("DirectionalLight");
+	TwAddVarRW(bar2, "Direction", TW_TYPE_DIR3F, &direction, "");
+	TwDefine(" DirectionalLight iconified=true ");
 
 }
 

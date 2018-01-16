@@ -13,24 +13,13 @@ Scene::Scene()
 
 	lastModelPicked = modelPicked;
 
+	texture = new Texture();
 	models.push_back(new Model(PLANE_FILENAME));
-	models.push_back(new Model(MODEL_FILENAME));
+	texID = texture->TextureFromFile("terrain2.jpg", "Textures", false);
 
-	/*Model *model2 = new Model(*model);
-	models.push_back(model2);
-
-	Model *model3 = new Model(*model);
-	models.push_back(model3);*/
-
-	/*model->SetNode(model2);
-	model2->SetNode(model3);*/
-
-	for (int i = 0; i < 24; i++)
-		models.push_back(new Model(*models[1]));
-
-	lightModels.push_back(new Model(PATH_CUBE_BLUE));
-	lightModels.push_back(new Model(PATH_CUBE_GREEN));
-	lightModels.push_back(new Model(PATH_CUBE_RED));
+	//lightModels.push_back(new Model(PATH_CUBE_BLUE));
+	//lightModels.push_back(new Model(PATH_CUBE_GREEN));
+	//lightModels.push_back(new Model(PATH_CUBE_RED));
 
 	SetMaterialAndLights();
 }
@@ -43,10 +32,9 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setVec3("viewPos", cameraPos);
 	shader->setFloat("material.shininess", 32.0f);
 
-	clearMaterial.Update(shader);
-	models[0]->Render(shader);
+	
 
-	// Light models
+	/* Light models
 	lightModels[0]->Reset();
 	lightModels[0]->Translate(pointLight.position);
 	lightModels[0]->Scale(0.05f, 0.05f, 0.05f);
@@ -60,10 +48,15 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	lightModels[2]->Reset();
 	lightModels[2]->Translate(glm::vec3(100.0f, 50.0f, 100.0f));
 	lightModels[2]->Scale(1.0f, 1.0f, 1.0f);
-	lightModels[2]->Render(shader);
+	lightModels[2]->Render(shader);*/
+
+	clearMaterial.Update(shader);
+	texture->ActivateTexture(texID);
+	models[0]->Render(shader);
+
 
 	
-	int count = 1;
+	/*int count = 1;
 	for (int i = 0; i < 5; i++)
 	{
 		for (int j = 0; j < 5; j++)
@@ -77,7 +70,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 			models[count]->Render(shader);
 			count++;
 		}
-	}
+	}*/
 
 	
 
@@ -130,23 +123,30 @@ void Scene::SetMaterialAndLights()
 	clearMaterial.Init("Clear", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
 	mMaterial.Init("Chrome", glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.774597f, 0.774597f, 0.774597f), 0.6f);
 
-	dirLight.Init(glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.45f, 0.4f, 0.4f), glm::vec3(-0.5f, -1.0f, -0.5f));
-	pointLight.Init(glm::vec3(0.1f, 0.1f, 1.0f), glm::vec3(0.1f, 0.1f, 1.0f), glm::vec3(0.9f, 1.0f, 0.9f), glm::vec3(20.0f, 1.0f, 30.0f), 1.0f, 0.09f, 0.032f);
-	spotLight.Init(	glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f), glm::vec3(0.9f, 1.0f, 0.9f), glm::vec3(15.0f, 5.0f, 8.0f), glm::vec3(0.0f, -1.0f, 0.0f),
-					1.0f, 0.022f, 0.0019f, glm::cos(glm::radians(15.0f)), glm::cos(glm::radians(20.0f)));
+	dirLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.7f, 0.7f, 0.7f), glm::vec3(-0.5f, -1.0f, -0.5f));
+	pointLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.0f, -10.0f, 0.0f), 0.1f, 0.1f, 0.1f);
+	spotLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, -10.0f, 0.1f), glm::vec3(0.1f, -0.1f, 0.1f),
+		0.1f, 0.1f, 0.1f, glm::cos(glm::radians(0.0f)), glm::cos(glm::radians(0.0f)));
+
+
+	
+	//dirLight.Init(glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.45f, 0.4f, 0.4f), glm::vec3(-0.5f, -1.0f, -0.5f));
+	//pointLight.Init(glm::vec3(0.1f, 0.1f, 1.0f), glm::vec3(0.1f, 0.1f, 1.0f), glm::vec3(0.9f, 1.0f, 0.9f), glm::vec3(20.0f, 1.0f, 30.0f), 1.0f, 0.09f, 0.032f);
+	//spotLight.Init(	glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.8f, 0.8f, 1.0f), glm::vec3(0.9f, 1.0f, 0.9f), glm::vec3(15.0f, 5.0f, 8.0f), glm::vec3(0.0f, -1.0f, 0.0f),
+	//				1.0f, 0.022f, 0.0019f, glm::cos(glm::radians(15.0f)), glm::cos(glm::radians(20.0f)));
 }
 
 void Scene::UpdateLights(Shader *shader)
 {	
-	dirLight.diffuse = glm::vec3(1.0f, sin(glfwGetTime()), sin(glfwGetTime()));
+	//dirLight.diffuse = glm::vec3(1.0f, sin(glfwGetTime()), sin(glfwGetTime()));
 	dirLight.Update(shader);
 
-	pointLight.position = glm::vec3(sin(glfwGetTime() * 1.5f) * 7.0f + 20.0f, 3.0f, 32.0f);
+	//pointLight.position = glm::vec3(sin(glfwGetTime() * 1.5f) * 7.0f + 20.0f, 3.0f, 32.0f);
 	pointLight.Update(shader);
 
 
-	spotLight.direction = glm::vec3(sin(-glfwGetTime() *0.8f), -1.0f, sin(-glfwGetTime() *0.8f));
-	spotLight.diffuse = glm::vec3(sin(glfwGetTime()) * 0.5f, 1.0f, sin(glfwGetTime()) * 0.5f);
+	//spotLight.direction = glm::vec3(sin(-glfwGetTime() *0.8f), -1.0f, sin(-glfwGetTime() *0.8f));
+	//spotLight.diffuse = glm::vec3(sin(glfwGetTime()) * 0.5f, 1.0f, sin(glfwGetTime()) * 0.5f);
 	spotLight.Update(shader);
 }
 

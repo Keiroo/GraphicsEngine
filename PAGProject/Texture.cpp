@@ -46,6 +46,12 @@ GLuint Texture::TextureFromFile(const char *path, const std::string &directory, 
 	return texture;
 }
 
+void Texture::ActivateTexture(GLuint texture)
+{
+	glBindTexture(GL_TEXTURE_2D, texture);
+}
+
+
 Texture::~Texture()
 {
 }

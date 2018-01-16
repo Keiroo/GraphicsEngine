@@ -34,7 +34,8 @@ private:
 	GLfloat lastRotateAngle, lastScale;
 	GLint lastModelPicked;
 
-	
+	Texture *texture;
+	GLuint texID;
 
 	void SetMaterialAndLights();
 	void UpdateLights(Shader *shader);
