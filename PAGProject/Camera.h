@@ -8,6 +8,8 @@ public:
 	Camera();
 	void LoadCamera(GLFWwindow * window, GLuint & programHandle);
 	void UpdateCameraPos();
+	glm::mat4 GetViewMatrix();
+	glm::mat4 GetProjectionMatrix();
 	void CameraProcessInput(int key, float deltaTime);
 	//void CameraMouseCallback(GLFWwindow * window, double xpos, double ypos);
 	~Camera();

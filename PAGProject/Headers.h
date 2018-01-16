@@ -15,6 +15,8 @@
 #define VERTEX_SHADER_FILENAME "Shaders/myShader.vert"
 #define FRAGMENT_SHADER_FILENAME "Shaders/myShader.frag"
 #define CP_FRAGMENT_SHADER_FILENAME "Shaders/CPShader.frag"
+#define SKYBOX_VERTEX_SHADER_FILENAME "Shaders/skyboxShader.vert"
+#define SKYBOX_FRAGMENT_SHADER_FILENAME "Shaders/skyboxShader.frag"
 
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"

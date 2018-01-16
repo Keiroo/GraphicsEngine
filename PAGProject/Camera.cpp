@@ -33,6 +33,16 @@ void Camera::UpdateCameraPos()
 	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
 }
 
+glm::mat4 Camera::GetViewMatrix()
+{
+	return view;
+}
+
+glm::mat4 Camera::GetProjectionMatrix()
+{
+	return projection;
+}
+
 void Camera::CameraProcessInput(int key, float deltaTime)
 {
 	cameraSpeed = CAMERA_SPEED * deltaTime;

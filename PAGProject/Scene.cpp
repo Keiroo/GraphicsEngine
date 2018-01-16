@@ -15,7 +15,9 @@ Scene::Scene()
 
 	texture = new Texture();
 	models.push_back(new Model(PLANE_FILENAME));
-	texID = texture->TextureFromFile("terrain2.jpg", "Textures", false);
+	texID = texture->TextureFromFile("negy.jpg", "Textures/Skybox", false);
+
+	skybox = new Skybox();
 
 	//lightModels.push_back(new Model(PATH_CUBE_BLUE));
 	//lightModels.push_back(new Model(PATH_CUBE_GREEN));
@@ -28,9 +30,12 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 {
 	models[0]->Reset();
 
+	
+	
 	UpdateLights(shader);
 	shader->setVec3("viewPos", cameraPos);
 	shader->setFloat("material.shininess", 32.0f);
+
 
 	
 
@@ -54,7 +59,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	texture->ActivateTexture(texID);
 	models[0]->Render(shader);
 
-
+	skybox->Render(shader, camera);
 	
 	/*int count = 1;
 	for (int i = 0; i < 5; i++)
@@ -123,7 +128,8 @@ void Scene::SetMaterialAndLights()
 	clearMaterial.Init("Clear", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
 	mMaterial.Init("Chrome", glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.774597f, 0.774597f, 0.774597f), 0.6f);
 
-	dirLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.3f, 0.3f, 0.3f), glm::vec3(0.7f, 0.7f, 0.7f), glm::vec3(-0.5f, -1.0f, -0.5f));
+	dirLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.7f, 0.7f, 0.7f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(-0.5f, -1.0f, -0.5f));
+	
 	pointLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.0f, -10.0f, 0.0f), 0.1f, 0.1f, 0.1f);
 	spotLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, -10.0f, 0.1f), glm::vec3(0.1f, -0.1f, 0.1f),
 		0.1f, 0.1f, 0.1f, glm::cos(glm::radians(0.0f)), glm::cos(glm::radians(0.0f)));

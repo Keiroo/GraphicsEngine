@@ -172,6 +172,7 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="TestModel.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="TestModel.h" />
     <ClInclude Include="Texture.h" />
@@ -203,6 +205,8 @@
     <None Include="Shaders\CPShader.frag" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
+    <None Include="Shaders\skyboxShader.frag" />
+    <None Include="Shaders\skyboxShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\brickTexture.jpg" />

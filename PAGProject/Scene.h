@@ -7,6 +7,7 @@
 #include "PointLight.h"
 #include "Material.h"
 #include "Camera.h"
+#include "Skybox.h"
 
 
 class Scene
@@ -36,6 +37,7 @@ private:
 
 	Texture *texture;
 	GLuint texID;
+	Skybox *skybox;
 
 	void SetMaterialAndLights();
 	void UpdateLights(Shader *shader);
