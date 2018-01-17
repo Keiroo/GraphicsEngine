@@ -17,6 +17,8 @@ public:
 	GLfloat pRotateAngle, pScale;
 	GLint modelPicked = -1;
 
+	GLfloat TBtest, TBtest2, TBtest3, TBtest4;
+
 	Material mMaterial, clearMaterial;
 	DirectionalLight dirLight;
 	PointLight pointLight;

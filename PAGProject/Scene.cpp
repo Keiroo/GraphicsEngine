@@ -15,9 +15,16 @@ Scene::Scene()
 
 	texture = new Texture();
 	models.push_back(new Model(PLANE_FILENAME));
-	texID = texture->TextureFromFile("negy.jpg", "Textures/Skybox", false);
+	texID = texture->TextureFromFile("terrain2.jpg", "Textures", false);
 
 	skybox = new Skybox();
+
+	models.push_back(new Model(WOMANROCK_FILENAME));
+	TBtest = TBtest2 = TBtest3 = 0.0f;
+	TBtest4 = 1.0f;
+
+	models.push_back(new Model(OLAV_FILENAME));
+	models.push_back(new Model(TEMPLAR_FILENAME));
 
 	//lightModels.push_back(new Model(PATH_CUBE_BLUE));
 	//lightModels.push_back(new Model(PATH_CUBE_GREEN));
@@ -56,8 +63,40 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	lightModels[2]->Render(shader);*/
 
 	clearMaterial.Update(shader);
-	texture->ActivateTexture(texID);
-	models[0]->Render(shader);
+
+	// Plane
+	//texture->ActivateTexture(texID);
+	//models[0]->Render(shader);
+	
+	// Sculpture in the wall
+	models[1]->Reset();
+	models[1]->Scale(2.0f, 2.0f, 2.0f);
+	models[1]->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	models[1]->Rotate(2.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	models[1]->Translate(glm::vec3(-45.8f, 40.9f, 5.9f));
+	models[1]->Render(shader);
+
+	// Ruins
+	models[2]->Reset();
+	models[2]->Scale(12.0f, 12.0f, 12.0f);
+	models[2]->Rotate(31.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+	models[2]->Rotate(-87.0f, glm::vec3(0.0f, 0.0f, 1.0f));
+	models[2]->Translate(glm::vec3(1.8f, 0.0f, 0.8f));
+	models[2]->Render(shader);
+
+
+	// Knight
+	//shader->ActivateRefShader();
+	shader->setInt("skybox", 0);
+	shader->setVec3("cameraPos", cameraPos);
+	skybox->BindTexture();
+	models[3]->Reset();
+	models[3]->Scale(0.2f, 0.2f, 0.2f);
+	models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	models[3]->Translate(glm::vec3(-341.6f, 2.2f, -391.5f));
+	models[3]->Render(shader);
+	shader->ActivateShader();
+
 
 	skybox->Render(shader, camera);
 	
@@ -76,9 +115,6 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 			count++;
 		}
 	}*/
-
-	
-
 
 	//models[0]->Translate(glm::vec3(10.0f, 0.0f, 0.0f));
 
@@ -113,8 +149,6 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	//	models[0]->Rotate(pRotateAngle, pRotateAxis);
 	//	models[0]->Translate(pTranslateVec);
 	//}
-
-
 
 	//models[0]->Reset();
 	//models[0]->Rotate(world, pRotateAngle, pRotateAxis);

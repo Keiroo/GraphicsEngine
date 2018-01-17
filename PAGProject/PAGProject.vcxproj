@@ -205,6 +205,8 @@
     <None Include="Shaders\CPShader.frag" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
+    <None Include="Shaders\refShader.frag" />
+    <None Include="Shaders\refShader.vert" />
     <None Include="Shaders\skyboxShader.frag" />
     <None Include="Shaders\skyboxShader.vert" />
   </ItemGroup>

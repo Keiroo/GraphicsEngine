@@ -17,13 +17,15 @@
 #define CP_FRAGMENT_SHADER_FILENAME "Shaders/CPShader.frag"
 #define SKYBOX_VERTEX_SHADER_FILENAME "Shaders/skyboxShader.vert"
 #define SKYBOX_FRAGMENT_SHADER_FILENAME "Shaders/skyboxShader.frag"
+#define REF_VERTEX_SHADER_FILENAME "Shaders/refShader.vert"
+#define REF_FRAGMENT_SHADER_FILENAME "Shaders/refShader.frag"
 
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
 #define TERRAIN_TEXTURE_FILENAME "Textures/terrain.jpg"
 
-#define CAMERA_SPEED 30.0f
+#define CAMERA_SPEED 200.0f
 
 #define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
 //#define MODEL_FILENAME "Models/Hooh/hooh.obj"
@@ -32,4 +34,6 @@
 #define PATH_CUBE_BLUE "Models/CubeBlue/CubeBlue.obj"
 
 #define PLANE_FILENAME "Models/Plane/Plane.obj"
-
+#define WOMANROCK_FILENAME "Models/womanrock/womanrock.obj"
+#define OLAV_FILENAME "Models/olav/Testvb.obj"
+#define TEMPLAR_FILENAME "Models/armor/armor.blend"

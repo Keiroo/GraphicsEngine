@@ -25,6 +25,11 @@ void Skybox::Render(Shader *shader, Camera *camera)
 	shader->ActivateShader();
 }
 
+void Skybox::BindTexture()
+{
+	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+}
+
 Skybox::~Skybox()
 {
 }

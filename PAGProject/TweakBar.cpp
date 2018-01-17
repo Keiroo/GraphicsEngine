@@ -82,6 +82,12 @@ void TweakBar::CreateBar()
 	TwAddVarRW(bar2, "Direction", TW_TYPE_DIR3F, &direction, "");
 	TwDefine(" DirectionalLight iconified=true ");
 
+	testbar = TwNewBar("Test");
+	TwAddVarRW(testbar, "1", TW_TYPE_FLOAT, &scene->TBtest, "step=0.1");
+	TwAddVarRW(testbar, "2", TW_TYPE_FLOAT, &scene->TBtest2, "step=0.1");
+	TwAddVarRW(testbar, "3", TW_TYPE_FLOAT, &scene->TBtest3, "step=0.1");
+	TwAddVarRW(testbar, "Other", TW_TYPE_FLOAT, &scene->TBtest4, "step=0.1");
+
 }
 
 void TW_CALL TBAxisXButtonCallback(void *clientData)

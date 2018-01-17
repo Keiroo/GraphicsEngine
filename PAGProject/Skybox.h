@@ -13,6 +13,7 @@ public:
 	GLuint cubemapTexture;
 	Skybox();
 	void Render(Shader * shader, Camera *camera);
+	void BindTexture();
 	~Skybox();
 	
 private:

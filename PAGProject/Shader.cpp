@@ -37,6 +37,16 @@ bool Shader::LoadShaders()
 		return false;
 	}
 
+	refProgramHandle = glCreateProgram();
+	if (!LoadShader(REF_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, refProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(REF_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, refProgramHandle))
+	{
+		return false;
+	}
+
 	programHandle = myProgramHandle;
 	glUseProgram(programHandle);
 	return true;
@@ -57,6 +67,12 @@ void Shader::ActivateCPShader()
 void Shader::ActivateSkyboxShader()
 {
 	programHandle = skyboxProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateRefShader()
+{
+	programHandle = refProgramHandle;
 	glUseProgram(programHandle);
 }
 
