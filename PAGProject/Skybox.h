@@ -25,6 +25,16 @@ private:
 		"Textures/Skybox/posz.jpg",
 		"Textures/Skybox/negz.jpg"
 	};
+
+	/*vector<std::string> faces {
+	"Textures/Skybox2/right.jpg",
+	"Textures/Skybox2/left.jpg",
+	"Textures/Skybox2/top.jpg",
+	"Textures/Skybox2/bottom.jpg",
+	"Textures/Skybox2/back.jpg",
+	"Textures/Skybox2/front.jpg"
+	};	*/	
+
 	GLfloat skyboxVertices[108] = {
 		// positions          
 		-1.0f,  1.0f, -1.0f,

@@ -25,7 +25,7 @@
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
 #define TERRAIN_TEXTURE_FILENAME "Textures/terrain.jpg"
 
-#define CAMERA_SPEED 200.0f
+#define CAMERA_SPEED 100.0f
 
 #define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
 //#define MODEL_FILENAME "Models/Hooh/hooh.obj"
