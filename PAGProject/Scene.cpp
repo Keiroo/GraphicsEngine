@@ -86,15 +86,17 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 
 
 	// Knight
-	//shader->ActivateRefShader();
+	shader->ActivateRefShader();
 	shader->setInt("skybox", 0);
 	shader->setVec3("cameraPos", cameraPos);
-	skybox->BindTexture();
 	models[3]->Reset();
 	models[3]->Scale(0.2f, 0.2f, 0.2f);
 	models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	models[3]->Translate(glm::vec3(-341.6f, 2.2f, -391.5f));
-	models[3]->Render(shader);
+	shader->setMat4("model", models[3]->transform.GetMatrix());
+	shader->setMat4("view", camera->GetViewMatrix());
+	shader->setMat4("projection", camera->GetProjectionMatrix());
+	models[3]->RenderRef(shader, skybox);
 	shader->ActivateShader();
 
 

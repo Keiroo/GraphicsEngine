@@ -33,6 +33,15 @@ void Model::Render(Shader* shader)
 			node->Render(shader);
 }
 
+void Model::RenderRef(Shader* shader, Skybox *skybox)
+{
+	transform.Update(shader->programHandle);
+	modelsRendered++;
+	
+	for (GLuint i = 0; i < meshes.size(); i++)
+		meshes[i].RenderRef(shader, skybox);
+}
+
 void Model::SetParent(Model* parent)
 {
 	this->parent = parent;

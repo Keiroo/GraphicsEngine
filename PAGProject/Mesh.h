@@ -1,6 +1,7 @@
 #pragma once
 #include "Headers.h"
 #include "Shader.h"
+#include "Skybox.h"
 #include <string>
 #include <vector>
 
@@ -28,6 +29,7 @@ public:
 
 	Mesh(std::vector<sVertex> vertices, std::vector<unsigned int> indices, std::vector<sTexture> textures);
 	void Render(Shader* shader);
+	void RenderRef(Shader * shader, Skybox * skybox);
 	~Mesh();
 
 private:

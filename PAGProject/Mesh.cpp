@@ -94,6 +94,36 @@ void Mesh::Render(Shader* shader)
 	glActiveTexture(GL_TEXTURE0);
 }
 
+void Mesh::RenderRef(Shader* shader, Skybox *skybox)
+{
+	GLuint diffuseNr = 1, specularNr = 1, normalNr = 1, heightNr = 1;
+	for (GLuint i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i);
+
+		std::string number;
+		std::string name = "material." + textures[i].type;
+		if (name == "texture_diffuse")
+			number = std::to_string(diffuseNr++);
+		else if (name == "texture_specular")
+			number = std::to_string(specularNr++);
+		else if (name == "texture_normal")
+			number = std::to_string(normalNr++);
+		else if (name == "texture_height")
+			number = std::to_string(heightNr++);
+
+		glUniform1i(glGetUniformLocation(shader->programHandle, (name + number).c_str()), i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	}
+
+	glBindVertexArray(VAO);
+	skybox->BindTexture();
+	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
+
+	glActiveTexture(GL_TEXTURE0);
+}
+
 Mesh::~Mesh()
 {
 }
