@@ -163,6 +163,15 @@
     <None Include="Shaders\refShader.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\grassShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\grassShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\grassShader.geom">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\pikachuTexture.bmp">

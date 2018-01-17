@@ -203,6 +203,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\CPShader.frag" />
+    <None Include="Shaders\grassShader.frag" />
+    <None Include="Shaders\grassShader.geom" />
+    <None Include="Shaders\grassShader.vert" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
     <None Include="Shaders\refShader.frag" />
