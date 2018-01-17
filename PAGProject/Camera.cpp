@@ -54,6 +54,8 @@ void Camera::CameraProcessInput(int key, float deltaTime)
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (key == GLFW_KEY_D)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+
+	thisCameraPos = cameraPos;
 }
 
 Camera::~Camera()

@@ -4,6 +4,7 @@
 class Camera
 {
 public:
+	glm::vec3 thisCameraPos;
 
 	Camera();
 	void LoadCamera(GLFWwindow * window, GLuint & programHandle);

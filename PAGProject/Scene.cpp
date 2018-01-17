@@ -88,7 +88,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	// Knight
 	shader->ActivateRefShader();
 	shader->setInt("skybox", 0);
-	shader->setVec3("cameraPos", cameraPos);
+	shader->setVec3("cameraPos", camera->thisCameraPos);
 	models[3]->Reset();
 	models[3]->Scale(0.2f, 0.2f, 0.2f);
 	models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
