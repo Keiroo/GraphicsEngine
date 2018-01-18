@@ -23,7 +23,7 @@ void Camera::LoadCamera(GLFWwindow* window, GLuint& programHandle)
 	wvpLoc = glGetUniformLocation(programHandle, "wvp");
 	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
 
-
+	thisCameraPos = cameraPos;
 }
 
 void Camera::UpdateCameraPos()

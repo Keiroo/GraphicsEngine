@@ -47,6 +47,20 @@ bool Shader::LoadShaders()
 		return false;
 	}
 
+	grassProgramHandle = glCreateProgram();
+	if (!LoadShader(GRASS_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, grassProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(GRASS_GEOMETRY_SHADER_FILENAME, GL_GEOMETRY_SHADER, grassProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(GRASS_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, grassProgramHandle))
+	{
+		return false;
+	}
+
 	programHandle = myProgramHandle;
 	glUseProgram(programHandle);
 	return true;
@@ -73,6 +87,12 @@ void Shader::ActivateSkyboxShader()
 void Shader::ActivateRefShader()
 {
 	programHandle = refProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateGrassShader()
+{
+	programHandle = grassProgramHandle;
 	glUseProgram(programHandle);
 }
 

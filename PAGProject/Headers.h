@@ -19,6 +19,9 @@
 #define SKYBOX_FRAGMENT_SHADER_FILENAME "Shaders/skyboxShader.frag"
 #define REF_VERTEX_SHADER_FILENAME "Shaders/refShader.vert"
 #define REF_FRAGMENT_SHADER_FILENAME "Shaders/refShader.frag"
+#define GRASS_VERTEX_SHADER_FILENAME "Shaders/grassShader.vert"
+#define GRASS_GEOMETRY_SHADER_FILENAME "Shaders/grassShader.geom"
+#define GRASS_FRAGMENT_SHADER_FILENAME "Shaders/grassShader.frag"
 
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"

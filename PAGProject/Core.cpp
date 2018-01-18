@@ -30,6 +30,7 @@ bool Core::Start()
 	glm::mat4 trans = glm::mat4(1.0f);
 	transformLoc = glGetUniformLocation(shader->programHandle, "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+	scene->grassGen->ResetTimer();
 	
 	return true;
 }

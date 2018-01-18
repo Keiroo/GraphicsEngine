@@ -16,8 +16,13 @@ Scene::Scene()
 	texture = new Texture();
 	models.push_back(new Model(PLANE_FILENAME));
 	texID = texture->TextureFromFile("terrain2.jpg", "Textures", false);
+	//texID = texture->TextureFromFile("grass.png", "Textures", false);
 
 	skybox = new Skybox();
+
+	grassGen = new GrassGen();
+	fAlphaTest = 0.25f;
+	fAlphaMultiplier = 1.50f;
 
 	models.push_back(new Model(WOMANROCK_FILENAME));
 	TBtest = TBtest2 = TBtest3 = 0.0f;
@@ -35,16 +40,9 @@ Scene::Scene()
 
 void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 {
-	models[0]->Reset();
-
-	
-	
 	UpdateLights(shader);
 	shader->setVec3("viewPos", cameraPos);
-	shader->setFloat("material.shininess", 32.0f);
-
-
-	
+	shader->setFloat("material.shininess", 32.0f);	
 
 	/* Light models
 	lightModels[0]->Reset();
@@ -65,8 +63,9 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	clearMaterial.Update(shader);
 
 	// Plane
-	//texture->ActivateTexture(texID);
-	//models[0]->Render(shader);
+	models[0]->Reset();
+	texture->ActivateTexture(texID);
+	models[0]->Render(shader);
 	
 	// Sculpture in the wall
 	models[1]->Reset();
@@ -74,7 +73,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	models[1]->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	models[1]->Rotate(2.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	models[1]->Translate(glm::vec3(-45.8f, 40.9f, 5.9f));
-	models[1]->Render(shader);
+	//models[1]->Render(shader);
 
 	// Ruins
 	models[2]->Reset();
@@ -82,7 +81,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	models[2]->Rotate(31.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	models[2]->Rotate(-87.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	models[2]->Translate(glm::vec3(1.8f, 0.0f, 0.8f));
-	models[2]->Render(shader);
+	//models[2]->Render(shader);
 
 
 	// Knight
@@ -96,11 +95,15 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setMat4("model", models[3]->transform.GetMatrix());
 	shader->setMat4("view", camera->GetViewMatrix());
 	shader->setMat4("projection", camera->GetProjectionMatrix());
-	models[3]->RenderRef(shader, skybox);
+	//models[3]->RenderRef(shader, skybox);
 	shader->ActivateShader();
 
 
-	skybox->Render(shader, camera);
+	// Grass
+	grassGen->Render(shader, camera, deltaTime, fAlphaTest, fAlphaMultiplier);
+
+	// Skybox
+	//skybox->Render(shader, camera);
 	
 	/*int count = 1;
 	for (int i = 0; i < 5; i++)
