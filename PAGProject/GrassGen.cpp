@@ -11,20 +11,8 @@ GrassGen::GrassGen()
 	LoadTexture();
 }
 
-void GrassGen::ResetTimer()
-{
-	tLastFrame = clock();
-	fFrameInterval = 0.0f;
-}
-
 void GrassGen::Render(Shader *shader, Camera *camera, float deltaTime, float fAlphaTest, float fAlphaMultiplier)
 {
-	clock_t tCur = clock();
-	fFrameInterval = float(tCur - tLastFrame) / float(CLOCKS_PER_SEC);
-	tLastFrame = tCur;
-
-
-
 	shader->ActivateGrassShader();
 	// GeometryShader uniforms
 	shader->setMat4("matrices.projMatrix", camera->GetProjectionMatrix());
@@ -43,7 +31,7 @@ void GrassGen::Render(Shader *shader, Camera *camera, float deltaTime, float fAl
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, grassTexture);
 	shader->setInt("gSampler", 0);
-	shader->setFloat("fTimePassed", fFrameInterval);
+	shader->setFloat("fTimePassed", deltaTime);
 
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
@@ -61,8 +49,6 @@ void GrassGen::GenVertices()
 {
 	srand(time(NULL));
 	numGrassTriangles = 0;
-	/*fGrassPatchOffsetMin = 1.5f;
-	fGrassPatchOffsetMax = 2.5f;*/
 
 	fGrassPatchOffsetMin = 1.5f;
 	fGrassPatchOffsetMax = 2.5f;
@@ -83,10 +69,6 @@ void GrassGen::GenVertices()
 		}
 		vCurrPatchPos.x += fGrassPatchOffsetMin + (fGrassPatchOffsetMax - fGrassPatchOffsetMin)*(float)(rand() % 1000)*0.001f;
 	}
-
-	//Debug
-	/*grassVertices.clear();
-	grassVertices.push_back(glm::vec3(0.0f, 0.0f, 0.0f));*/
 }
 
 void GrassGen::GenBuffers()
@@ -153,14 +135,12 @@ void GrassGen::CreateFromData(BYTE* bData, int a_iWidth, int a_iHeight, int a_iB
 	if (bGenerateMipMaps)glGenerateMipmap(GL_TEXTURE_2D);
 	//glGenSamplers(1, &grassSampler);
 
+	/*glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);*/
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	//sPath = "";
-	//bMipMapsGenerated = bGenerateMipMaps;
-	//iWidth = a_iWidth;
-	//iHeight = a_iHeight;
-	//iBPP = a_iBPP;
 }
 
 

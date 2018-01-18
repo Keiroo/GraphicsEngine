@@ -13,7 +13,6 @@ public:
 	GLuint grassVAO, grassVBO, grassTexture, grassSampler;
 
 	GrassGen();
-	void ResetTimer();
 	void Render(Shader * shader, Camera * camera, float deltaTime, float fAlphaTest, float fAlphaMultiplier);
 	
 	~GrassGen();
