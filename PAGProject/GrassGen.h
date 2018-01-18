@@ -3,6 +3,7 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Camera.h"
+#include "Transform.h"
 #include <FreeImage.h>
 
 class GrassGen
@@ -11,6 +12,8 @@ public:
 	GLfloat fGrassPatchOffsetMin, fGrassPatchOffsetMax;
 	GLint numGrassTriangles;
 	GLuint grassVAO, grassVBO, grassTexture, grassSampler;
+
+	Transform *transform;
 
 	GrassGen();
 	void Render(Shader * shader, Camera * camera, float deltaTime, float fAlphaTest, float fAlphaMultiplier);

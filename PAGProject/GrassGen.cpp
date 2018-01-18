@@ -4,6 +4,7 @@
 
 GrassGen::GrassGen()
 {
+	transform = new Transform();
 	GenVertices();
 	GenBuffers();
 	//texture = new Texture();
@@ -17,7 +18,7 @@ void GrassGen::Render(Shader *shader, Camera *camera, float deltaTime, float fAl
 	// GeometryShader uniforms
 	shader->setMat4("matrices.projMatrix", camera->GetProjectionMatrix());
 	shader->setMat4("matrices.viewMatrix", camera->GetViewMatrix());
-	shader->setMat4("matrices.modelMatrix", glm::mat4(1.0));
+	shader->setMat4("matrices.modelMatrix", transform->GetMatrix());
 	shader->setMat4("matrices.normalMatrix", glm::mat4(1.0));
 	
 

@@ -65,7 +65,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	// Plane
 	models[0]->Reset();
 	texture->ActivateTexture(texID);
-	models[0]->Render(shader);
+	//models[0]->Render(shader);
 	
 	// Sculpture in the wall
 	models[1]->Reset();
@@ -73,7 +73,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	models[1]->Rotate(-90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	models[1]->Rotate(2.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 	models[1]->Translate(glm::vec3(-45.8f, 40.9f, 5.9f));
-	//models[1]->Render(shader);
+	models[1]->Render(shader);
 
 	// Ruins
 	models[2]->Reset();
@@ -81,7 +81,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	models[2]->Rotate(31.0f, glm::vec3(1.0f, 0.0f, 0.0f));
 	models[2]->Rotate(-87.0f, glm::vec3(0.0f, 0.0f, 1.0f));
 	models[2]->Translate(glm::vec3(1.8f, 0.0f, 0.8f));
-	//models[2]->Render(shader);
+	models[2]->Render(shader);
 
 
 	// Knight
@@ -95,15 +95,18 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setMat4("model", models[3]->transform.GetMatrix());
 	shader->setMat4("view", camera->GetViewMatrix());
 	shader->setMat4("projection", camera->GetProjectionMatrix());
-	//models[3]->RenderRef(shader, skybox);
+	models[3]->RenderRef(shader, skybox);
 	shader->ActivateShader();
 
 
 	// Grass
+	grassGen->transform->Reset();
+	grassGen->transform->Rotate(TBtest4, glm::vec3(0.0f, 1.0f, 0.0f));
+	grassGen->transform->Translate(glm::vec3(TBtest, TBtest2, TBtest3));
 	grassGen->Render(shader, camera, deltaTime, fAlphaTest, fAlphaMultiplier);
 
 	// Skybox
-	//skybox->Render(shader, camera);
+	skybox->Render(shader, camera);
 	
 	/*int count = 1;
 	for (int i = 0; i < 5; i++)
@@ -122,7 +125,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	}*/
 
 	//models[0]->Translate(glm::vec3(10.0f, 0.0f, 0.0f));
-
+	//dsadasd
 
 	/*models[0]->Render(shader);*/
 	Model::modelsRendered = 0;
