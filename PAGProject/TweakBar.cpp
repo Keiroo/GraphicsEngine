@@ -87,6 +87,12 @@ void TweakBar::CreateBar()
 	TwAddVarRW(testbar, "2", TW_TYPE_FLOAT, &scene->TBtest2, "step=0.1");
 	TwAddVarRW(testbar, "3", TW_TYPE_FLOAT, &scene->TBtest3, "step=0.1");
 	TwAddVarRW(testbar, "Other", TW_TYPE_FLOAT, &scene->TBtest4, "step=0.1");
+	TwDefine(" Test iconified=true ");
+
+
+	grassBar = TwNewBar("Zad6");
+	TwAddVarRW(grassBar, "AlphaTest", TW_TYPE_FLOAT, &scene->fAlphaTest, "group=Grass step=0.01");
+	TwAddVarRW(grassBar, "AlphaMultiplier", TW_TYPE_FLOAT, &scene->fAlphaMultiplier, "group=Grass step=0.1");
 
 }
 

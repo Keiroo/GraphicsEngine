@@ -10,13 +10,15 @@ class GrassGen
 public:
 	GLfloat fGrassPatchOffsetMin, fGrassPatchOffsetMax;
 	GLint numGrassTriangles;
+	GLuint grassVAO, grassVBO, grassTexture, grassSampler;
+
 	GrassGen();
 	void ResetTimer();
 	void Render(Shader * shader, Camera * camera, float deltaTime, float fAlphaTest, float fAlphaMultiplier);
 	
 	~GrassGen();
 private:
-	GLuint grassVAO, grassVBO, grassTexture, grassSampler;
+	
 	std::vector<glm::vec3> grassVertices;
 	clock_t tLastFrame;
 	GLfloat fFrameInterval;

@@ -14,7 +14,7 @@ public:
 	~TweakBar();
 
 private:
-	TwBar *bar, *bar2, *testbar;
+	TwBar *bar, *bar2, *testbar, *grassBar;
 	Scene* scene;
 	void CreateBar();	
 };

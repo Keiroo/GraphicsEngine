@@ -31,7 +31,7 @@ void GrassGen::Render(Shader *shader, Camera *camera, float deltaTime, float fAl
 	shader->setMat4("matrices.viewMatrix", camera->GetViewMatrix());
 	shader->setMat4("matrices.modelMatrix", glm::mat4(1.0));
 	shader->setMat4("matrices.normalMatrix", glm::mat4(1.0));
-	shader->setFloat("fTimePassed", fFrameInterval);
+	
 
 	// FragmentShader uniforms	
 	shader->setVec4("vColor", glm::vec4(1, 1, 1, 1));
@@ -40,14 +40,15 @@ void GrassGen::Render(Shader *shader, Camera *camera, float deltaTime, float fAl
 	shader->setFloat("fAlphaMultiplier", fAlphaMultiplier);
 	
 	// Render
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, grassTexture);
+	shader->setInt("gSampler", 0);
+	shader->setFloat("fTimePassed", fFrameInterval);
 
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
 
-	glBindTexture(GL_TEXTURE_2D, grassTexture);
-	shader->setInt("gSampler", grassTexture);
 	glBindVertexArray(grassVAO);
-	//glActiveTexture(GL_TEXTURE0);		
 	glDrawArrays(GL_POINTS, 0, numGrassTriangles);
 
 	glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
@@ -63,12 +64,13 @@ void GrassGen::GenVertices()
 	/*fGrassPatchOffsetMin = 1.5f;
 	fGrassPatchOffsetMax = 2.5f;*/
 
-	fGrassPatchOffsetMin = 10.5f;
-	fGrassPatchOffsetMax = 12.5f;
+	fGrassPatchOffsetMin = 1.5f;
+	fGrassPatchOffsetMax = 2.5f;
 
-	GLfloat maxX = 100.0f, maxZ = 100.0f;
+	GLfloat minX = -50.0f, minZ = -50.0f;
+	GLfloat maxX = 50.0f, maxZ = 50.0f;
 
-	glm::vec3 vCurrPatchPos(-maxX, 5.0f, -maxZ);
+	glm::vec3 vCurrPatchPos(minX, 0.0f, minZ);
 
 	while (vCurrPatchPos.x < maxX)
 	{
