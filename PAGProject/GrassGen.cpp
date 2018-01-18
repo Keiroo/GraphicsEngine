@@ -34,14 +34,12 @@ void GrassGen::Render(Shader *shader, Camera *camera, float deltaTime, float fAl
 	shader->setInt("gSampler", 0);
 	shader->setFloat("fTimePassed", deltaTime);
 
-	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_SAMPLE_ALPHA_TO_COVERAGE);
 
 	glBindVertexArray(grassVAO);
 	glDrawArrays(GL_POINTS, 0, numGrassTriangles);
 
 	glDisable(GL_SAMPLE_ALPHA_TO_COVERAGE);
-	glDisable(GL_MULTISAMPLE);
 
 	shader->ActivateShader();	
 }

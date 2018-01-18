@@ -92,7 +92,7 @@ void TweakBar::CreateBar()
 
 	grassBar = TwNewBar("Zad6");
 	TwAddVarRW(grassBar, "AlphaTest", TW_TYPE_FLOAT, &scene->fAlphaTest, "group=Grass step=0.01");
-	TwAddVarRW(grassBar, "AlphaMultiplier", TW_TYPE_FLOAT, &scene->fAlphaMultiplier, "group=Grass step=0.1");
+	TwAddVarRW(grassBar, "AlphaMultiplier", TW_TYPE_FLOAT, &scene->fAlphaMultiplier, "group=Grass step=0.01");
 
 }
 

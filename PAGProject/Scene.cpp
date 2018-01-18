@@ -90,8 +90,10 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setVec3("cameraPos", camera->thisCameraPos);
 	models[3]->Reset();
 	models[3]->Scale(0.2f, 0.2f, 0.2f);
-	models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
-	models[3]->Translate(glm::vec3(-341.6f, 2.2f, -391.5f));
+	//models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//models[3]->Translate(glm::vec3(-341.6f, 2.2f, -391.5f));
+	models[3]->Rotate(-114.7f, glm::vec3(0.0f, 1.0f, 0.0f));	
+	models[3]->Translate(glm::vec3(-643.1f, -3.4f, -350.1f));
 	shader->setMat4("model", models[3]->transform.GetMatrix());
 	shader->setMat4("view", camera->GetViewMatrix());
 	shader->setMat4("projection", camera->GetProjectionMatrix());
@@ -101,9 +103,10 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 
 	// Grass
 	grassGen->transform->Reset();
-	grassGen->transform->Rotate(TBtest4, glm::vec3(0.0f, 1.0f, 0.0f));
-	grassGen->transform->Translate(glm::vec3(TBtest, TBtest2, TBtest3));
+	grassGen->transform->Rotate(-20.6f, glm::vec3(0.0f, 1.0f, 0.0f));
+	grassGen->transform->Translate(glm::vec3(-50.7f, -2.2f, -40.2f));
 	grassGen->Render(shader, camera, deltaTime, fAlphaTest, fAlphaMultiplier);
+	grassGen->transform->Reset();
 
 	// Skybox
 	skybox->Render(shader, camera);
