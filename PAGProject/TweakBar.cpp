@@ -96,6 +96,9 @@ void TweakBar::CreateBar()
 	TwAddVarRW(grassBar, "AlphaMultiplier", TW_TYPE_FLOAT, &scene->fAlphaMultiplier, "group=Grass step=0.01");
 	TwAddVarRW(grassBar, "Tone Mapping", TW_TYPE_BOOLCPP, &postprocess->hdr, "group=Postprocess");
 	TwAddVarRW(grassBar, "Exposure", TW_TYPE_FLOAT, &postprocess->exposure, "group=Postprocess min=0.0 step=0.1");
+	TwAddVarRW(grassBar, "Gamma Correction", TW_TYPE_BOOLCPP, &postprocess->isGamma, "group=Postprocess");
+	TwAddVarRW(grassBar, "Gamma", TW_TYPE_FLOAT, &postprocess->gamma, "group=Postprocess min=0.0 step=0.1");
+	TwAddVarRW(grassBar, "MotionBlur", TW_TYPE_BOOLCPP, &postprocess->motionBlur, "group=Postprocess");
 
 }
 

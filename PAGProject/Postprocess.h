@@ -6,8 +6,11 @@
 class Postprocess
 {
 public:
-	bool hdr;
-	float exposure;
+	bool hdr, isGamma;
+	GLfloat exposure, gamma;
+
+	bool motionBlur;
+	GLint motionBlurFrames;
 
 	Postprocess();
 	void GenerateFramebuffer(Shader *shader);

@@ -5,6 +5,10 @@ Postprocess::Postprocess()
 	hdr = true;
 	exposure = 1.0f;
 	quadVAO = 0;
+	gamma = 2.2f;
+	isGamma = true;
+	motionBlur = true;
+	motionBlurFrames = 3;
 }
 
 void Postprocess::GenerateFramebuffer(Shader *shader)
@@ -47,6 +51,8 @@ void Postprocess::RenderToQuad(Shader *shader)
 	glBindTexture(GL_TEXTURE_2D, clrTexture);
 	shader->setInt("hdr", hdr);
 	shader->setFloat("exposure", exposure);
+	shader->setInt("isGamma", isGamma);
+	shader->setFloat("gamma", gamma);
 
 	if (quadVAO == 0)
 	{
