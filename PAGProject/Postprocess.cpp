@@ -54,6 +54,10 @@ void Postprocess::RenderToQuad(Shader *shader)
 	shader->setInt("isGamma", isGamma);
 	shader->setFloat("gamma", gamma);
 
+	// Motion Blur
+	
+
+
 	if (quadVAO == 0)
 	{
 		glGenVertexArrays(1, &quadVAO);
