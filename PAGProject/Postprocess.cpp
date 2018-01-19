@@ -7,8 +7,7 @@ Postprocess::Postprocess()
 	quadVAO = 0;
 	gamma = 2.2f;
 	isGamma = true;
-	motionBlur = true;
-	motionBlurFrames = 3;
+	motionBlur = false;
 }
 
 void Postprocess::GenerateFramebuffer(Shader *shader)
@@ -43,7 +42,7 @@ void Postprocess::BindFramebuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 }
 
-void Postprocess::RenderToQuad(Shader *shader)
+void Postprocess::RenderToQuad(Shader *shader, Camera *camera)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader->ActivateHDRShader();
@@ -55,6 +54,13 @@ void Postprocess::RenderToQuad(Shader *shader)
 	shader->setFloat("gamma", gamma);
 
 	// Motion Blur
+	if (quadVAO == 0)
+		shader->setMat4("prevWVP", camera->GetWVPMatrix());
+	else
+		shader->setMat4("prevWVP", prevWVP);
+
+	shader->setVec3("currPos", cameraPos);
+	shader->setInt("isMotionBlur", motionBlur);
 	
 
 
@@ -73,6 +79,8 @@ void Postprocess::RenderToQuad(Shader *shader)
 	glBindVertexArray(quadVAO);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glBindVertexArray(0);
+
+	prevWVP = camera->GetWVPMatrix();
 }
 
 

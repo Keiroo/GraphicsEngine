@@ -43,6 +43,16 @@ glm::mat4 Camera::GetProjectionMatrix()
 	return projection;
 }
 
+glm::mat4 Camera::GetWVPMatrix()
+{
+	return WVP;
+}
+
+glm::mat4 Camera::GetWorldMatrix()
+{
+	return world;
+}
+
 void Camera::CameraProcessInput(int key, float deltaTime)
 {
 	cameraSpeed = CAMERA_SPEED * deltaTime;

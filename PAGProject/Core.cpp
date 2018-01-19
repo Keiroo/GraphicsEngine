@@ -78,7 +78,7 @@ void Core::Update()
 		scene->Render(shader, camera, deltaTime);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		postprocess->RenderToQuad(shader);
+		postprocess->RenderToQuad(shader, camera);
 
 
 		// TweakBar
