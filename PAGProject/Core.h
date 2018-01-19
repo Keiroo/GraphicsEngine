@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "TweakBar.h"
 #include "ColorPick.h"
+#include "Postprocess.h"
 
 class Core
 {
@@ -23,6 +24,7 @@ private:
 	Scene* scene;
 	TweakBar* tweakBar;
 	ColorPick* colorPick;
+	Postprocess *postprocess;
 
 	float oldTime = 0.0f, newTime = 0.0f, deltaTime = 0.0f;	
 };

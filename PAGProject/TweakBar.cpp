@@ -2,9 +2,10 @@
 
 
 
-TweakBar::TweakBar(Scene* scene)
+TweakBar::TweakBar(Scene* scene, Postprocess *postprocess)
 {
 	this->scene = scene;
+	this->postprocess = postprocess;
 	TBRotateAngle = 0.0f;
 	TBRotateAxis = 'Y';
 	TBTranslateVec = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -93,6 +94,8 @@ void TweakBar::CreateBar()
 	grassBar = TwNewBar("Zad6");
 	TwAddVarRW(grassBar, "AlphaTest", TW_TYPE_FLOAT, &scene->fAlphaTest, "group=Grass step=0.01");
 	TwAddVarRW(grassBar, "AlphaMultiplier", TW_TYPE_FLOAT, &scene->fAlphaMultiplier, "group=Grass step=0.01");
+	TwAddVarRW(grassBar, "Tone Mapping", TW_TYPE_BOOLCPP, &postprocess->hdr, "group=Postprocess");
+	TwAddVarRW(grassBar, "Exposure", TW_TYPE_FLOAT, &postprocess->exposure, "group=Postprocess min=0.0 step=0.1");
 
 }
 

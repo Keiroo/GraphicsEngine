@@ -7,7 +7,7 @@ class Shader
 {
 public:
 	GLuint programHandle, CPProgramHandle, myProgramHandle,
-		skyboxProgramHandle, refProgramHandle, grassProgramHandle;
+		skyboxProgramHandle, refProgramHandle, grassProgramHandle, hdrProgramHandle;
 
 	Shader();
 	bool LoadShaders();	
@@ -16,6 +16,7 @@ public:
 	void ActivateSkyboxShader();
 	void ActivateRefShader();
 	void ActivateGrassShader();
+	void ActivateHDRShader();
 	void setBool(const std::string &name, bool value) const
     {         
         glUniform1i(glGetUniformLocation(programHandle, name.c_str()), (int)value);

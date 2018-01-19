@@ -171,6 +171,7 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="Postprocess.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skybox.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PointLight.h" />
+    <ClInclude Include="Postprocess.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
@@ -208,6 +210,8 @@
     <None Include="Shaders\grassShader.frag" />
     <None Include="Shaders\grassShader.geom" />
     <None Include="Shaders\grassShader.vert" />
+    <None Include="Shaders\hdrShader.frag" />
+    <None Include="Shaders\hdrShader.vert" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
     <None Include="Shaders\refShader.frag" />

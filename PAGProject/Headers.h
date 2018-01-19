@@ -22,6 +22,8 @@
 #define GRASS_VERTEX_SHADER_FILENAME "Shaders/grassShader.vert"
 #define GRASS_GEOMETRY_SHADER_FILENAME "Shaders/grassShader.geom"
 #define GRASS_FRAGMENT_SHADER_FILENAME "Shaders/grassShader.frag"
+#define HDR_VERTEX_SHADER_FILENAME "Shaders/hdrShader.vert"
+#define HDR_FRAGMENT_SHADER_FILENAME "Shaders/hdrShader.frag"
 
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"

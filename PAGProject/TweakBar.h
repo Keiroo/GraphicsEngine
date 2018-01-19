@@ -1,6 +1,7 @@
 #pragma once
 #include"Headers.h"
 #include "Scene.h"
+#include "Postprocess.h"
 
 class TweakBar
 {
@@ -8,7 +9,7 @@ public:
 	GLuint modelPicked;
 	glm::vec3 direction;
 
-	TweakBar(Scene* scene);
+	TweakBar(Scene* scene, Postprocess *postprocess);
 	void Draw();
 	void ChangeModelPicked(GLuint modelID);
 	~TweakBar();
@@ -16,6 +17,8 @@ public:
 private:
 	TwBar *bar, *bar2, *testbar, *grassBar;
 	Scene* scene;
+	Postprocess *postprocess;
+
 	void CreateBar();	
 };
 
