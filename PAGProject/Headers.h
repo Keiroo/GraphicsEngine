@@ -24,13 +24,15 @@
 #define GRASS_FRAGMENT_SHADER_FILENAME "Shaders/grassShader.frag"
 #define HDR_VERTEX_SHADER_FILENAME "Shaders/hdrShader.vert"
 #define HDR_FRAGMENT_SHADER_FILENAME "Shaders/hdrShader.frag"
+#define REFL_VERTEX_SHADER_FILENAME "Shaders/reflShader.vert"
+#define REFL_FRAGMENT_SHADER_FILENAME "Shaders/reflShader.frag"
 
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"
 #define TEXTURE2_FILENAME "Textures/planet2Texture.jpg"
 #define TERRAIN_TEXTURE_FILENAME "Textures/terrain.jpg"
 
-#define CAMERA_SPEED 100.0f
+#define CAMERA_SPEED 50.0f
 
 #define MODEL_FILENAME "Models/Nanosuit/nanosuit.obj"
 //#define MODEL_FILENAME "Models/Hooh/hooh.obj"

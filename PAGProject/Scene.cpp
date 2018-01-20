@@ -29,7 +29,9 @@ Scene::Scene()
 	TBtest4 = 1.0f;
 
 	models.push_back(new Model(OLAV_FILENAME));
-	models.push_back(new Model(TEMPLAR_FILENAME));
+	Model *mdl = new Model(TEMPLAR_FILENAME);
+	models.push_back(mdl);
+	models.push_back(new Model(*mdl));
 
 	//lightModels.push_back(new Model(PATH_CUBE_BLUE));
 	//lightModels.push_back(new Model(PATH_CUBE_GREEN));
@@ -84,7 +86,7 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	models[2]->Render(shader);
 
 
-	// Knight
+	// Knight - Refraction
 	shader->ActivateRefShader();
 	shader->setInt("skybox", 0);
 	shader->setVec3("cameraPos", camera->thisCameraPos);
@@ -98,6 +100,22 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setMat4("view", camera->GetViewMatrix());
 	shader->setMat4("projection", camera->GetProjectionMatrix());
 	models[3]->RenderRef(shader, skybox);
+	shader->ActivateShader();
+
+	// Knight - Reflection
+	shader->ActivateReflShader();
+	shader->setInt("skybox", 0);
+	shader->setVec3("cameraPos", camera->thisCameraPos);
+	models[4]->Reset();
+	models[4]->Scale(0.2f, 0.2f, 0.2f);
+	//models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//models[3]->Translate(glm::vec3(-341.6f, 2.2f, -391.5f));
+	models[4]->Rotate(-114.7f, glm::vec3(0.0f, 1.0f, 0.0f));
+	models[4]->Translate(glm::vec3(-343.1f, -3.4f, -350.1f));
+	shader->setMat4("model", models[4]->transform.GetMatrix());
+	shader->setMat4("view", camera->GetViewMatrix());
+	shader->setMat4("projection", camera->GetProjectionMatrix());
+	models[4]->RenderRef(shader, skybox);
 	shader->ActivateShader();
 
 

@@ -29,6 +29,7 @@ public:
 
 	Scene();
 	void Render(Shader* shader, Camera *camera, float deltaTime);
+
 	
 	~Scene();
 

@@ -71,6 +71,16 @@ bool Shader::LoadShaders()
 		return false;
 	}
 
+	reflProgramHandle = glCreateProgram();
+	if (!LoadShader(REFL_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, reflProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(REFL_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, reflProgramHandle))
+	{
+		return false;
+	}
+
 	programHandle = myProgramHandle;
 	glUseProgram(programHandle);
 	return true;
@@ -109,6 +119,12 @@ void Shader::ActivateGrassShader()
 void Shader::ActivateHDRShader()
 {
 	programHandle = hdrProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateReflShader()
+{
+	programHandle = reflProgramHandle;
 	glUseProgram(programHandle);
 }
 
