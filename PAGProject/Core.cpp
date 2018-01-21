@@ -70,7 +70,7 @@ void Core::Update()
 		}		
 
 		// Draw full scene
-		postprocess->BindFramebuffer();
+		/*postprocess->BindFramebuffer();
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		shader->ActivateShader();
@@ -78,8 +78,28 @@ void Core::Update()
 		scene->Render(shader, camera, deltaTime);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+		postprocess->RenderToQuad(shader, camera);*/
+
+		postprocess->BindFramebufferLeft();
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shader->ActivateShader();
+		camera->UpdateCameraPos();
+		if (postprocess->stereo3d) camera->MoveCamera(-1.0f);
+		scene->Render(shader, camera, deltaTime);
+
+		postprocess->BindFramebufferRight();
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shader->ActivateShader();
+		camera->UpdateCameraPos();
+		if (postprocess->stereo3d) camera->MoveCamera(2.0f);
+		scene->Render(shader, camera, deltaTime);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
 		postprocess->RenderToQuad(shader, camera);
 
+		if (postprocess->stereo3d) camera->MoveCamera(-1.0f);
 
 		// TweakBar
 		tweakBar->ChangeModelPicked(colorPick->modelPicked);

@@ -9,38 +9,13 @@ uniform bool hdr;
 uniform float exposure;
 uniform float gamma;
 uniform bool isGamma;
-uniform bool isMotionBlur;
 
 vec3 result;
 vec3 hdrColor;
 
-const int nSamples = 16;
-
 void main()
 {          
-	// Motion blur
-	if (isMotionBlur)
-	{
-		vec4 motionBlur = texture(hdrBuffer, TexCoords);
-
-		for (int i = 1; i < nSamples; ++i)
-		{
-		// get offset in range [-0.5, 0.5]:
-			vec2 offset = blurVec * (float(i) / float(nSamples - 1) - 0.5);
-  
-		// sample & add to result:
-			motionBlur += texture(hdrBuffer, TexCoords + offset);
-		}
-
-		motionBlur /= float(nSamples);
-
-
-		hdrColor = motionBlur.rgb;
-	}
-	else
-	{
-		hdrColor = texture(hdrBuffer, TexCoords).rgb;
-	}
+	hdrColor = texture(hdrBuffer, TexCoords).rgb;
 
     if(hdr)
     {

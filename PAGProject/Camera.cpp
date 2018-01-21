@@ -53,6 +53,13 @@ glm::mat4 Camera::GetWorldMatrix()
 	return world;
 }
 
+void Camera::MoveCamera(float offset)
+{
+	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * offset;
+	thisCameraPos = cameraPos;
+	UpdateCameraPos();
+}
+
 void Camera::CameraProcessInput(int key, float deltaTime)
 {
 	cameraSpeed = CAMERA_SPEED * deltaTime;

@@ -8,17 +8,21 @@ class Postprocess
 public:
 	bool hdr, isGamma;
 	GLfloat exposure, gamma;
-	bool motionBlur;
+	bool stereo3d;
 
 	Postprocess();
 	void GenerateFramebuffer(Shader *shader);
 	void BindFramebuffer();
+	void BindFramebufferLeft();
+	void BindFramebufferRight();
 	void RenderToQuad(Shader * shader, Camera *camera);
 	~Postprocess();
 
+	
+
 private:
 	GLuint FBO, RBO, clrTexture, quadVAO, quadVBO;
-	glm::mat4 prevWVP;
+	GLuint stereoFBO[2], stereoTexture[2], stereoRBO[2];
 
 	GLfloat quadVertices[20] = {
 		-1.0f,  1.0f, 0.0f,		0.0f, 1.0f,
@@ -26,6 +30,6 @@ private:
 		1.0f,  1.0f, 0.0f,		1.0f, 1.0f,
 		1.0f, -1.0f, 0.0f,		1.0f, 0.0f,
 	};
-
+	void RenderQuad();
 };
 

@@ -81,6 +81,16 @@ bool Shader::LoadShaders()
 		return false;
 	}
 
+	DProgramHandle = glCreateProgram();
+	if (!LoadShader(D_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, DProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(D_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, DProgramHandle))
+	{
+		return false;
+	}
+
 	programHandle = myProgramHandle;
 	glUseProgram(programHandle);
 	return true;
@@ -125,6 +135,12 @@ void Shader::ActivateHDRShader()
 void Shader::ActivateReflShader()
 {
 	programHandle = reflProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::Activate3DShader()
+{
+	programHandle = DProgramHandle;
 	glUseProgram(programHandle);
 }
 

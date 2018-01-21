@@ -26,6 +26,8 @@
 #define HDR_FRAGMENT_SHADER_FILENAME "Shaders/hdrShader.frag"
 #define REFL_VERTEX_SHADER_FILENAME "Shaders/reflShader.vert"
 #define REFL_FRAGMENT_SHADER_FILENAME "Shaders/reflShader.frag"
+#define D_VERTEX_SHADER_FILENAME "Shaders/3dShader.vert"
+#define D_FRAGMENT_SHADER_FILENAME "Shaders/3dShader.frag"
 
 #define TEXTURE0_FILENAME "Textures/lavaTexture.jpg"
 #define TEXTURE1_FILENAME "Textures/planetTexture.jpg"

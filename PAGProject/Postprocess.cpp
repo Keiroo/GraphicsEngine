@@ -7,7 +7,7 @@ Postprocess::Postprocess()
 	quadVAO = 0;
 	gamma = 2.2f;
 	isGamma = true;
-	motionBlur = false;
+	stereo3d = false;
 }
 
 void Postprocess::GenerateFramebuffer(Shader *shader)
@@ -35,6 +35,29 @@ void Postprocess::GenerateFramebuffer(Shader *shader)
 	shader->ActivateHDRShader();
 	shader->setInt("hdrBuffer", 0);
 	shader->ActivateShader();
+
+	glGenFramebuffers(2, stereoFBO);
+	glGenTextures(2, stereoTexture);
+	glGenRenderbuffers(2, stereoRBO);
+	for (int i = 0; i < 2; i++)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, stereoFBO[i]);
+
+		glBindTexture(GL_TEXTURE_2D, stereoTexture[i]);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA16F, SCREEN_WIDTH, SCREEN_HEIGHT, 0, GL_RGBA, GL_FLOAT, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glBindRenderbuffer(GL_RENDERBUFFER, stereoRBO[i]);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, SCREEN_WIDTH, SCREEN_HEIGHT);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, stereoTexture[i], 0);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, stereoRBO[i]);
+
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			fprintf(stderr, "Framebuffer error!\n");
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	}
+
 }
 
 void Postprocess::BindFramebuffer()
@@ -42,8 +65,31 @@ void Postprocess::BindFramebuffer()
 	glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 }
 
+void Postprocess::BindFramebufferLeft()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, stereoFBO[0]);
+}
+
+void Postprocess::BindFramebufferRight()
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, stereoFBO[1]);
+}
+
 void Postprocess::RenderToQuad(Shader *shader, Camera *camera)
 {
+	BindFramebuffer();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	shader->Activate3DShader();
+	shader->setInt("leftEyeTexture", 0);
+	shader->setInt("leftEyeTexture", 1);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, stereoTexture[0]);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, stereoTexture[1]);
+	RenderQuad();
+
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	shader->ActivateHDRShader();
 	glActiveTexture(GL_TEXTURE0);
@@ -52,18 +98,17 @@ void Postprocess::RenderToQuad(Shader *shader, Camera *camera)
 	shader->setFloat("exposure", exposure);
 	shader->setInt("isGamma", isGamma);
 	shader->setFloat("gamma", gamma);
-
-	// Motion Blur
-	if (quadVAO == 0)
-		shader->setMat4("prevWVP", camera->GetWVPMatrix());
-	else
-		shader->setMat4("prevWVP", prevWVP);
-
-	shader->setVec3("currPos", cameraPos);
-	shader->setInt("isMotionBlur", motionBlur);
 	
+	RenderQuad();
+}
 
 
+Postprocess::~Postprocess()
+{
+}
+
+void Postprocess::RenderQuad()
+{
 	if (quadVAO == 0)
 	{
 		glGenVertexArrays(1, &quadVAO);
@@ -79,11 +124,4 @@ void Postprocess::RenderToQuad(Shader *shader, Camera *camera)
 	glBindVertexArray(quadVAO);
 	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 	glBindVertexArray(0);
-
-	prevWVP = camera->GetWVPMatrix();
-}
-
-
-Postprocess::~Postprocess()
-{
 }

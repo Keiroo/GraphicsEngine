@@ -196,6 +196,12 @@
     <None Include="Shaders\reflShader.vert">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\3dShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\3dShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\pikachuTexture.bmp">

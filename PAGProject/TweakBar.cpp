@@ -98,7 +98,7 @@ void TweakBar::CreateBar()
 	TwAddVarRW(grassBar, "Exposure", TW_TYPE_FLOAT, &postprocess->exposure, "group=Postprocess min=0.0 step=0.1");
 	TwAddVarRW(grassBar, "Gamma Correction", TW_TYPE_BOOLCPP, &postprocess->isGamma, "group=Postprocess");
 	TwAddVarRW(grassBar, "Gamma", TW_TYPE_FLOAT, &postprocess->gamma, "group=Postprocess min=0.0 step=0.1");
-	TwAddVarRW(grassBar, "MotionBlur", TW_TYPE_BOOLCPP, &postprocess->motionBlur, "group=Postprocess");
+	TwAddVarRW(grassBar, "MotionBlur", TW_TYPE_BOOLCPP, &postprocess->stereo3d, "group=Postprocess");
 
 }
 

@@ -13,6 +13,7 @@ public:
 	glm::mat4 GetProjectionMatrix();
 	glm::mat4 GetWVPMatrix();
 	glm::mat4 GetWorldMatrix();
+	void MoveCamera(float offset);
 	void CameraProcessInput(int key, float deltaTime);
 	//void CameraMouseCallback(GLFWwindow * window, double xpos, double ypos);
 	~Camera();

@@ -206,6 +206,8 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\3dShader.frag" />
+    <None Include="Shaders\3dShader.vert" />
     <None Include="Shaders\CPShader.frag" />
     <None Include="Shaders\grassShader.frag" />
     <None Include="Shaders\grassShader.geom" />
