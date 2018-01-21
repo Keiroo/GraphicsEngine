@@ -33,10 +33,6 @@ Scene::Scene()
 	models.push_back(mdl);
 	models.push_back(new Model(*mdl));
 
-	//Cube for Bloom
-	models.push_back(new Model(PATH_CUBE_BLUE));
-
-
 	//lightModels.push_back(new Model(PATH_CUBE_BLUE));
 	//lightModels.push_back(new Model(PATH_CUBE_GREEN));
 	//lightModels.push_back(new Model(PATH_CUBE_RED));
@@ -70,9 +66,6 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 
 	// Plane
 	models[0]->Reset();
-	models[0]->Scale(0.25f, 0.25f, 0.25f);
-	models[0]->Rotate(-21.6f, glm::vec3(0.0f, 1.0f, 0.0f));
-	models[0]->Translate(glm::vec3(-221.8f, 247.4f, 364.8f));
 	texture->ActivateTexture(texID);
 	//models[0]->Render(shader);
 	
@@ -99,6 +92,8 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setVec3("cameraPos", camera->thisCameraPos);
 	models[3]->Reset();
 	models[3]->Scale(0.2f, 0.2f, 0.2f);
+	//models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//models[3]->Translate(glm::vec3(-341.6f, 2.2f, -391.5f));
 	models[3]->Rotate(-114.7f, glm::vec3(0.0f, 1.0f, 0.0f));	
 	models[3]->Translate(glm::vec3(-643.1f, -3.4f, -350.1f));
 	shader->setMat4("model", models[3]->transform.GetMatrix());
@@ -113,6 +108,8 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setVec3("cameraPos", camera->thisCameraPos);
 	models[4]->Reset();
 	models[4]->Scale(0.2f, 0.2f, 0.2f);
+	//models[3]->Rotate(-130.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	//models[3]->Translate(glm::vec3(-341.6f, 2.2f, -391.5f));
 	models[4]->Rotate(-114.7f, glm::vec3(0.0f, 1.0f, 0.0f));
 	models[4]->Translate(glm::vec3(-343.1f, -3.4f, -350.1f));
 	shader->setMat4("model", models[4]->transform.GetMatrix());
@@ -120,15 +117,6 @@ void Scene::Render(Shader* shader, Camera *camera, float deltaTime)
 	shader->setMat4("projection", camera->GetProjectionMatrix());
 	models[4]->RenderRef(shader, skybox);
 	shader->ActivateShader();
-
-
-	// Cube for Bloom
-
-	// TODO: Activate shader
-	models[5]->Reset();
-	models[5]->Translate(pointLight.position);
-	models[5]->Scale(0.4f, 0.4f, 0.4f);
-	models[5]->Render(shader);
 
 
 	// Grass
@@ -203,15 +191,9 @@ void Scene::SetMaterialAndLights()
 	clearMaterial.Init("Clear", glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f), 0.0f);
 	mMaterial.Init("Chrome", glm::vec3(0.25f, 0.25f, 0.25f), glm::vec3(0.4f, 0.4f, 0.4f), glm::vec3(0.774597f, 0.774597f, 0.774597f), 0.6f);
 
-	// Main directional light
-	//dirLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.7f, 0.7f, 0.7f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(-0.5f, -1.0f, -0.5f));
-	dirLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(-0.5f, -1.0f, -0.5f));
+	dirLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.7f, 0.7f, 0.7f), glm::vec3(0.9f, 0.9f, 0.9f), glm::vec3(-0.5f, -1.0f, -0.5f));
 	
-	// Pointlight for Bloom
-	pointLight.Init(glm::vec3(0.1f, 0.1f, 0.3f), glm::vec3(0.1f, 0.1f, 0.9f), glm::vec3(0.1f, 0.1f, 1.0f), glm::vec3(-102.0f, 11.7f, 89.5f), 0.1f, 0.09f, 0.032f);
-
-
-	//Spotlight
+	pointLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.0f, -10.0f, 0.0f), 0.1f, 0.1f, 0.1f);
 	spotLight.Init(glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, 0.1f, 0.1f), glm::vec3(0.1f, -10.0f, 0.1f), glm::vec3(0.1f, -0.1f, 0.1f),
 		0.1f, 0.1f, 0.1f, glm::cos(glm::radians(0.0f)), glm::cos(glm::radians(0.0f)));
 
