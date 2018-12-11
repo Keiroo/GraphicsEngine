@@ -23,7 +23,7 @@ void Camera::LoadCamera(GLFWwindow* window, GLuint& programHandle)
 	wvpLoc = glGetUniformLocation(programHandle, "wvp");
 	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
 
-
+	thisCameraPos = cameraPos;
 }
 
 void Camera::UpdateCameraPos()
@@ -31,6 +31,33 @@ void Camera::UpdateCameraPos()
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 	WVP = projection * view * world;
 	glUniformMatrix4fv(wvpLoc, 1, GL_FALSE, glm::value_ptr(WVP));
+}
+
+glm::mat4 Camera::GetViewMatrix()
+{
+	return view;
+}
+
+glm::mat4 Camera::GetProjectionMatrix()
+{
+	return projection;
+}
+
+glm::mat4 Camera::GetWVPMatrix()
+{
+	return WVP;
+}
+
+glm::mat4 Camera::GetWorldMatrix()
+{
+	return world;
+}
+
+void Camera::MoveCamera(float offset)
+{
+	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * offset;
+	thisCameraPos = cameraPos;
+	UpdateCameraPos();
 }
 
 void Camera::CameraProcessInput(int key, float deltaTime)
@@ -44,6 +71,8 @@ void Camera::CameraProcessInput(int key, float deltaTime)
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (key == GLFW_KEY_D)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+
+	thisCameraPos = cameraPos;
 }
 
 Camera::~Camera()

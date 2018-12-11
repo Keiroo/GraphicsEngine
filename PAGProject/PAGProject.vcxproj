@@ -102,7 +102,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimpd.lib;AntTweakBar.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimpd.lib;AntTweakBar.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -117,7 +117,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimpd.lib;AntTweakBar64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimpd.lib;AntTweakBar64.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,7 +136,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;AntTweakBar.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;AntTweakBar.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;AntTweakBar64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp.lib;AntTweakBar64.lib;FreeImage.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -165,13 +165,16 @@
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DirectionalLight.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="GrassGen.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="PointLight.cpp" />
+    <ClCompile Include="Postprocess.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="TestModel.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -185,13 +188,16 @@
     <ClInclude Include="ColorPick.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DirectionalLight.h" />
+    <ClInclude Include="GrassGen.h" />
     <ClInclude Include="Headers.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="PointLight.h" />
+    <ClInclude Include="Postprocess.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpotLight.h" />
     <ClInclude Include="TestModel.h" />
     <ClInclude Include="Texture.h" />
@@ -200,9 +206,22 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\3dShader.frag" />
+    <None Include="Shaders\3dShader.vert" />
     <None Include="Shaders\CPShader.frag" />
+    <None Include="Shaders\grassShader.frag" />
+    <None Include="Shaders\grassShader.geom" />
+    <None Include="Shaders\grassShader.vert" />
+    <None Include="Shaders\hdrShader.frag" />
+    <None Include="Shaders\hdrShader.vert" />
     <None Include="Shaders\myShader.frag" />
     <None Include="Shaders\myShader.vert" />
+    <None Include="Shaders\reflShader.frag" />
+    <None Include="Shaders\reflShader.vert" />
+    <None Include="Shaders\refShader.frag" />
+    <None Include="Shaders\refShader.vert" />
+    <None Include="Shaders\skyboxShader.frag" />
+    <None Include="Shaders\skyboxShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\brickTexture.jpg" />

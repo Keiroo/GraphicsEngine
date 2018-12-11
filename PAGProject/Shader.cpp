@@ -27,6 +27,70 @@ bool Shader::LoadShaders()
 		return false;
 	}
 
+	skyboxProgramHandle = glCreateProgram();
+	if (!LoadShader(SKYBOX_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, skyboxProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(SKYBOX_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, skyboxProgramHandle))
+	{
+		return false;
+	}
+
+	refProgramHandle = glCreateProgram();
+	if (!LoadShader(REF_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, refProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(REF_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, refProgramHandle))
+	{
+		return false;
+	}
+
+	grassProgramHandle = glCreateProgram();
+	if (!LoadShader(GRASS_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, grassProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(GRASS_GEOMETRY_SHADER_FILENAME, GL_GEOMETRY_SHADER, grassProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(GRASS_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, grassProgramHandle))
+	{
+		return false;
+	}
+
+	hdrProgramHandle = glCreateProgram();
+	if (!LoadShader(HDR_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, hdrProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(HDR_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, hdrProgramHandle))
+	{
+		return false;
+	}
+
+	reflProgramHandle = glCreateProgram();
+	if (!LoadShader(REFL_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, reflProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(REFL_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, reflProgramHandle))
+	{
+		return false;
+	}
+
+	DProgramHandle = glCreateProgram();
+	if (!LoadShader(D_VERTEX_SHADER_FILENAME, GL_VERTEX_SHADER, DProgramHandle))
+	{
+		return false;
+	}
+	if (!LoadShader(D_FRAGMENT_SHADER_FILENAME, GL_FRAGMENT_SHADER, DProgramHandle))
+	{
+		return false;
+	}
+
 	programHandle = myProgramHandle;
 	glUseProgram(programHandle);
 	return true;
@@ -41,6 +105,42 @@ void Shader::ActivateShader()
 void Shader::ActivateCPShader()
 {
 	programHandle = CPProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateSkyboxShader()
+{
+	programHandle = skyboxProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateRefShader()
+{
+	programHandle = refProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateGrassShader()
+{
+	programHandle = grassProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateHDRShader()
+{
+	programHandle = hdrProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::ActivateReflShader()
+{
+	programHandle = reflProgramHandle;
+	glUseProgram(programHandle);
+}
+
+void Shader::Activate3DShader()
+{
+	programHandle = DProgramHandle;
 	glUseProgram(programHandle);
 }
 

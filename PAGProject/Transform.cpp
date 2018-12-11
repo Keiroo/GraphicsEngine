@@ -24,7 +24,7 @@ void Transform::Scale(float x, float y, float z)
 
 void Transform::Rotate(float angle, glm::vec3 axis)
 {
-	trans = glm::rotate(trans, angle, axis);
+	trans = glm::rotate(trans, glm::radians(angle), axis);
 }
 
 void Transform::RotateLocal(float angle, float speed)

@@ -2,9 +2,10 @@
 
 
 
-TweakBar::TweakBar(Scene* scene)
+TweakBar::TweakBar(Scene* scene, Postprocess *postprocess)
 {
 	this->scene = scene;
+	this->postprocess = postprocess;
 	TBRotateAngle = 0.0f;
 	TBRotateAxis = 'Y';
 	TBTranslateVec = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -78,8 +79,26 @@ void TweakBar::CreateBar()
 	TwDefine(" Transform iconified=true ");
 
 
-	bar2 = TwNewBar("DIR");
-	TwAddVarRW(bar2, "Dir", TW_TYPE_DIR3F, &direction, "");
+	bar2 = TwNewBar("DirectionalLight");
+	TwAddVarRW(bar2, "Direction", TW_TYPE_DIR3F, &direction, "");
+	TwDefine(" DirectionalLight iconified=true ");
+
+	testbar = TwNewBar("Test");
+	TwAddVarRW(testbar, "1", TW_TYPE_FLOAT, &scene->TBtest, "step=0.1");
+	TwAddVarRW(testbar, "2", TW_TYPE_FLOAT, &scene->TBtest2, "step=0.1");
+	TwAddVarRW(testbar, "3", TW_TYPE_FLOAT, &scene->TBtest3, "step=0.1");
+	TwAddVarRW(testbar, "Other", TW_TYPE_FLOAT, &scene->TBtest4, "step=0.1");
+	TwDefine(" Test iconified=true ");
+
+
+	grassBar = TwNewBar("Zad6");
+	TwAddVarRW(grassBar, "AlphaTest", TW_TYPE_FLOAT, &scene->fAlphaTest, "group=Grass step=0.01");
+	TwAddVarRW(grassBar, "AlphaMultiplier", TW_TYPE_FLOAT, &scene->fAlphaMultiplier, "group=Grass step=0.01");
+	TwAddVarRW(grassBar, "Tone Mapping", TW_TYPE_BOOLCPP, &postprocess->hdr, "group=Postprocess");
+	TwAddVarRW(grassBar, "Exposure", TW_TYPE_FLOAT, &postprocess->exposure, "group=Postprocess min=0.0 step=0.1");
+	TwAddVarRW(grassBar, "Gamma Correction", TW_TYPE_BOOLCPP, &postprocess->isGamma, "group=Postprocess");
+	TwAddVarRW(grassBar, "Gamma", TW_TYPE_FLOAT, &postprocess->gamma, "group=Postprocess min=0.0 step=0.1");
+	TwAddVarRW(grassBar, "MotionBlur", TW_TYPE_BOOLCPP, &postprocess->stereo3d, "group=Postprocess");
 
 }
 

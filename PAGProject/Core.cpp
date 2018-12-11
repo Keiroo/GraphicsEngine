@@ -22,7 +22,11 @@ bool Core::Start()
 	glfwSetMouseButtonCallback(window->GLWindow, mouseButtonCallback);
 
 	scene = new Scene();
-	tweakBar = new TweakBar(scene);
+
+	postprocess = new Postprocess();
+	postprocess->GenerateFramebuffer(shader);
+
+	tweakBar = new TweakBar(scene, postprocess);
 	colorPick = new ColorPick();
 
 	// set default trans for shader to work
@@ -30,6 +34,9 @@ bool Core::Start()
 	glm::mat4 trans = glm::mat4(1.0f);
 	transformLoc = glGetUniformLocation(shader->programHandle, "transform");
 	glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+
+	// Postprocessing
+	
 	
 	return true;
 }
@@ -63,12 +70,38 @@ void Core::Update()
 		}		
 
 		// Draw full scene
+		/*postprocess->BindFramebuffer();
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
 		shader->ActivateShader();
 		camera->UpdateCameraPos();
 		scene->Render(shader, camera, deltaTime);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		postprocess->RenderToQuad(shader, camera);*/
+
+		postprocess->BindFramebufferLeft();
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shader->ActivateShader();
+		camera->UpdateCameraPos();
+		if (postprocess->stereo3d) camera->MoveCamera(-1.0f);
+		scene->Render(shader, camera, deltaTime);
+
+		postprocess->BindFramebufferRight();
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		shader->ActivateShader();
+		camera->UpdateCameraPos();
+		if (postprocess->stereo3d) camera->MoveCamera(2.0f);
+		scene->Render(shader, camera, deltaTime);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		postprocess->RenderToQuad(shader, camera);
+
+		if (postprocess->stereo3d) camera->MoveCamera(-1.0f);
+
+		// TweakBar
 		tweakBar->ChangeModelPicked(colorPick->modelPicked);
 		tweakBar->Draw();
 

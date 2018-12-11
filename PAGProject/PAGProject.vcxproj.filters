@@ -78,6 +78,15 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GrassGen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Postprocess.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core.h">
@@ -134,6 +143,15 @@
     <ClInclude Include="Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GrassGen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Postprocess.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\myShader.frag">
@@ -143,6 +161,45 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Shaders\CPShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\skyboxShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\skyboxShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\refShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\refShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\grassShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\grassShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\grassShader.geom">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\hdrShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\hdrShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\reflShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\reflShader.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\3dShader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\3dShader.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
